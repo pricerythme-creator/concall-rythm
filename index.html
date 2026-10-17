@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Concall Rythm</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root { --green:#009245; --green-ink:#007a3a; --blue:#0071bc; --up:#007a3a; --down:#c62828; --accent:#0071bc;
+          --line:#e3e6eb; --muted:#6b7280; --ink:#1a1d23; --flag:#fff1b8; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:24px 16px; font-family:Inter,"Segoe UI",Arial,sans-serif; color:var(--ink); background:#f7f8fa; }
+  .wrap { max-width:1000px; margin:0 auto; }
+  .top { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:16px; }
+  h1, .name, .sortby { font-family:Poppins,Inter,"Segoe UI",Arial,sans-serif; }
+  h1 { font-size:26px; font-weight:700; letter-spacing:.2px; margin:0; }
+  h1 .hg { color:var(--green); } h1 .hb { color:var(--blue); } h1 #qtitle { color:var(--ink); }
+  .title { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; }
+  .byline { font-size:13px; color:var(--muted); }
+  .actions { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  button, .btn { font:inherit; font-size:13px; padding:7px 12px; border:1px solid #999; border-radius:3px; background:#fff; cursor:pointer; }
+  button.primary { background:var(--blue); border-color:var(--blue); color:#fff; }
+  select { font:inherit; font-size:13px; padding:6px; }
+  body:not(.admin) .admin-only { display:none !important; }
+
+  .tools { display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin:0 0 18px; padding-top:16px; border-top:1px solid var(--line); }
+  .searchwrap { position:relative; width:260px; max-width:100%; }
+  .search { font:inherit; font-size:13px; padding:7px 32px 7px 10px; width:100%; border:1px solid #cfd5dd; border-radius:6px; background:#fff; }
+  .searchwrap svg { position:absolute; right:9px; top:50%; transform:translateY(-50%); width:15px; height:15px; color:#555; pointer-events:none; }
+  .sortby { font-size:12px; color:#444; display:flex; align-items:center; gap:8px; }
+  .sortby select { font:inherit; font-size:13px; padding:5px 8px; border:1px solid #cfd5dd; border-radius:6px; background:#fff; min-width:96px; }
+  .search:focus, .sortby select:focus { outline:2px solid rgba(0,113,188,.25); border-color:var(--blue); }
+  .basisline { font-size:12px; color:var(--muted); margin:-6px 0 16px; }
+
+  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px; }
+  .card { background:#fff; border:1px solid var(--line); border-radius:10px; padding:14px 16px 12px; font-size:13px; line-height:1.45; display:flex; flex-direction:column; transition:box-shadow .15s, border-color .15s; }
+  .card:hover { box-shadow:0 6px 18px rgba(17,24,39,.08); border-color:#d5dae2; }
+  .chead { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+  .meta { font-size:11px; color:var(--muted); display:flex; align-items:center; gap:8px; }
+  .basis { font-size:10px; padding:1px 7px; border:1px solid #d5dae2; border-radius:10px; color:#4b5563; background:#f7f8fa; }
+  .badge { font-size:12px; font-weight:600; padding:3px 9px; border-radius:12px; white-space:nowrap; }
+  .badge.pos { background:#e7f5ed; color:var(--green-ink); }
+  .badge.cau { background:#fdecec; color:var(--down); }
+  .badge.neu { background:#eef1f5; color:#4b5563; }
+  .name { font-size:15px; font-weight:600; margin:10px 0 10px; line-height:1.3; }
+  .lab { font-size:10px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; color:var(--muted); margin-bottom:3px; }
+  .guid { background:#f3f8fc; border-left:3px solid var(--blue); border-radius:3px; padding:7px 9px; margin-bottom:10px; }
+  .tk { margin:0 0 10px; padding-left:18px; }
+  .tk li { margin-bottom:4px; }
+  .kv { display:grid; grid-template-columns:auto 1fr; gap:4px 10px; margin:0 0 10px; padding-top:8px; border-top:1px solid #f1f3f6; }
+  .kv dt { color:var(--muted); font-size:11px; padding-top:1px; }
+  .kv dd { margin:0; }
+  .risk { margin-top:auto; padding-top:8px; border-top:1px solid #f1f3f6; color:#7a2e2e; }
+  .risk b { font-size:10px; letter-spacing:.4px; text-transform:uppercase; color:var(--down); margin-right:4px; }
+  .cfoot { display:flex; justify-content:flex-end; gap:4px; margin-top:6px; }
+  .edit, .del { border:none; background:none; color:#aaa; font-size:14px; padding:0 4px; cursor:pointer; }
+  .edit:hover { color:var(--blue); } .del:hover { color:var(--down); }
+  .empty { color:var(--muted); padding:30px 0; }
+
+  .foot { margin-top:28px; font-size:12px; color:var(--muted); text-align:center; }
+  .foot img { display:block; margin:0 auto; width:180px; max-width:60%; height:auto; }
+  .contact { display:flex; justify-content:center; flex-wrap:wrap; gap:6px 18px; margin-top:10px; font-size:12px; }
+  .contact a { color:#555; text-decoration:none; display:inline-flex; align-items:center; gap:5px; }
+  .contact a:hover { color:var(--blue); text-decoration:underline; }
+  .contact svg { width:14px; height:14px; flex:none; }
+  .disclaimer { max-width:760px; margin:16px auto 0; padding-top:12px; border-top:1px solid #e5e5e5; font-size:11px; line-height:1.55; color:#888; text-align:center; }
+
+  /* admin: paste + review */
+  .drop { display:none; position:fixed; inset:0; background:rgba(0,113,188,.12); border:3px dashed var(--blue); z-index:10; align-items:center; justify-content:center; font-size:20px; font-weight:600; color:var(--blue); }
+  .drop.on { display:flex; }
+  .lockbox, .review { border:1px solid #d8dce3; border-radius:4px; padding:14px; margin-bottom:22px; background:#fcfcfd; }
+  .lockbox h2, .review h2 { font-size:15px; margin:0 0 4px; }
+  .hint { font-size:12px; color:#555; margin:0 0 12px; }
+  .lockbox textarea { width:100%; height:220px; font:12px Consolas,monospace; padding:8px; border:1px solid #bbb; border-radius:3px; margin:8px 0; }
+  .item { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1.6fr); gap:16px; padding:12px 0; border-top:1px solid #e5e5e5; }
+  .audit { font-size:11px; color:#444; background:#f5f6f8; border:1px solid #e1e4ea; border-radius:3px; padding:10px; line-height:1.5; overflow-wrap:anywhere; }
+  .form .r { display:grid; gap:8px; margin-bottom:8px; }
+  .form .r3 { grid-template-columns:2fr 1fr 1fr; }
+  .form .r2 { grid-template-columns:1fr 1fr; }
+  .form label { display:block; font-size:11px; color:#555; }
+  .form input, .form select { width:100%; font:inherit; font-size:13px; padding:5px 6px; border:1px solid #bbb; border-radius:3px; }
+  .form input.flag { background:var(--flag); border-color:#d9a400; }
+  .problems { color:var(--down); font-size:12px; margin:8px 0 0; }
+  .itembtns { display:flex; gap:8px; margin-top:12px; }
+  @media (max-width:640px) { h1 { font-size:21px; } .item, .form .r3, .form .r2 { grid-template-columns:1fr; } .searchwrap { width:100%; } }
+</style>
+</head>
+<body>
+<div class="drop" id="drop">Drop concall data lock .txt files</div>
+<div class="wrap">
+  <div class="top">
+    <div class="title"><h1><span class="hg">CONCALL</span> <span class="hb">RYTHM</span><span id="qtitle"></span></h1><span class="byline">Prepared By : Prasad Rao</span></div>
+    <div class="actions">
+      <select id="quarter" title="Quarter"></select>
+      <button id="lockbtn" class="admin-only">Paste data lock</button>
+      <label class="btn admin-only">Add .txt<input type="file" id="files" accept=".txt,text/plain" multiple hidden></label>
+      <button id="save" class="admin-only" title="Download concall_data.js to replace the one in this folder">Save data file</button>
+    </div>
+  </div>
+  <div class="lockbox" id="lockbox" hidden>
+    <h2>Paste data lock</h2>
+    <p class="hint">Paste the full output of the Concall Data Lock prompt, from BEGIN VERIFIED CONCALL LOCK to END. You can paste several companies at once.</p>
+    <textarea id="locktext" spellcheck="false"></textarea>
+    <div class="itembtns" style="margin-top:0"><button class="primary" id="lockread">Read</button><button id="lockcancel">Cancel</button></div>
+  </div>
+  <div id="review"></div>
+  <div class="tools">
+    <div class="searchwrap">
+      <input type="search" id="search" class="search" placeholder="Search By Company Name" autocomplete="off">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+    </div>
+    <label class="sortby">Sort By
+      <select id="sortby"><option value="latest">Latest</option><option value="name">Name</option></select>
+    </label>
+  </div>
+  <div class="basisline" id="basisline"></div>
+  <div class="grid" id="grid"></div>
+  <div class="foot"><img src="logo.png" alt="price rythm">
+    <div class="contact">
+      <a href="mailto:price.rythme@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>price.rythme@gmail.com</a>
+      <a href="https://x.com/Price_Rythm" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.8 3h3.1l-6.8 7.8 8 10.2h-6.3l-4.9-6.4L5.3 21H2.2l7.3-8.3L1.8 3h6.4l4.4 5.8L17.8 3zm-1.1 16.2h1.7L7.4 4.7H5.6l11.1 14.5z"/></svg>@Price_Rythm</a>
+      <a href="https://www.facebook.com/prasadbrao" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V6.8c0-.8.5-1 .9-1h2.3V2.1L14 2c-3.5 0-4.3 2.6-4.3 4.3v2.2H7.5v3.8h2.2V22H14v-9.7h3l.4-3.8H14z"/></svg>facebook.com/prasadbrao</a>
+    </div>
+    <p class="disclaimer"><b>Disclaimer:</b> This page is for information and education only. It is not investment advice or a recommendation to buy, sell or hold any security. Points are summarised from companies' published earnings call transcripts and presentations; errors or omissions are possible, so verify with the original documents before relying on them. Management guidance is forward-looking and may not materialise. Investments in securities are subject to market risks. Please consult a SEBI-registered investment adviser before making any investment decision.</p>
+  </div>
+</div>
+
+<script src="concall_data.js"></script>
+<script>
+const STORE = "priceRythm.concall.v1";
+// Editing controls appear only when the page is opened with ?admin in the link.
+const ADMIN = /[?&]admin\b/i.test(location.search);
+if (ADMIN) document.body.classList.add("admin");
+let quarter = null, search = "", sortBy = "latest";
+let queue = [];
+
+const TONES = { positive:["Positive","pos"], neutral:["Neutral","neu"], cautious:["Cautious","cau"] };
+const KV = [["margin","Margins"],["capex","Capex"],["orderbook","Order book"]];
+
+// ---------- data ----------
+const keyOf = d => `${d.name}|${d.q}`.toLowerCase();
+let local = (() => {
+  try { return JSON.parse(localStorage.getItem(STORE)) || { items:[], removed:[] }; }
+  catch (e) { return { items:[], removed:[] }; }
+})();
+function saveLocal() { try { localStorage.setItem(STORE, JSON.stringify(local)); } catch (e) {} }
+function allData() {
+  if (!ADMIN) return (window.CONCALL_DATA || []).slice();
+  const map = new Map();
+  (window.CONCALL_DATA || []).forEach(d => map.set(keyOf(d), d));
+  local.items.forEach(d => map.set(keyOf(d), d));
+  local.removed.forEach(k => map.delete(k));
+  return [...map.values()];
+}
+function addEntry(d) {
+  const k = keyOf(d);
+  local.items = local.items.filter(x => keyOf(x) !== k); local.items.push(d);
+  local.removed = local.removed.filter(x => x !== k);
+  saveLocal();
+}
+function removeEntry(k) {
+  local.items = local.items.filter(x => keyOf(x) !== k);
+  if (!local.removed.includes(k)) local.removed.push(k);
+  saveLocal();
+}
+function qRank(q) { const m = /Q(\d)\s*FY(\d{2})/.exec(q || ""); return m ? +m[2] * 4 + +m[1] : 0; }
+function normQ(s) { const m = /Q\s*([1-4])\s*FY\s*(?:20)?(\d{2})(?!\d)/i.exec(s || ""); return m ? `Q${m[1]} FY${m[2]}` : ""; }
+
+const MON = { jan:0, feb:1, mar:2, apr:3, may:4, jun:5, jul:6, aug:7, sep:8, oct:9, nov:10, dec:11 };
+function dateVal(s) {
+  const m = /(\d{1,2})\s*([A-Za-z]{3})[a-z]*\s*(\d{4})/.exec(s || "");
+  return m && m[2].toLowerCase() in MON ? new Date(+m[3], MON[m[2].toLowerCase()], +m[1]).getTime() : 0;
+}
+
+// ---------- grid ----------
+const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
+const toneOf = t => TONES[String(t || "").toLowerCase()] || null;
+
+function card(d) {
+  const t = toneOf(d.tone);
+  const tks = (d.takeaways || []).filter(Boolean);
+  const kv = KV.filter(([k]) => d[k]).map(([k, l]) => `<dt>${l}</dt><dd>${esc(d[k])}</dd>`).join("");
+  return `<div class="card">
+    <div class="chead">
+      <div class="meta"><span>${esc(d.date)}</span><span class="basis">Concall</span></div>
+      ${t ? `<span class="badge ${t[1]}" title="Management tone">${t[0]}</span>` : ""}
+    </div>
+    <div class="name">${esc(d.name)}</div>
+    ${d.guidance ? `<div class="guid"><div class="lab">Guidance</div>${esc(d.guidance)}</div>` : ""}
+    ${tks.length ? `<div class="lab">Key takeaways</div><ul class="tk">${tks.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+    ${kv ? `<dl class="kv">${kv}</dl>` : ""}
+    ${d.risks ? `<div class="risk"><b>Risks</b>${esc(d.risks)}</div>` : ""}
+    <div class="cfoot admin-only"><button class="edit" data-e="${esc(keyOf(d))}" title="Edit">✎</button><button class="del" data-k="${esc(keyOf(d))}" title="Remove">×</button></div>
+  </div>`;
+}
+
+function render() {
+  const data = allData();
+  const qs = [...new Set(data.map(d => d.q))].sort((a, z) => qRank(z) - qRank(a));
+  if (!qs.includes(quarter)) quarter = qs[0] || null;
+  const qsel = document.getElementById("quarter");
+  qsel.innerHTML = qs.map(q => `<option${q === quarter ? " selected" : ""}>${esc(q)}</option>`).join("");
+  qsel.style.display = qs.length > 1 ? "" : "none";
+  document.getElementById("qtitle").textContent = quarter ? " - " + quarter.replace(/FY(\d{2})$/, "FY20$1") : "";
+
+  const term = search.trim().toLowerCase();
+  const list = data.filter(d => d.q === quarter && (!term || d.name.toLowerCase().includes(term)));
+  const idx = new Map(data.map((d, i) => [d, i]));
+  if (sortBy === "name") list.sort((x, y) => x.name.localeCompare(y.name, "en", { sensitivity: "base" }));
+  else list.sort((x, y) => (dateVal(y.date) - dateVal(x.date)) || (idx.get(y) - idx.get(x)));
+
+  const what = term ? "Search results" : `All companies with ${quarter || ""} concalls`;
+  const how = sortBy === "name" ? "sorted by name (A–Z)" : "sorted by latest call date";
+  document.getElementById("basisline").textContent = quarter ? `${what} (${list.length}), ${how}.` : "";
+  document.getElementById("grid").innerHTML = list.length ? list.map(card).join("")
+    : `<div class="empty">${term ? "No company matches “" + esc(search.trim()) + "”." : "No concalls added yet."}</div>`;
+}
+
+// ---------- reading concall lock text ----------
+const FIELDS = ["COMPANY_NAME","QUARTER_INFO","CALL_DATE","TONE","GUIDANCE","TAKEAWAY_1","TAKEAWAY_2","TAKEAWAY_3","TAKEAWAY_4",
+  "MARGIN_OUTLOOK","CAPEX","ORDER_BOOK","RISKS","SOURCE","FINAL CONCALL LOCK STATUS"];
+// Pasted output can lose its line breaks. Put every field back on its own line.
+function normalizeLock(text) {
+  const re = new RegExp("\\s*\\b(" + FIELDS.join("|") + ")\\s*:", "g");
+  return String(text || "").replace(/\r/g, "").replace(/\*\*/g, "").replace(re, "\n$1:")
+    .replace(/\s*(END VERIFIED CONCALL LOCK)/g, "\n$1");
+}
+const nd = v => /^(n\/?d|none|nil|na|n\/a|not discussed|-|–)$/i.test(String(v || "").trim()) ? "" : String(v || "").trim();
+function parseLocks(text) {
+  text = normalizeLock(text);
+  const out = [];
+  const failRe = /CONCALL LOCK FAILED\s*<*\s*([\s\S]*?)(?=BEGIN VERIFIED CONCALL LOCK|CONCALL LOCK FAILED|$)/g;
+  let f;
+  while ((f = failRe.exec(text))) out.push({ error: "The prompt returned CONCALL LOCK FAILED: " + (f[1].trim() || "no reason given") });
+  const blockRe = /BEGIN VERIFIED CONCALL LOCK[\s\S]*?(?:END VERIFIED CONCALL LOCK|$)/g;
+  let m;
+  while ((m = blockRe.exec(text))) {
+    const b = m[0];
+    const field = n => { const r = new RegExp("^[\\s*>-]*" + n + "\\s*:\\s*(.*)$", "mi").exec(b); return r ? r[1].trim() : ""; };
+    const problems = [];
+    const d = {
+      name: field("COMPANY_NAME"), q: normQ(field("QUARTER_INFO")), date: nd(field("CALL_DATE")),
+      tone: (toneOf(field("TONE").split(/[\s|]/)[0]) || [""])[0],
+      guidance: nd(field("GUIDANCE")),
+      takeaways: [1, 2, 3, 4].map(i => nd(field("TAKEAWAY_" + i))),
+      margin: nd(field("MARGIN_OUTLOOK")), capex: nd(field("CAPEX")), orderbook: nd(field("ORDER_BOOK")),
+      risks: nd(field("RISKS")), source: nd(field("SOURCE"))
+    };
+    if (!d.name) problems.push("Company name not found");
+    if (!d.q) problems.push("Quarter not found");
+    if (!d.tone) problems.push("Tone not found (expected Positive, Neutral or Cautious)");
+    if (!/FINAL CONCALL LOCK STATUS:\s*VERIFIED/i.test(b)) problems.push("Lock is not marked VERIFIED (output may be cut off)");
+    out.push({ data: d, problems });
+  }
+  return out;
+}
+function addLockText(text) {
+  const items = parseLocks(text);
+  if (!items.length) { alert("No concall lock found. Paste the text from BEGIN VERIFIED CONCALL LOCK to END VERIFIED CONCALL LOCK."); return false; }
+  items.forEach(it => queue.push({ id: Math.random().toString(36).slice(2), kind: "lock",
+    status: it.error ? "error" : "ready", error: it.error, data: it.data, problems: it.problems || [] }));
+  renderReview();
+  return true;
+}
+function addFiles(files) {
+  [...files].filter(f => f.type === "text/plain" || /\.txt$/i.test(f.name)).forEach(f => f.text().then(addLockText));
+}
+
+// ---------- review / edit ----------
+const WORDS = 20;  // takeaway word limit; longer ones are highlighted
+const wc = s => String(s || "").trim().split(/\s+/).filter(Boolean).length;
+function reviewItem(q) {
+  const side = q.kind === "edit"
+    ? `<div class="audit"><b>Editing:</b> ${esc(q.data.name)}<br>Change any field and click Save changes.</div>`
+    : `<div class="audit"><b>From concall lock</b><br><b>Source:</b> ${esc(q.data && q.data.source || "Not given")}</div>`;
+  if (q.status === "error")
+    return `<div class="item"><div>${side}</div><div><p class="problems">${esc(q.error)}</p><div class="itembtns"><button data-skip="${q.id}">Remove</button></div></div></div>`;
+  const d = q.data;
+  const inp = (f, v, lab, ph) => `<div><label>${lab}</label><input type="text" data-f="${f}" value="${esc(v)}"${ph ? ` placeholder="${ph}"` : ""}></div>`;
+  const tk = (i) => `<div class="r"><div><label>Takeaway ${i + 1}</label><input type="text" data-f="tk${i}" value="${esc(d.takeaways[i] || "")}"${wc(d.takeaways[i]) > WORDS ? ` class="flag" title="More than ${WORDS} words"` : ""}></div></div>`;
+  return `<div class="item" data-id="${q.id}"><div>${side}</div><div class="form">
+    <div class="r r3">
+      ${inp("name", d.name, "Company name")}
+      ${inp("q", d.q, "Quarter", "Q2 FY27")}
+      <div><label>Tone</label><select data-f="tone">${["", "Positive", "Neutral", "Cautious"].map(t => `<option${t === d.tone ? " selected" : ""}>${t}</option>`).join("")}</select></div>
+    </div>
+    <div class="r r2">${inp("date", d.date, "Call date", "16 Oct 2026")}<div></div></div>
+    <div class="r">${inp("guidance", d.guidance, "Guidance")}</div>
+    ${[0, 1, 2, 3].map(tk).join("")}
+    <div class="r r2">${inp("margin", d.margin, "Margins")}${inp("capex", d.capex, "Capex")}</div>
+    <div class="r r2">${inp("orderbook", d.orderbook, "Order book")}${inp("risks", d.risks, "Risks")}</div>
+    ${q.problems && q.problems.length ? `<p class="problems">${q.problems.map(esc).join("<br>")}</p>` : ""}
+    <div class="itembtns"><button class="primary" data-add="${q.id}">${q.kind === "edit" ? "Save changes" : "Add to concalls"}</button><button data-skip="${q.id}">${q.kind === "edit" ? "Cancel" : "Skip"}</button></div>
+  </div></div>`;
+}
+function renderReview() {
+  const box = document.getElementById("review");
+  if (!queue.length) { box.innerHTML = ""; return; }
+  box.innerHTML = `<div class="review"><h2>Check before adding</h2>
+    <p class="hint">Check the name, quarter and points, then add. Empty fields are hidden on the card.</p>
+    ${queue.map(reviewItem).join("")}</div>`;
+}
+function readItem(el, it) {
+  const get = f => el.querySelector(`[data-f="${f}"]`).value.trim();
+  return { name: get("name"), q: normQ(get("q")), date: get("date"), tone: get("tone"),
+    guidance: nd(get("guidance")), takeaways: [0, 1, 2, 3].map(i => nd(get("tk" + i))),
+    margin: nd(get("margin")), capex: nd(get("capex")), orderbook: nd(get("orderbook")), risks: nd(get("risks")),
+    source: it && it.data ? it.data.source || "" : "" };
+}
+function addFromReview(id) {
+  const el = document.querySelector(`.item[data-id="${id}"]`);
+  const it = queue.find(x => x.id === id);
+  const d = readItem(el, it);
+  const bad = [];
+  if (!d.name) bad.push("Company name is empty.");
+  if (!d.q) bad.push("Quarter should look like Q2 FY27.");
+  if (!d.tone) bad.push("Pick a tone.");
+  if (bad.length) { alert(bad.join("\n")); return; }
+  if (it.kind === "edit" && it.oldKey !== keyOf(d)) removeEntry(it.oldKey);
+  addEntry(d);
+  queue = queue.filter(x => x.id !== id);
+  renderReview();
+  quarter = d.q;
+  render();
+}
+function startEdit(k) {
+  const d = allData().find(x => keyOf(x) === k);
+  if (!d) return;
+  queue = queue.filter(x => !(x.kind === "edit" && x.oldKey === k));
+  queue.unshift({ id: Math.random().toString(36).slice(2), kind: "edit", status: "ready", oldKey: k, problems: [],
+    data: Object.assign({}, d, { takeaways: (d.takeaways || []).concat(["", "", "", ""]).slice(0, 4) }) });
+  renderReview();
+  document.getElementById("review").scrollIntoView({ behavior: "smooth" });
+}
+
+// ---------- save data file ----------
+function saveFile() {
+  const data = allData().sort((a, z) => qRank(z.q) - qRank(a.q));
+  const text = "// Concall Rythm data. Saved from the page with \"Save data file\".\n" +
+    "window.CONCALL_DATA = [\n" + data.map(d => {
+      const o = { name: d.name, q: d.q, date: d.date, tone: d.tone, guidance: d.guidance,
+        takeaways: (d.takeaways || []).filter(Boolean), margin: d.margin, capex: d.capex,
+        orderbook: d.orderbook, risks: d.risks, source: d.source };
+      return "  " + JSON.stringify(o);
+    }).join(",\n") + "\n];\n";
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([text], { type: "text/javascript" }));
+  a.download = "concall_data.js";
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+}
+
+// ---------- events ----------
+document.getElementById("sortby").addEventListener("change", e => { sortBy = e.target.value; render(); });
+document.getElementById("search").addEventListener("input", e => { search = e.target.value; render(); });
+document.getElementById("quarter").addEventListener("change", e => { quarter = e.target.value; render(); });
+document.getElementById("files").addEventListener("change", e => { addFiles(e.target.files); e.target.value = ""; });
+document.getElementById("save").addEventListener("click", saveFile);
+const lockbox = document.getElementById("lockbox"), locktext = document.getElementById("locktext");
+document.getElementById("lockbtn").addEventListener("click", () => { lockbox.hidden = false; locktext.focus(); });
+document.getElementById("lockcancel").addEventListener("click", () => { lockbox.hidden = true; locktext.value = ""; });
+document.getElementById("lockread").addEventListener("click", () => {
+  if (addLockText(locktext.value)) { lockbox.hidden = true; locktext.value = ""; }
+});
+document.getElementById("grid").addEventListener("click", e => {
+  if (e.target.dataset.e) { startEdit(e.target.dataset.e); return; }
+  const k = e.target.dataset.k;
+  if (k && confirm("Remove this company from the concalls?")) { removeEntry(k); render(); }
+});
+document.getElementById("review").addEventListener("click", e => {
+  const t = e.target.dataset;
+  if (t.add) addFromReview(t.add);
+  else if (t.skip) { queue = queue.filter(x => x.id !== t.skip); renderReview(); }
+});
+const drop = document.getElementById("drop");
+let depth = 0;
+window.addEventListener("dragenter", e => { if (ADMIN && [...e.dataTransfer.types].includes("Files")) { depth++; drop.classList.add("on"); } });
+window.addEventListener("dragleave", () => { if (--depth <= 0) { depth = 0; drop.classList.remove("on"); } });
+window.addEventListener("dragover", e => e.preventDefault());
+window.addEventListener("drop", e => { e.preventDefault(); depth = 0; drop.classList.remove("on"); if (ADMIN) addFiles(e.dataTransfer.files); });
+
+render();
+</script>
+</body>
+</html>
