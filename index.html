@@ -34,26 +34,39 @@
   .search:focus, .sortby select:focus { outline:2px solid rgba(0,113,188,.25); border-color:var(--blue); }
   .basisline { font-size:12px; color:var(--muted); margin:-6px 0 16px; }
 
+  /* page header band */
+  body { background:linear-gradient(180deg,#eaf4fb 0,#f7f8fa 260px) no-repeat, #f7f8fa; }
+  .top { background:#fff; border-radius:12px; padding:14px 18px; box-shadow:0 2px 10px rgba(0,113,188,.08); position:relative; overflow:hidden; }
+  .top::after { content:""; position:absolute; left:0; right:0; bottom:0; height:4px; background:linear-gradient(90deg,var(--green),var(--blue)); }
+  .tools { border-top:none; padding-top:4px; }
+
   .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px; }
-  .card { background:#fff; border:1px solid var(--line); border-radius:10px; padding:14px 16px 12px; font-size:13px; line-height:1.45; display:flex; flex-direction:column; transition:box-shadow .15s, border-color .15s; }
-  .card:hover { box-shadow:0 6px 18px rgba(17,24,39,.08); border-color:#d5dae2; }
+  .card { --tc:#64748b; --tbg:#f1f5f9; background:#fff; border:1px solid var(--line); border-top:4px solid var(--tc); border-radius:12px; padding:14px 16px 12px; font-size:13px; line-height:1.45; display:flex; flex-direction:column; box-shadow:0 2px 8px rgba(17,24,39,.04); transition:box-shadow .15s, transform .15s; }
+  .card.t-pos { --tc:#009245; --tbg:#e6f6ec; }
+  .card.t-neu { --tc:#0071bc; --tbg:#e8f2fa; }
+  .card.t-cau { --tc:#d64545; --tbg:#fdecec; }
+  .card:hover { box-shadow:0 10px 24px rgba(17,24,39,.10); transform:translateY(-2px); }
   .chead { display:flex; justify-content:space-between; align-items:center; gap:8px; }
   .meta { font-size:11px; color:var(--muted); display:flex; align-items:center; gap:8px; }
-  .basis { font-size:10px; padding:1px 7px; border:1px solid #d5dae2; border-radius:10px; color:#4b5563; background:#f7f8fa; }
-  .badge { font-size:12px; font-weight:600; padding:3px 9px; border-radius:12px; white-space:nowrap; }
-  .badge.pos { background:#e7f5ed; color:var(--green-ink); }
-  .badge.cau { background:#fdecec; color:var(--down); }
-  .badge.neu { background:#eef1f5; color:#4b5563; }
+  .basis { font-size:10px; font-weight:600; padding:1px 8px; border-radius:10px; color:#6d28d9; background:#f1ebfe; }
+  .badge { font-size:12px; font-weight:600; padding:3px 10px 3px 8px; border-radius:12px; white-space:nowrap; background:var(--tbg); color:var(--tc); display:inline-flex; align-items:center; gap:5px; }
+  .badge::before { content:""; width:7px; height:7px; border-radius:50%; background:var(--tc); }
   .name { font-size:15px; font-weight:600; margin:10px 0 10px; line-height:1.3; }
-  .lab { font-size:10px; font-weight:600; letter-spacing:.4px; text-transform:uppercase; color:var(--muted); margin-bottom:3px; }
-  .guid { background:#f3f8fc; border-left:3px solid var(--blue); border-radius:3px; padding:7px 9px; margin-bottom:10px; }
-  .tk { margin:0 0 10px; padding-left:18px; }
-  .tk li { margin-bottom:4px; }
-  .kv { display:grid; grid-template-columns:auto 1fr; gap:4px 10px; margin:0 0 10px; padding-top:8px; border-top:1px solid #f1f3f6; }
-  .kv dt { color:var(--muted); font-size:11px; padding-top:1px; }
+  .lab { font-size:10px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; margin-bottom:4px; }
+  .guid { background:linear-gradient(135deg,#e8f2fa,#eef8f2); border-radius:8px; padding:8px 10px; margin-bottom:12px; }
+  .guid .lab { color:var(--blue); }
+  .tk-lab { color:var(--green-ink); }
+  .tk { list-style:none; margin:0 0 10px; padding:0; counter-reset:tk; }
+  .tk li { position:relative; padding-left:26px; margin-bottom:6px; counter-increment:tk; }
+  .tk li::before { content:counter(tk); position:absolute; left:0; top:1px; width:18px; height:18px; border-radius:50%; background:var(--green); color:#fff; font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center; }
+  .kv { display:grid; grid-template-columns:auto 1fr; gap:6px 10px; margin:0 0 10px; padding-top:10px; border-top:1px dashed #e3e6eb; align-items:baseline; }
+  .kv dt { font-size:10px; font-weight:600; padding:1px 8px; border-radius:10px; white-space:nowrap; }
+  .kv dt.k-margin { background:#fff4e0; color:#b45309; }
+  .kv dt.k-capex { background:#e0f7f5; color:#0f766e; }
+  .kv dt.k-orderbook { background:#f1ebfe; color:#6d28d9; }
   .kv dd { margin:0; }
-  .risk { margin-top:auto; padding-top:8px; border-top:1px solid #f1f3f6; color:#7a2e2e; }
-  .risk b { font-size:10px; letter-spacing:.4px; text-transform:uppercase; color:var(--down); margin-right:4px; }
+  .risk { margin-top:auto; background:#fff5f5; border-left:3px solid #d64545; border-radius:6px; padding:7px 10px; color:#7a2e2e; }
+  .risk b { display:block; font-size:10px; letter-spacing:.5px; text-transform:uppercase; color:var(--down); margin-bottom:2px; }
   .cfoot { display:flex; justify-content:flex-end; gap:4px; margin-top:6px; }
   .edit, .del { border:none; background:none; color:#aaa; font-size:14px; padding:0 4px; cursor:pointer; }
   .edit:hover { color:var(--blue); } .del:hover { color:var(--down); }
@@ -181,15 +194,15 @@ const toneOf = t => TONES[String(t || "").toLowerCase()] || null;
 function card(d) {
   const t = toneOf(d.tone);
   const tks = (d.takeaways || []).filter(Boolean);
-  const kv = KV.filter(([k]) => d[k]).map(([k, l]) => `<dt>${l}</dt><dd>${esc(d[k])}</dd>`).join("");
-  return `<div class="card">
+  const kv = KV.filter(([k]) => d[k]).map(([k, l]) => `<dt class="k-${k}">${l}</dt><dd>${esc(d[k])}</dd>`).join("");
+  return `<div class="card${t ? " t-" + t[1] : ""}">
     <div class="chead">
       <div class="meta"><span>${esc(d.date)}</span><span class="basis">Concall</span></div>
       ${t ? `<span class="badge ${t[1]}" title="Management tone">${t[0]}</span>` : ""}
     </div>
     <div class="name">${esc(d.name)}</div>
     ${d.guidance ? `<div class="guid"><div class="lab">Guidance</div>${esc(d.guidance)}</div>` : ""}
-    ${tks.length ? `<div class="lab">Key takeaways</div><ul class="tk">${tks.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+    ${tks.length ? `<div class="lab tk-lab">Key takeaways</div><ul class="tk">${tks.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
     ${kv ? `<dl class="kv">${kv}</dl>` : ""}
     ${d.risks ? `<div class="risk"><b>Risks</b>${esc(d.risks)}</div>` : ""}
     <div class="cfoot admin-only"><button class="edit" data-e="${esc(keyOf(d))}" title="Edit">✎</button><button class="del" data-k="${esc(keyOf(d))}" title="Remove">×</button></div>
