@@ -11,97 +11,75 @@
   :root { --green:#009245; --green-ink:#007a3a; --blue:#0071bc; --up:#007a3a; --down:#c62828; --accent:#0071bc;
           --line:#e3e6eb; --muted:#6b7280; --ink:#1a1d23; --flag:#fff1b8; }
   * { box-sizing:border-box; }
-  body { margin:0; padding:24px 16px; font-family:Inter,"Segoe UI",Arial,sans-serif; color:var(--ink); background:#f7f8fa; }
-  .wrap { max-width:1240px; margin:0 auto; }
-  /* layout: company list on the left, concalls on the right */
-  .layout { display:grid; grid-template-columns:240px minmax(0,1fr); gap:20px; align-items:start; }
-  .side { position:sticky; top:12px; background:#fff; border:1px solid var(--line); border-radius:12px; box-shadow:0 2px 8px rgba(17,24,39,.04); overflow:hidden; }
-  .side h2 { font-family:Poppins,Inter,sans-serif; font-size:13px; font-weight:600; margin:0; padding:11px 14px; border-bottom:1px solid var(--line); background:linear-gradient(90deg,#e6f6ec,#e8f2fa); }
-  .side h2 span { color:var(--muted); font-weight:500; }
-  .side ul { list-style:none; margin:0; padding:6px 0; max-height:calc(100vh - 70px); overflow-y:auto; }
-  .side li a { display:flex; align-items:center; gap:8px; padding:6px 14px; font-size:12.5px; line-height:1.3; color:#374151; text-decoration:none; border-left:3px solid transparent; }
-  .side li a:hover { background:#f3f8fc; color:var(--blue); }
-  .side li a.on { background:#e8f2fa; color:var(--blue); font-weight:600; border-left-color:var(--blue); }
-  .side .dot { flex:none; width:7px; height:7px; border-radius:50%; background:#94a3b8; }
-  .side .dot.pos { background:#009245; } .side .dot.neu { background:#0071bc; } .side .dot.cau { background:#d64545; }
-  @media (max-width:860px) { .layout { grid-template-columns:1fr; } .side { position:static; } .side ul { max-height:220px; } }
-  .top { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:16px; }
-  h1, .name, .sortby { font-family:Poppins,Inter,"Segoe UI",Arial,sans-serif; }
+  body { margin:0; padding:24px 16px; font-family:Inter,"Segoe UI",Arial,sans-serif; color:var(--ink);
+         background:linear-gradient(180deg,#eaf4fb 0,#f7f8fa 260px) no-repeat, #f7f8fa; }
+  .wrap { max-width:1140px; margin:0 auto; }
+  h1, .name, h3, .cname { font-family:Poppins,Inter,"Segoe UI",Arial,sans-serif; }
+  .top { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:18px;
+         background:#fff; border-radius:12px; padding:14px 18px; box-shadow:0 2px 10px rgba(0,113,188,.08); position:relative; overflow:hidden; }
+  .top::after { content:""; position:absolute; left:0; right:0; bottom:0; height:4px; background:linear-gradient(90deg,var(--green),var(--blue)); }
   h1 { font-size:26px; font-weight:700; letter-spacing:.2px; margin:0; }
+  h1 a { text-decoration:none; }
   h1 .hg { color:var(--green); } h1 .hb { color:var(--blue); } h1 #qtitle { color:var(--ink); }
   .title { display:flex; align-items:baseline; gap:12px; flex-wrap:wrap; }
   .byline { font-size:13px; color:var(--muted); }
   .actions { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
   button, .btn { font:inherit; font-size:13px; padding:7px 12px; border:1px solid #999; border-radius:3px; background:#fff; cursor:pointer; }
   button.primary { background:var(--blue); border-color:var(--blue); color:#fff; }
-  select { font:inherit; font-size:13px; padding:6px; }
+  select { font:inherit; font-size:13px; padding:6px 8px; border:1px solid #cfd5dd; border-radius:6px; background:#fff; }
   body:not(.admin) .admin-only { display:none !important; }
+  [hidden] { display:none !important; }
 
-  .tools { display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin:0 0 18px; padding-top:16px; border-top:1px solid var(--line); }
-  .searchwrap { position:relative; width:260px; max-width:100%; }
-  .search { font:inherit; font-size:13px; padding:7px 32px 7px 10px; width:100%; border:1px solid #cfd5dd; border-radius:6px; background:#fff; }
-  .searchwrap svg { position:absolute; right:9px; top:50%; transform:translateY(-50%); width:15px; height:15px; color:#555; pointer-events:none; }
-  .sortby { font-size:12px; color:#444; display:flex; align-items:center; gap:8px; }
-  .sortby select { font:inherit; font-size:13px; padding:5px 8px; border:1px solid #cfd5dd; border-radius:6px; background:#fff; min-width:96px; }
-  .search:focus, .sortby select:focus { outline:2px solid rgba(0,113,188,.25); border-color:var(--blue); }
-  .basisline { font-size:12px; color:var(--muted); margin:-6px 0 16px; }
-
-  /* page header band */
-  body { background:linear-gradient(180deg,#eaf4fb 0,#f7f8fa 260px) no-repeat, #f7f8fa; }
-  .top { background:#fff; border-radius:12px; padding:14px 18px; box-shadow:0 2px 10px rgba(0,113,188,.08); position:relative; overflow:hidden; }
-  .top::after { content:""; position:absolute; left:0; right:0; bottom:0; height:4px; background:linear-gradient(90deg,var(--green),var(--blue)); }
-  .tools { border-top:none; padding-top:4px; }
-
-  .grid { display:flex; flex-direction:column; gap:20px; }
-  .card { --tc:#64748b; --tbg:#f1f5f9; background:#fff; border:1px solid var(--line); border-top:4px solid var(--tc); border-radius:12px; padding:18px 22px 14px; font-size:14px; line-height:1.45; display:flex; flex-direction:column; box-shadow:0 2px 8px rgba(17,24,39,.04); transition:box-shadow .15s, transform .15s; }
-  .card.t-pos { --tc:#009245; --tbg:#e6f6ec; }
-  .card.t-neu { --tc:#0071bc; --tbg:#e8f2fa; }
-  .card.t-cau { --tc:#d64545; --tbg:#fdecec; }
-  .card:hover { box-shadow:0 8px 20px rgba(17,24,39,.08); }
-  .card .name { font-size:19px; margin:8px 0 14px; }
-  .card .sec:first-of-type { margin-top:14px; }
-  .card { scroll-margin-top:12px; }
-  .detail { display:none; }
-  .card.open .detail { display:block; }
-  .toggle { display:flex; align-items:center; justify-content:center; gap:6px; width:100%; margin-top:14px; padding:7px 10px; font:inherit; font-size:12px; font-weight:600; color:var(--blue); background:#f3f8fc; border:1px dashed #b9d6ec; border-radius:8px; cursor:pointer; }
-  .toggle:hover { background:#e8f2fa; }
-  .toggle .ar { display:inline-block; transition:transform .15s; }
-  .card.open .toggle .ar { transform:rotate(180deg); }
-  .card.open .toggle { margin-top:16px; }
-  #expandall { font-size:12px; padding:5px 10px; border:1px solid #cfd5dd; border-radius:6px; background:#fff; color:#444; cursor:pointer; }
-  #expandall:hover { border-color:var(--blue); color:var(--blue); }
-  .rightTools { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
-  .chead { display:flex; justify-content:space-between; align-items:center; gap:8px; }
-  .meta { font-size:11px; color:var(--muted); display:flex; align-items:center; gap:8px; }
-  .basis { font-size:10px; font-weight:600; padding:1px 8px; border-radius:10px; color:#6d28d9; background:#f1ebfe; }
-  .badge { font-size:12px; font-weight:600; padding:3px 10px 3px 8px; border-radius:12px; white-space:nowrap; background:var(--tbg); color:var(--tc); display:inline-flex; align-items:center; gap:5px; }
+  /* tone colours */
+  .badge { --tc:#64748b; --tbg:#f1f5f9; font-size:12px; font-weight:600; padding:3px 10px 3px 8px; border-radius:12px; white-space:nowrap;
+           background:var(--tbg); color:var(--tc); display:inline-flex; align-items:center; gap:5px; }
   .badge::before { content:""; width:7px; height:7px; border-radius:50%; background:var(--tc); }
-  .name { font-size:15px; font-weight:600; margin:10px 0 10px; line-height:1.3; }
-  .lab { font-size:10px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; margin-bottom:4px; }
-  .guid { background:linear-gradient(135deg,#e8f2fa,#eef8f2); border-radius:8px; padding:8px 10px; margin-bottom:12px; }
-  .guid .lab { color:var(--blue); }
-  .tk-lab { color:var(--green-ink); }
-  .tk { list-style:none; margin:0 0 10px; padding:0; counter-reset:tk; }
-  .tk li { position:relative; padding-left:26px; margin-bottom:6px; counter-increment:tk; }
-  .tk li::before { content:counter(tk); position:absolute; left:0; top:1px; width:18px; height:18px; border-radius:50%; background:var(--green); color:#fff; font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center; }
-  .kv { display:grid; grid-template-columns:auto 1fr; gap:6px 10px; margin:0 0 10px; padding-top:10px; border-top:1px dashed #e3e6eb; align-items:baseline; }
-  .kv dt { font-size:10px; font-weight:600; padding:1px 8px; border-radius:10px; white-space:nowrap; }
-  .kv dt.k-margin { background:#fff4e0; color:#b45309; }
-  .kv dt.k-capex { background:#e0f7f5; color:#0f766e; }
-  .kv dt.k-orderbook { background:#f1ebfe; color:#6d28d9; }
-  .kv dd { margin:0; }
-  .risk { margin-top:auto; background:#fff5f5; border-left:3px solid #d64545; border-radius:6px; padding:7px 10px; color:#7a2e2e; }
-  .risk b { display:block; font-size:10px; letter-spacing:.5px; text-transform:uppercase; color:var(--down); margin-bottom:2px; }
-  .tk li b, .sec li b { font-weight:600; color:var(--ink); }
-  .st { font-size:11px; font-weight:600; padding:1px 8px; border-radius:10px; white-space:nowrap; background:#f1f5f9; color:#475569; }
-  .st-delivered { background:#e6f6ec; color:#007a3a; } .st-pending { background:#fff4e0; color:#b45309; }
-  .st-revised { background:#e8f2fa; color:#0071bc; } .st-notmentioned { background:#fdecec; color:#c62828; } .st-new { background:#f1ebfe; color:#6d28d9; }
+  .pos { --tc:#009245; --tbg:#e6f6ec; } .neu { --tc:#0071bc; --tbg:#e8f2fa; } .cau { --tc:#d64545; --tbg:#fdecec; }
 
+  /* ---------- page 1: company list ---------- */
+  .tools { display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin:0 0 12px; }
+  .searchwrap { position:relative; width:300px; max-width:100%; }
+  .search { font:inherit; font-size:13px; padding:8px 32px 8px 10px; width:100%; border:1px solid #cfd5dd; border-radius:6px; background:#fff; }
+  .searchwrap svg { position:absolute; right:9px; top:50%; transform:translateY(-50%); width:15px; height:15px; color:#555; pointer-events:none; }
+  .search:focus, select:focus { outline:2px solid rgba(0,113,188,.25); border-color:var(--blue); }
+  .basisline { font-size:12px; color:var(--muted); }
+  .listbox { background:#fff; border:1px solid var(--line); border-radius:12px; box-shadow:0 2px 8px rgba(17,24,39,.04); overflow:hidden; }
+  table.list { width:100%; border-collapse:collapse; font-size:14px; }
+  table.list th { text-align:left; font-size:12px; font-weight:600; color:#0b4f82; background:#eef5fb; padding:10px 14px; border-bottom:1px solid var(--line); white-space:nowrap; cursor:pointer; user-select:none; }
+  table.list th:hover { color:var(--blue); }
+  table.list th .sa { color:#9aa3af; font-size:10px; margin-left:4px; }
+  table.list th.on .sa { color:var(--blue); }
+  table.list th.n, table.list td.n { width:56px; text-align:right; padding-right:6px; cursor:default; }
+  table.list td { padding:11px 14px; border-bottom:1px solid #f1f3f6; vertical-align:middle; }
+  table.list tbody tr { cursor:pointer; transition:background .1s; }
+  table.list tbody tr:hover { background:#f3f8fc; }
+  table.list tbody tr:last-child td { border-bottom:none; }
+  table.list td.n { color:var(--muted); font-size:12px; }
+  table.list td.co a { color:var(--ink); font-weight:600; text-decoration:none; }
+  table.list tbody tr:hover td.co a { color:var(--blue); }
+  table.list td.dt { color:#4b5563; white-space:nowrap; }
+  .empty { color:var(--muted); padding:30px 16px; }
+
+  /* ---------- page 2: company page ---------- */
+  .back { display:inline-flex; align-items:center; gap:6px; font-size:13px; font-weight:600; color:var(--blue); background:#fff; border:1px solid #cfe1f0; border-radius:8px; padding:7px 12px; cursor:pointer; margin-bottom:14px; }
+  .back:hover { background:#e8f2fa; }
+  .cohead { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:14px; }
+  .cname { font-size:24px; font-weight:600; margin:0; }
+  .colayout { display:grid; grid-template-columns:minmax(0,1fr) 250px; gap:20px; align-items:start; }
+  .card { --tc:#64748b; background:#fff; border:1px solid var(--line); border-top:4px solid var(--tc); border-radius:12px; padding:18px 22px 14px; font-size:14px; line-height:1.5; box-shadow:0 2px 8px rgba(17,24,39,.04); }
+  .card.pos { --tc:#009245; } .card.neu { --tc:#0071bc; } .card.cau { --tc:#d64545; }
+  .chead { display:flex; justify-content:space-between; align-items:center; gap:8px; }
+  .meta { font-size:12px; color:var(--muted); display:flex; align-items:center; gap:8px; }
+  .basis { font-size:10px; font-weight:600; padding:1px 8px; border-radius:10px; color:#6d28d9; background:#f1ebfe; }
+  .lab { font-size:10px; font-weight:700; letter-spacing:.5px; text-transform:uppercase; margin-bottom:4px; }
+  .guid { background:linear-gradient(135deg,#e8f2fa,#eef8f2); border-radius:8px; padding:9px 12px; margin:14px 0 4px; }
+  .guid .lab { color:var(--blue); }
   .sec { margin:18px 0 0; }
-  .sec h3 { font-family:Poppins,Inter,"Segoe UI",Arial,sans-serif; font-size:14px; font-weight:600; margin:0 0 8px; padding-left:10px; border-left:4px solid var(--sc); }
+  .sec h3 { font-size:14px; font-weight:600; margin:0 0 8px; padding-left:10px; border-left:4px solid var(--sc); }
   .sec.s-key { --sc:var(--green); } .sec.s-rev { --sc:#d97706; } .sec.s-pipe { --sc:#0f766e; } .sec.s-prof { --sc:#be185d; } .sec.s-com { --sc:#6d28d9; } .sec.s-met { --sc:#0071bc; } .sec.s-old { --sc:#64748b; }
   .sec ul { margin:0; padding-left:20px; }
   .sec li { margin-bottom:6px; }
+  .sec li b { font-weight:600; color:var(--ink); }
   .tablewrap { overflow-x:auto; border:1px solid var(--line); border-radius:8px; }
   table.com { border-collapse:collapse; width:100%; font-size:13px; }
   table.com th { text-align:left; font-weight:600; background:#f6f3fe; color:#4c1d95; padding:8px 10px; border-bottom:1px solid var(--line); white-space:nowrap; }
@@ -113,13 +91,27 @@
   table.met td:first-child { min-width:150px; color:#374151; }
   table.met td:last-child { white-space:normal; color:var(--ink); font-weight:600; }
   table.met tbody tr:nth-child(even) td { background:#fafbfc; }
+  .st { font-size:11px; font-weight:600; padding:1px 8px; border-radius:10px; white-space:nowrap; background:#f1f5f9; color:#475569; }
+  .st-delivered { background:#e6f6ec; color:#007a3a; } .st-pending { background:#fff4e0; color:#b45309; }
+  .st-revised { background:#e8f2fa; color:#0071bc; } .st-notmentioned { background:#fdecec; color:#c62828; } .st-new { background:#f1ebfe; color:#6d28d9; }
+  .risk { margin-top:16px; background:#fff5f5; border-left:3px solid #d64545; border-radius:6px; padding:7px 10px; color:#7a2e2e; }
+  .risk b { display:block; font-size:10px; letter-spacing:.5px; text-transform:uppercase; color:var(--down); margin-bottom:2px; }
   .srcline { margin-top:14px; font-size:11px; color:var(--muted); }
-  .form textarea { width:100%; font:inherit; font-size:13px; padding:5px 6px; border:1px solid #bbb; border-radius:3px; resize:vertical; }
-  .form textarea.flag { background:var(--flag); border-color:#d9a400; }
   .cfoot { display:flex; justify-content:flex-end; gap:4px; margin-top:6px; }
   .edit, .del { border:none; background:none; color:#aaa; font-size:14px; padding:0 4px; cursor:pointer; }
   .edit:hover { color:var(--blue); } .del:hover { color:var(--down); }
-  .empty { color:var(--muted); padding:30px 0; }
+
+  .hist { position:sticky; top:12px; background:#fff; border:1px solid var(--line); border-radius:12px; box-shadow:0 2px 8px rgba(17,24,39,.04); overflow:hidden; }
+  .hist h2 { font-family:Poppins,Inter,sans-serif; font-size:13px; font-weight:600; margin:0; padding:11px 14px; border-bottom:1px solid var(--line); background:linear-gradient(90deg,#e6f6ec,#e8f2fa); }
+  table.hq { width:100%; border-collapse:collapse; font-size:13px; }
+  table.hq th { text-align:left; font-size:11px; font-weight:600; color:var(--muted); padding:8px 14px; border-bottom:1px solid var(--line); }
+  table.hq td { padding:9px 14px; border-bottom:1px solid #f1f3f6; }
+  table.hq tr:last-child td { border-bottom:none; }
+  table.hq tbody tr { cursor:pointer; }
+  table.hq tbody tr:hover { background:#f3f8fc; }
+  table.hq tbody tr.on { background:#e8f2fa; }
+  table.hq tbody tr.on td:first-child { font-weight:600; color:var(--blue); box-shadow:inset 3px 0 0 var(--blue); }
+  .hnote { font-size:11px; color:var(--muted); padding:8px 14px 12px; margin:0; }
 
   .foot { margin-top:28px; font-size:12px; color:var(--muted); text-align:center; }
   .foot img { display:block; margin:0 auto; width:180px; max-width:60%; height:auto; }
@@ -143,20 +135,27 @@
   .form .r2 { grid-template-columns:1fr 1fr; }
   .form label { display:block; font-size:11px; color:#555; }
   .form input, .form select { width:100%; font:inherit; font-size:13px; padding:5px 6px; border:1px solid #bbb; border-radius:3px; }
-  .form input.flag { background:var(--flag); border-color:#d9a400; }
+  .form textarea { width:100%; font:inherit; font-size:13px; padding:5px 6px; border:1px solid #bbb; border-radius:3px; resize:vertical; }
+  .form textarea.flag, .form input.flag { background:var(--flag); border-color:#d9a400; }
   .problems { color:var(--down); font-size:12px; margin:8px 0 0; }
   .itembtns { display:flex; gap:8px; margin-top:12px; }
-  @media (max-width:640px) { h1 { font-size:21px; } .item, .form .r3, .form .r2 { grid-template-columns:1fr; } .searchwrap { width:100%; }
-    .card { padding:16px 14px 12px; } .card .name { font-size:17px; } table.com td:last-child { white-space:normal; } }
+
+  @media (max-width:820px) {
+    h1 { font-size:21px; } .cname { font-size:20px; }
+    .colayout { grid-template-columns:1fr; } .hist { position:static; }
+    .item, .form .r3, .form .r2 { grid-template-columns:1fr; } .searchwrap { width:100%; }
+    .card { padding:16px 14px 12px; } table.com td:last-child { white-space:normal; }
+    table.list th, table.list td { padding:10px 8px; } table.list th.n, table.list td.n { width:34px; }
+    table.list td.dt, table.list th.dt { display:none; }
+  }
 </style>
 </head>
 <body>
 <div class="drop" id="drop">Drop concall data lock .txt files</div>
 <div class="wrap">
   <div class="top">
-    <div class="title"><h1><span class="hg">CONCALL</span> <span class="hb">RYTHM</span><span id="qtitle"></span></h1><span class="byline">Prepared By : Prasad Rao</span></div>
+    <div class="title"><h1><a href="#"><span class="hg">CONCALL</span> <span class="hb">RYTHM</span></a><span id="qtitle"></span></h1><span class="byline">Prepared By : Prasad Rao</span></div>
     <div class="actions">
-      <select id="quarter" title="Quarter"></select>
       <button id="lockbtn" class="admin-only">Paste data lock</button>
       <label class="btn admin-only">Add .txt<input type="file" id="files" accept=".txt,text/plain" multiple hidden></label>
       <button id="save" class="admin-only" title="Download concall_data.js to replace the one in this folder">Save data file</button>
@@ -169,23 +168,23 @@
     <div class="itembtns" style="margin-top:0"><button class="primary" id="lockread">Read</button><button id="lockcancel">Cancel</button></div>
   </div>
   <div id="review"></div>
-  <div class="layout">
-  <aside class="side" id="side"></aside>
-  <div class="main">
-  <div class="tools">
-    <div class="searchwrap">
-      <input type="search" id="search" class="search" placeholder="Search By Company Name" autocomplete="off">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+
+  <!-- Page 1: company list -->
+  <div id="listview">
+    <div class="tools">
+      <div class="searchwrap">
+        <input type="search" id="search" class="search" placeholder="Search Company" autocomplete="off">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      </div>
+      <select id="quarter" title="Quarter"></select>
     </div>
-    <div class="rightTools"><button id="expandall" type="button">Expand all</button>
-    <label class="sortby">Sort By
-      <select id="sortby"><option value="latest">Latest</option><option value="name">Name</option></select>
-    </label></div>
+    <p class="basisline" id="basisline"></p>
+    <div class="listbox" id="listbox"></div>
   </div>
-  <div class="basisline" id="basisline"></div>
-  <div class="grid" id="grid"></div>
-  </div>
-  </div>
+
+  <!-- Page 2: one company -->
+  <div id="coview" hidden></div>
+
   <div class="foot"><img src="logo.png" alt="price rythm">
     <div class="contact">
       <a href="mailto:price.rythme@gmail.com"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>price.rythme@gmail.com</a>
@@ -202,12 +201,13 @@ const STORE = "priceRythm.concall.v1";
 // Editing controls appear only when the page is opened with ?admin in the link.
 const ADMIN = /[?&]admin\b/i.test(location.search);
 if (ADMIN) document.body.classList.add("admin");
-let quarter = null, search = "", sortBy = "latest";
+let quarter = null, search = "", sortKey = "date", sortDir = -1;
 let queue = [];
-const opened = new Set();   // keys of concalls shown in full
+let listScroll = 0;
 const slug = s => String(s || "").toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
-const TONES = { positive:["Positive","pos"], neutral:["Neutral","neu"], cautious:["Cautious","cau"] };
+// Locks say Positive / Neutral / Cautious. The page shows Positive as "Optimistic".
+const TONES = { positive:["Optimistic","pos",0], optimistic:["Optimistic","pos",0], neutral:["Neutral","neu",1], cautious:["Cautious","cau",2] };
 // Older locks had these one-line fields; still shown when present.
 const KV = [["margin","Margins"],["capex","Capex"],["orderbook","Order book"]];
 const SECTIONS = [
@@ -253,6 +253,7 @@ function removeEntry(k) {
 }
 function qRank(q) { const m = /Q(\d)\s*FY(\d{2})/.exec(q || ""); return m ? +m[2] * 4 + +m[1] : 0; }
 function normQ(s) { const m = /Q\s*([1-4])\s*FY\s*(?:20)?(\d{2})(?!\d)/i.exec(s || ""); return m ? `Q${m[1]} FY${m[2]}` : ""; }
+const qLong = q => String(q || "").replace(/FY(\d{2})$/, "FY20$1");
 
 const MON = { jan:0, feb:1, mar:2, apr:3, may:4, jun:5, jul:6, aug:7, sep:8, oct:9, nov:10, dec:11 };
 function dateVal(s) {
@@ -260,9 +261,10 @@ function dateVal(s) {
   return m && m[2].toLowerCase() in MON ? new Date(+m[3], MON[m[2].toLowerCase()], +m[1]).getTime() : 0;
 }
 
-// ---------- grid ----------
+// ---------- shared ----------
 const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
 const toneOf = t => TONES[String(t || "").toLowerCase()] || null;
+const badge = tone => { const t = toneOf(tone); return t ? `<span class="badge ${t[1]}">${t[0]}</span>` : ""; };
 const list = a => (a || []).filter(Boolean);
 // "Headline: text" -> bold headline. Only when the part before ": " is short.
 function point(s) {
@@ -271,13 +273,61 @@ function point(s) {
 }
 const coms = d => (d.commitments || []).filter(c => c && (c.c || c.s || c.t));
 
-function card(d) {
-  const t = toneOf(d.tone);
+// ---------- routing: "#" = list, "#company" = latest concall, "#company/q2-fy27" = that quarter ----------
+function route() {
+  const h = decodeURIComponent(location.hash.slice(1));
+  if (!h) return null;
+  const [co, qs] = h.split("/");
+  return { co: slug(co), q: qs ? normQ(qs.replace(/-/g, " ")) : "" };
+}
+const linkTo = (d, withQ) => "#" + slug(d.name) + (withQ ? "/" + slug(d.q) : "");
+
+function render() {
+  const r = route();
+  const data = allData();
+  const rows = r ? data.filter(d => slug(d.name) === r.co) : [];
+  if (r && rows.length) renderCompany(rows, r.q);
+  else renderList(data);
+}
+
+// ---------- page 1 ----------
+function renderList(data) {
+  document.getElementById("listview").hidden = false;
+  document.getElementById("coview").hidden = true;
+  const qs = [...new Set(data.map(d => d.q))].sort((a, z) => qRank(z) - qRank(a));
+  if (!qs.includes(quarter)) quarter = qs[0] || null;
+  const qsel = document.getElementById("quarter");
+  qsel.innerHTML = qs.map(q => `<option${q === quarter ? " selected" : ""}>${esc(q)}</option>`).join("");
+  qsel.style.display = qs.length > 1 ? "" : "none";
+  document.getElementById("qtitle").textContent = quarter ? " - " + qLong(quarter) : "";
+
+  const term = search.trim().toLowerCase();
+  const rows = data.filter(d => d.q === quarter && (!term || d.name.toLowerCase().includes(term)));
+  const byName = (x, y) => x.name.localeCompare(y.name, "en", { sensitivity: "base" });
+  const tr = d => { const t = toneOf(d.tone); return t ? t[2] : 9; };
+  rows.sort((x, y) =>
+    sortKey === "name" ? sortDir * byName(x, y)
+    : sortKey === "tone" ? sortDir * (tr(x) - tr(y)) || byName(x, y)
+    : sortDir * (dateVal(x.date) - dateVal(y.date)) || byName(x, y));
+
+  const how = { name: "company name", date: "call date", tone: "management sentiment" }[sortKey];
+  document.getElementById("basisline").textContent = quarter
+    ? `${term ? "Search results" : "All companies with " + quarter + " concalls"} (${rows.length}), sorted by ${how}. Click a company to read its concall.` : "";
+  const th = (k, l, cls) => `<th class="${cls || ""}${sortKey === k ? " on" : ""}" data-sort="${k}">${l}<span class="sa">${sortKey === k ? (sortDir > 0 ? "▲" : "▼") : "▲▼"}</span></th>`;
+  document.getElementById("listbox").innerHTML = rows.length
+    ? `<table class="list"><thead><tr><th class="n">#</th>${th("name", "Company")}${th("date", "Call date", "dt")}${th("tone", "Mgmt Sentiment")}</tr></thead>
+       <tbody>${rows.map((d, i) => `<tr data-go="${esc(linkTo(d, d.q !== latestQ(data, d.name)))}"><td class="n">${i + 1}.</td>
+         <td class="co"><a href="${esc(linkTo(d, d.q !== latestQ(data, d.name)))}">${esc(d.name)}</a></td><td class="dt">${esc(d.date)}</td><td>${badge(d.tone)}</td></tr>`).join("")}</tbody></table>`
+    : `<div class="empty">${term ? "No company matches “" + esc(search.trim()) + "”." : "No concalls added yet."}</div>`;
+}
+const latestQ = (data, name) => data.filter(d => d.name === name).sort((a, z) => qRank(z.q) - qRank(a.q))[0].q;
+
+// ---------- page 2 ----------
+function detail(d) {
   const sec = ([f, , title, cls]) => {
     const pts = list(d[f]);
     return pts.length ? `<div class="sec s-${cls}"><h3>${title}</h3><ul>${pts.map(x => `<li>${point(x)}</li>`).join("")}</ul></div>` : "";
   };
-  const head = sec(SECTIONS[0]), rest = SECTIONS.slice(1).map(sec).join("");
   const kv = KV.filter(([k]) => d[k]).map(([k, l]) => `<li><b>${l}:</b> ${esc(d[k])}</li>`).join("");
   const cs = coms(d), tr = tracked(cs);
   const table = cs.length ? `<div class="sec s-com"><h3>Guidance & Commitments</h3><div class="tablewrap"><table class="com">
@@ -287,86 +337,54 @@ function card(d) {
   const mtable = ms.length ? `<div class="sec s-met"><h3>Key Metrics</h3><div class="tablewrap"><table class="com met">
       <thead><tr><th>Metric</th><th>${esc(d.q || "Value")}</th></tr></thead>
       <tbody>${ms.map(x => `<tr><td>${esc(x.m)}</td><td>${esc(x.v)}</td></tr>`).join("")}</tbody></table></div></div>` : "";
-  const k = keyOf(d);
-  const more = mtable || rest || kv || table || d.risks;
-  return `<div class="card${t ? " t-" + t[1] : ""}${opened.has(k) ? " open" : ""}" id="${esc(slug(d.name))}" data-key="${esc(k)}">
+  const t = toneOf(d.tone);
+  return `<div class="card${t ? " " + t[1] : ""}">
     <div class="chead">
       <div class="meta"><span>${esc(d.date)}</span><span class="basis">Concall</span><span>${esc(d.q)}</span></div>
-      ${t ? `<span class="badge ${t[1]}" title="Management tone">${t[0]}</span>` : ""}
+      ${badge(d.tone)}
     </div>
-    <div class="name">${esc(d.name)}</div>
     ${d.guidance ? `<div class="guid"><div class="lab">Guidance</div>${esc(d.guidance)}</div>` : ""}
-    ${head}
-    ${more ? `<div class="detail">
-      ${rest}
-      ${kv ? `<div class="sec s-old"><h3>Margins, Capex & Order book</h3><ul>${kv}</ul></div>` : ""}
-      ${table}
-      ${mtable}
-      ${d.risks ? `<div class="risk" style="margin-top:16px"><b>Risks</b>${esc(d.risks)}</div>` : ""}
-      ${d.source ? `<div class="srcline"><b>Source:</b> ${esc(d.source)}</div>` : ""}
-    </div>
-    <button class="toggle" type="button" data-t="1"><span class="tl">${opened.has(k) ? "Hide full concall" : "Show full concall"}</span><span class="ar">▾</span></button>` : ""}
+    ${SECTIONS.map(sec).join("")}
+    ${kv ? `<div class="sec s-old"><h3>Margins, Capex & Order book</h3><ul>${kv}</ul></div>` : ""}
+    ${table}
+    ${mtable}
+    ${d.risks ? `<div class="risk"><b>Risks</b>${esc(d.risks)}</div>` : ""}
+    ${d.source ? `<div class="srcline"><b>Source:</b> ${esc(d.source)}</div>` : ""}
     <div class="cfoot admin-only"><button class="edit" data-e="${esc(keyOf(d))}" title="Edit">✎</button><button class="del" data-k="${esc(keyOf(d))}" title="Remove">×</button></div>
   </div>`;
 }
+function renderCompany(rows, wantQ) {
+  rows.sort((a, z) => qRank(z.q) - qRank(a.q));
+  const d = rows.find(x => x.q === wantQ) || rows[0];
+  document.getElementById("listview").hidden = true;
+  const v = document.getElementById("coview");
+  v.hidden = false;
+  document.getElementById("qtitle").textContent = " - " + qLong(d.q);
+  v.innerHTML = `<button class="back" id="back" type="button">← Back to all companies</button>
+    <div class="cohead"><h2 class="cname">${esc(d.name)}</h2></div>
+    <div class="colayout">
+      <div>${detail(d)}</div>
+      <aside class="hist"><h2>Quarter History</h2>
+        <table class="hq"><thead><tr><th>Quarter</th><th>Mgmt Sentiment</th></tr></thead>
+        <tbody>${rows.map(x => `<tr data-go="${esc(linkTo(x, true))}"${x === d ? ' class="on"' : ""}><td>${esc(x.q)}</td><td>${badge(x.tone)}</td></tr>`).join("")}</tbody></table>
+        ${rows.length < 2 ? `<p class="hnote">Earlier quarters appear here as they are added.</p>` : ""}
+      </aside>
+    </div>`;
+  document.title = d.name + " – Concall Rythm";
+}
 
-function render() {
-  const data = allData();
-  const qs = [...new Set(data.map(d => d.q))].sort((a, z) => qRank(z) - qRank(a));
-  if (!qs.includes(quarter)) quarter = qs[0] || null;
-  const qsel = document.getElementById("quarter");
-  qsel.innerHTML = qs.map(q => `<option${q === quarter ? " selected" : ""}>${esc(q)}</option>`).join("");
-  qsel.style.display = qs.length > 1 ? "" : "none";
-  document.getElementById("qtitle").textContent = quarter ? " - " + quarter.replace(/FY(\d{2})$/, "FY20$1") : "";
-
-  const term = search.trim().toLowerCase();
-  const rows = data.filter(d => d.q === quarter && (!term || d.name.toLowerCase().includes(term)));
-  const idx = new Map(data.map((d, i) => [d, i]));
-  if (sortBy === "name") rows.sort((x, y) => x.name.localeCompare(y.name, "en", { sensitivity: "base" }));
-  else rows.sort((x, y) => (dateVal(y.date) - dateVal(x.date)) || (idx.get(y) - idx.get(x)));
-
-  const what = term ? "Search results" : `All companies with ${quarter || ""} concalls`;
-  const how = sortBy === "name" ? "sorted by name (A–Z)" : "sorted by latest call date";
-  document.getElementById("basisline").textContent = quarter ? `${what} (${rows.length}), ${how}.` : "";
-  document.getElementById("grid").innerHTML = rows.length ? rows.map(card).join("")
-    : `<div class="empty">${term ? "No company matches “" + esc(search.trim()) + "”." : "No concalls added yet."}</div>`;
-  syncExpandAll();
-  renderSide(data);
+let fromList = false, histSteps = 0;
+function go(hash) {
+  if (!route()) listScroll = window.scrollY;
+  fromList = true; histSteps = 1;
+  location.hash = hash;
 }
-// Left panel: every company in the selected quarter, A–Z. Click opens that concall.
-function renderSide(data) {
-  const names = data.filter(d => d.q === quarter).sort((x, y) => x.name.localeCompare(y.name, "en", { sensitivity: "base" }));
-  const cur = slug(decodeURIComponent(location.hash.slice(1)));
-  const side = document.getElementById("side");
-  side.style.display = names.length ? "" : "none";
-  side.innerHTML = `<h2>Companies <span>(${names.length})</span></h2><ul>${names.map(d => {
-    const t = toneOf(d.tone), s = slug(d.name);
-    return `<li><a href="#${esc(s)}" data-go="${esc(s)}"${s === cur ? ' class="on"' : ""}><span class="dot${t ? " " + t[1] : ""}"></span>${esc(d.name)}</a></li>`;
-  }).join("")}</ul>`;
-}
-function syncExpandAll() {
-  const cards = [...document.querySelectorAll("#grid .card .toggle")].map(b => b.closest(".card"));
-  const btn = document.getElementById("expandall");
-  btn.style.display = cards.length ? "" : "none";
-  btn.textContent = cards.length && cards.every(c => c.classList.contains("open")) ? "Collapse all" : "Expand all";
-}
-function setOpen(c, on) {
-  c.classList.toggle("open", on);
-  const k = c.dataset.key; on ? opened.add(k) : opened.delete(k);
-  const l = c.querySelector(".tl"); if (l) l.textContent = on ? "Hide full concall" : "Show full concall";
-}
-// Link with #company-name opens that concall and scrolls to it.
-function openFromHash() {
-  const h = decodeURIComponent(location.hash.slice(1));
-  if (!h) return;
-  const d = allData().find(x => slug(x.name) === slug(h));
-  if (!d) return;
-  opened.add(keyOf(d));
-  if (d.q !== quarter) quarter = d.q;
-  search = ""; document.getElementById("search").value = "";
+function onRoute() {
+  const r = route();
+  if (!r) { fromList = false; histSteps = 0; }
   render();
-  const c = document.getElementById(slug(d.name));
-  if (c) c.scrollIntoView({ block: "start" });
+  if (r && !document.getElementById("coview").hidden) window.scrollTo(0, 0);
+  else { document.title = "Concall Rythm"; window.scrollTo(0, listScroll); }
 }
 
 // ---------- reading concall lock text ----------
@@ -456,11 +474,12 @@ function reviewItem(q) {
   const metText = mets(d).map(x => [x.m, x.v].join(" | ")).join("\n");
   const comText = coms(d).map(c => [c.c, c.s, c.t].concat(c.st ? [c.st] : []).join(" | ")).join("\n");
   const legacy = d.margin || d.capex || d.orderbook;
+  const tsel = (toneOf(d.tone) || [""])[0];
   return `<div class="item" data-id="${q.id}"><div>${side}</div><div class="form">
     <div class="r r3">
       ${inp("name", d.name, "Company name")}
       ${inp("q", d.q, "Quarter", "Q2 FY27")}
-      <div><label>Tone</label><select data-f="tone">${["", "Positive", "Neutral", "Cautious"].map(t => `<option${t === d.tone ? " selected" : ""}>${t}</option>`).join("")}</select></div>
+      <div><label>Mgmt Sentiment</label><select data-f="tone">${["", "Optimistic", "Neutral", "Cautious"].map(t => `<option${t === tsel ? " selected" : ""}>${t}</option>`).join("")}</select></div>
     </div>
     <div class="r r2">${inp("date", d.date, "Call date", "16 Oct 2026")}<div></div></div>
     <div class="r">${inp("guidance", d.guidance, "Guidance")}</div>
@@ -478,7 +497,7 @@ function renderReview() {
   const box = document.getElementById("review");
   if (!queue.length) { box.innerHTML = ""; return; }
   box.innerHTML = `<div class="review"><h2>Check before adding</h2>
-    <p class="hint">Check the name, quarter and points, then add. Empty fields are hidden on the card.</p>
+    <p class="hint">Check the name, quarter and points, then add. Empty fields are hidden on the page.</p>
     ${queue.map(reviewItem).join("")}</div>`;
 }
 function readItem(el, it) {
@@ -499,7 +518,7 @@ function addFromReview(id) {
   const bad = [];
   if (!d.name) bad.push("Company name is empty.");
   if (!d.q) bad.push("Quarter should look like Q2 FY27.");
-  if (!d.tone) bad.push("Pick a tone.");
+  if (!d.tone) bad.push("Pick a management sentiment.");
   if (bad.length) { alert(bad.join("\n")); return; }
   if (it.kind === "edit" && it.oldKey !== keyOf(d)) removeEntry(it.oldKey);
   addEntry(d);
@@ -536,22 +555,32 @@ function saveFile() {
 }
 
 // ---------- events ----------
-document.getElementById("expandall").addEventListener("click", () => {
-  const cards = [...document.querySelectorAll("#grid .card .toggle")].map(b => b.closest(".card"));
-  const on = !cards.every(c => c.classList.contains("open"));
-  cards.forEach(c => setOpen(c, on)); syncExpandAll();
-});
-window.addEventListener("hashchange", openFromHash);
-document.getElementById("side").addEventListener("click", e => {
-  const a = e.target.closest("a[data-go]");
-  if (!a) return;
-  e.preventDefault();
-  history.replaceState(null, "", location.pathname + location.search + "#" + a.dataset.go);
-  openFromHash();
-});
-document.getElementById("sortby").addEventListener("change", e => { sortBy = e.target.value; render(); });
+window.addEventListener("hashchange", onRoute);
 document.getElementById("search").addEventListener("input", e => { search = e.target.value; render(); });
 document.getElementById("quarter").addEventListener("change", e => { quarter = e.target.value; render(); });
+document.getElementById("listbox").addEventListener("click", e => {
+  const th = e.target.closest("th[data-sort]");
+  if (th) {
+    const k = th.dataset.sort;
+    if (sortKey === k) sortDir = -sortDir; else { sortKey = k; sortDir = k === "date" ? -1 : 1; }
+    render(); return;
+  }
+  const tr = e.target.closest("tr[data-go]");
+  if (tr) { e.preventDefault(); go(tr.dataset.go); }
+});
+document.getElementById("coview").addEventListener("click", e => {
+  if (e.target.closest("#back")) {
+    // Came from the list: step back (keeps search + scroll). Opened by a shared link: go to the list.
+    if (fromList) history.go(-histSteps); else location.hash = "";
+    return;
+  }
+  const tr = e.target.closest("tr[data-go]");
+  if (tr) { if (fromList) histSteps++; location.hash = tr.dataset.go; return; }
+  const b = e.target.closest("button");
+  if (!b) return;
+  if (b.dataset.e) { startEdit(b.dataset.e); return; }
+  if (b.dataset.k && confirm("Remove this concall?")) { removeEntry(b.dataset.k); render(); }
+});
 document.getElementById("files").addEventListener("change", e => { addFiles(e.target.files); e.target.value = ""; });
 document.getElementById("save").addEventListener("click", saveFile);
 const lockbox = document.getElementById("lockbox"), locktext = document.getElementById("locktext");
@@ -559,15 +588,6 @@ document.getElementById("lockbtn").addEventListener("click", () => { lockbox.hid
 document.getElementById("lockcancel").addEventListener("click", () => { lockbox.hidden = true; locktext.value = ""; });
 document.getElementById("lockread").addEventListener("click", () => {
   if (addLockText(locktext.value)) { lockbox.hidden = true; locktext.value = ""; }
-});
-document.getElementById("grid").addEventListener("click", e => {
-  const t = e.target.closest("button");
-  if (!t) return;
-  if (t.dataset.t) { const c = t.closest(".card"); const on = !c.classList.contains("open"); setOpen(c, on);
-    if (!on && c.getBoundingClientRect().top < 0) c.scrollIntoView({ block: "start" }); syncExpandAll(); return; }
-  if (t.dataset.e) { startEdit(t.dataset.e); return; }
-  const k = t.dataset.k;
-  if (k && confirm("Remove this company from the concalls?")) { removeEntry(k); render(); }
 });
 document.getElementById("review").addEventListener("click", e => {
   const t = e.target.dataset;
@@ -582,7 +602,6 @@ window.addEventListener("dragover", e => e.preventDefault());
 window.addEventListener("drop", e => { e.preventDefault(); depth = 0; drop.classList.remove("on"); if (ADMIN) addFiles(e.dataTransfer.files); });
 
 render();
-openFromHash();
 </script>
 </body>
 </html>
