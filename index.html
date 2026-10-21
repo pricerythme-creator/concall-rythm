@@ -40,12 +40,25 @@
   .top::after { content:""; position:absolute; left:0; right:0; bottom:0; height:4px; background:linear-gradient(90deg,var(--green),var(--blue)); }
   .tools { border-top:none; padding-top:4px; }
 
-  .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:18px; }
-  .card { --tc:#64748b; --tbg:#f1f5f9; background:#fff; border:1px solid var(--line); border-top:4px solid var(--tc); border-radius:12px; padding:14px 16px 12px; font-size:13px; line-height:1.45; display:flex; flex-direction:column; box-shadow:0 2px 8px rgba(17,24,39,.04); transition:box-shadow .15s, transform .15s; }
+  .grid { display:flex; flex-direction:column; gap:20px; }
+  .card { --tc:#64748b; --tbg:#f1f5f9; background:#fff; border:1px solid var(--line); border-top:4px solid var(--tc); border-radius:12px; padding:18px 22px 14px; font-size:14px; line-height:1.45; display:flex; flex-direction:column; box-shadow:0 2px 8px rgba(17,24,39,.04); transition:box-shadow .15s, transform .15s; }
   .card.t-pos { --tc:#009245; --tbg:#e6f6ec; }
   .card.t-neu { --tc:#0071bc; --tbg:#e8f2fa; }
   .card.t-cau { --tc:#d64545; --tbg:#fdecec; }
-  .card:hover { box-shadow:0 10px 24px rgba(17,24,39,.10); transform:translateY(-2px); }
+  .card:hover { box-shadow:0 8px 20px rgba(17,24,39,.08); }
+  .card .name { font-size:19px; margin:8px 0 14px; }
+  .card .sec:first-of-type { margin-top:14px; }
+  .card { scroll-margin-top:12px; }
+  .detail { display:none; }
+  .card.open .detail { display:block; }
+  .toggle { display:flex; align-items:center; justify-content:center; gap:6px; width:100%; margin-top:14px; padding:7px 10px; font:inherit; font-size:12px; font-weight:600; color:var(--blue); background:#f3f8fc; border:1px dashed #b9d6ec; border-radius:8px; cursor:pointer; }
+  .toggle:hover { background:#e8f2fa; }
+  .toggle .ar { display:inline-block; transition:transform .15s; }
+  .card.open .toggle .ar { transform:rotate(180deg); }
+  .card.open .toggle { margin-top:16px; }
+  #expandall { font-size:12px; padding:5px 10px; border:1px solid #cfd5dd; border-radius:6px; background:#fff; color:#444; cursor:pointer; }
+  #expandall:hover { border-color:var(--blue); color:var(--blue); }
+  .rightTools { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
   .chead { display:flex; justify-content:space-between; align-items:center; gap:8px; }
   .meta { font-size:11px; color:var(--muted); display:flex; align-items:center; gap:8px; }
   .basis { font-size:10px; font-weight:600; padding:1px 8px; border-radius:10px; color:#6d28d9; background:#f1ebfe; }
@@ -67,6 +80,26 @@
   .kv dd { margin:0; }
   .risk { margin-top:auto; background:#fff5f5; border-left:3px solid #d64545; border-radius:6px; padding:7px 10px; color:#7a2e2e; }
   .risk b { display:block; font-size:10px; letter-spacing:.5px; text-transform:uppercase; color:var(--down); margin-bottom:2px; }
+  .tk li b, .sec li b { font-weight:600; color:var(--ink); }
+  .st { font-size:11px; font-weight:600; padding:1px 8px; border-radius:10px; white-space:nowrap; background:#f1f5f9; color:#475569; }
+  .st-delivered { background:#e6f6ec; color:#007a3a; } .st-pending { background:#fff4e0; color:#b45309; }
+  .st-revised { background:#e8f2fa; color:#0071bc; } .st-notmentioned { background:#fdecec; color:#c62828; } .st-new { background:#f1ebfe; color:#6d28d9; }
+
+  .sec { margin:18px 0 0; }
+  .sec h3 { font-family:Poppins,Inter,"Segoe UI",Arial,sans-serif; font-size:14px; font-weight:600; margin:0 0 8px; padding-left:10px; border-left:4px solid var(--sc); }
+  .sec.s-key { --sc:var(--green); } .sec.s-rev { --sc:#d97706; } .sec.s-pipe { --sc:#0f766e; } .sec.s-prof { --sc:#be185d; } .sec.s-com { --sc:#6d28d9; } .sec.s-old { --sc:#64748b; }
+  .sec ul { margin:0; padding-left:20px; }
+  .sec li { margin-bottom:6px; }
+  .tablewrap { overflow-x:auto; border:1px solid var(--line); border-radius:8px; }
+  table.com { border-collapse:collapse; width:100%; font-size:13px; }
+  table.com th { text-align:left; font-weight:600; background:#f6f3fe; color:#4c1d95; padding:8px 10px; border-bottom:1px solid var(--line); white-space:nowrap; }
+  table.com td { padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  table.com tr:last-child td { border-bottom:none; }
+  table.com td:first-child { font-weight:500; min-width:130px; }
+  table.com td:last-child { white-space:nowrap; color:#4b5563; }
+  .srcline { margin-top:14px; font-size:11px; color:var(--muted); }
+  .form textarea { width:100%; font:inherit; font-size:13px; padding:5px 6px; border:1px solid #bbb; border-radius:3px; resize:vertical; }
+  .form textarea.flag { background:var(--flag); border-color:#d9a400; }
   .cfoot { display:flex; justify-content:flex-end; gap:4px; margin-top:6px; }
   .edit, .del { border:none; background:none; color:#aaa; font-size:14px; padding:0 4px; cursor:pointer; }
   .edit:hover { color:var(--blue); } .del:hover { color:var(--down); }
@@ -97,7 +130,8 @@
   .form input.flag { background:var(--flag); border-color:#d9a400; }
   .problems { color:var(--down); font-size:12px; margin:8px 0 0; }
   .itembtns { display:flex; gap:8px; margin-top:12px; }
-  @media (max-width:640px) { h1 { font-size:21px; } .item, .form .r3, .form .r2 { grid-template-columns:1fr; } .searchwrap { width:100%; } }
+  @media (max-width:640px) { h1 { font-size:21px; } .item, .form .r3, .form .r2 { grid-template-columns:1fr; } .searchwrap { width:100%; }
+    .card { padding:16px 14px 12px; } .card .name { font-size:17px; } table.com td:last-child { white-space:normal; } }
 </style>
 </head>
 <body>
@@ -124,9 +158,10 @@
       <input type="search" id="search" class="search" placeholder="Search By Company Name" autocomplete="off">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
     </div>
+    <div class="rightTools"><button id="expandall" type="button">Expand all</button>
     <label class="sortby">Sort By
       <select id="sortby"><option value="latest">Latest</option><option value="name">Name</option></select>
-    </label>
+    </label></div>
   </div>
   <div class="basisline" id="basisline"></div>
   <div class="grid" id="grid"></div>
@@ -148,9 +183,22 @@ const ADMIN = /[?&]admin\b/i.test(location.search);
 if (ADMIN) document.body.classList.add("admin");
 let quarter = null, search = "", sortBy = "latest";
 let queue = [];
+const opened = new Set();   // keys of concalls shown in full
+const slug = s => String(s || "").toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 
 const TONES = { positive:["Positive","pos"], neutral:["Neutral","neu"], cautious:["Cautious","cau"] };
+// Older locks had these one-line fields; still shown when present.
 const KV = [["margin","Margins"],["capex","Capex"],["orderbook","Order book"]];
+const SECTIONS = [
+  ["takeaways", "KEY_TAKEAWAY", "Key Takeaways", "key", 5],
+  ["revenue",   "REVENUE",      "Revenue Growth & Composition", "rev", 5],
+  ["profit",    "PROFIT",       "Profitability & Balance Sheet", "prof", 5],
+  ["pipeline",  "PIPELINE",     "Investment & Pipeline", "pipe", 6]
+];
+const COM_MAX = 12;
+// Status values the prompt may give a commitment row.
+const stClass = s => "st-" + String(s || "").toLowerCase().replace(/[^a-z]/g, "");
+const tracked = cs => cs.some(c => c.st && !/^not tracked$/i.test(c.st));
 
 // ---------- data ----------
 const keyOf = d => `${d.name}|${d.q}`.toLowerCase();
@@ -190,21 +238,44 @@ function dateVal(s) {
 // ---------- grid ----------
 const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
 const toneOf = t => TONES[String(t || "").toLowerCase()] || null;
+const list = a => (a || []).filter(Boolean);
+// "Headline: text" -> bold headline. Only when the part before ": " is short.
+function point(s) {
+  const m = /^([^:]{2,60}):\s+([\s\S]+)$/.exec(String(s || ""));
+  return m && m[1].trim().split(/\s+/).length <= 8 ? `<b>${esc(m[1].trim())}:</b> ${esc(m[2])}` : esc(s);
+}
+const coms = d => (d.commitments || []).filter(c => c && (c.c || c.s || c.t));
 
 function card(d) {
   const t = toneOf(d.tone);
-  const tks = (d.takeaways || []).filter(Boolean);
-  const kv = KV.filter(([k]) => d[k]).map(([k, l]) => `<dt class="k-${k}">${l}</dt><dd>${esc(d[k])}</dd>`).join("");
-  return `<div class="card${t ? " t-" + t[1] : ""}">
+  const sec = ([f, , title, cls]) => {
+    const pts = list(d[f]);
+    return pts.length ? `<div class="sec s-${cls}"><h3>${title}</h3><ul>${pts.map(x => `<li>${point(x)}</li>`).join("")}</ul></div>` : "";
+  };
+  const head = sec(SECTIONS[0]), rest = SECTIONS.slice(1).map(sec).join("");
+  const kv = KV.filter(([k]) => d[k]).map(([k, l]) => `<li><b>${l}:</b> ${esc(d[k])}</li>`).join("");
+  const cs = coms(d), tr = tracked(cs);
+  const table = cs.length ? `<div class="sec s-com"><h3>Guidance & Commitments</h3><div class="tablewrap"><table class="com">
+      <thead><tr><th>Commitment</th><th>Specifics</th><th>Timeline</th>${tr ? "<th>Status</th>" : ""}</tr></thead>
+      <tbody>${cs.map(c => `<tr><td>${esc(c.c)}</td><td>${esc(c.s)}</td><td>${esc(c.t || "No date")}</td>${tr ? `<td>${c.st ? `<span class="st ${stClass(c.st)}">${esc(c.st)}</span>` : ""}</td>` : ""}</tr>`).join("")}</tbody></table></div></div>` : "";
+  const k = keyOf(d);
+  const more = rest || kv || table || d.risks;
+  return `<div class="card${t ? " t-" + t[1] : ""}${opened.has(k) ? " open" : ""}" id="${esc(slug(d.name))}" data-key="${esc(k)}">
     <div class="chead">
-      <div class="meta"><span>${esc(d.date)}</span><span class="basis">Concall</span></div>
+      <div class="meta"><span>${esc(d.date)}</span><span class="basis">Concall</span><span>${esc(d.q)}</span></div>
       ${t ? `<span class="badge ${t[1]}" title="Management tone">${t[0]}</span>` : ""}
     </div>
     <div class="name">${esc(d.name)}</div>
     ${d.guidance ? `<div class="guid"><div class="lab">Guidance</div>${esc(d.guidance)}</div>` : ""}
-    ${tks.length ? `<div class="lab tk-lab">Key takeaways</div><ul class="tk">${tks.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
-    ${kv ? `<dl class="kv">${kv}</dl>` : ""}
-    ${d.risks ? `<div class="risk"><b>Risks</b>${esc(d.risks)}</div>` : ""}
+    ${head}
+    ${more ? `<div class="detail">
+      ${rest}
+      ${kv ? `<div class="sec s-old"><h3>Margins, Capex & Order book</h3><ul>${kv}</ul></div>` : ""}
+      ${table}
+      ${d.risks ? `<div class="risk" style="margin-top:16px"><b>Risks</b>${esc(d.risks)}</div>` : ""}
+      ${d.source ? `<div class="srcline"><b>Source:</b> ${esc(d.source)}</div>` : ""}
+    </div>
+    <button class="toggle" type="button" data-t="1"><span class="tl">${opened.has(k) ? "Hide full concall" : "Show full concall"}</span><span class="ar">▾</span></button>` : ""}
     <div class="cfoot admin-only"><button class="edit" data-e="${esc(keyOf(d))}" title="Edit">✎</button><button class="del" data-k="${esc(keyOf(d))}" title="Remove">×</button></div>
   </div>`;
 }
@@ -219,28 +290,65 @@ function render() {
   document.getElementById("qtitle").textContent = quarter ? " - " + quarter.replace(/FY(\d{2})$/, "FY20$1") : "";
 
   const term = search.trim().toLowerCase();
-  const list = data.filter(d => d.q === quarter && (!term || d.name.toLowerCase().includes(term)));
+  const rows = data.filter(d => d.q === quarter && (!term || d.name.toLowerCase().includes(term)));
   const idx = new Map(data.map((d, i) => [d, i]));
-  if (sortBy === "name") list.sort((x, y) => x.name.localeCompare(y.name, "en", { sensitivity: "base" }));
-  else list.sort((x, y) => (dateVal(y.date) - dateVal(x.date)) || (idx.get(y) - idx.get(x)));
+  if (sortBy === "name") rows.sort((x, y) => x.name.localeCompare(y.name, "en", { sensitivity: "base" }));
+  else rows.sort((x, y) => (dateVal(y.date) - dateVal(x.date)) || (idx.get(y) - idx.get(x)));
 
   const what = term ? "Search results" : `All companies with ${quarter || ""} concalls`;
   const how = sortBy === "name" ? "sorted by name (A–Z)" : "sorted by latest call date";
-  document.getElementById("basisline").textContent = quarter ? `${what} (${list.length}), ${how}.` : "";
-  document.getElementById("grid").innerHTML = list.length ? list.map(card).join("")
+  document.getElementById("basisline").textContent = quarter ? `${what} (${rows.length}), ${how}.` : "";
+  document.getElementById("grid").innerHTML = rows.length ? rows.map(card).join("")
     : `<div class="empty">${term ? "No company matches “" + esc(search.trim()) + "”." : "No concalls added yet."}</div>`;
+  syncExpandAll();
+}
+function syncExpandAll() {
+  const cards = [...document.querySelectorAll("#grid .card .toggle")].map(b => b.closest(".card"));
+  const btn = document.getElementById("expandall");
+  btn.style.display = cards.length ? "" : "none";
+  btn.textContent = cards.length && cards.every(c => c.classList.contains("open")) ? "Collapse all" : "Expand all";
+}
+function setOpen(c, on) {
+  c.classList.toggle("open", on);
+  const k = c.dataset.key; on ? opened.add(k) : opened.delete(k);
+  const l = c.querySelector(".tl"); if (l) l.textContent = on ? "Hide full concall" : "Show full concall";
+}
+// Link with #company-name opens that concall and scrolls to it.
+function openFromHash() {
+  const h = decodeURIComponent(location.hash.slice(1));
+  if (!h) return;
+  const d = allData().find(x => slug(x.name) === slug(h));
+  if (!d) return;
+  opened.add(keyOf(d));
+  if (d.q !== quarter) quarter = d.q;
+  search = ""; document.getElementById("search").value = "";
+  render();
+  const c = document.getElementById(slug(d.name));
+  if (c) c.scrollIntoView({ block: "start" });
 }
 
 // ---------- reading concall lock text ----------
-const FIELDS = ["COMPANY_NAME","QUARTER_INFO","CALL_DATE","TONE","GUIDANCE","TAKEAWAY_1","TAKEAWAY_2","TAKEAWAY_3","TAKEAWAY_4",
-  "MARGIN_OUTLOOK","CAPEX","ORDER_BOOK","RISKS","SOURCE","FINAL CONCALL LOCK STATUS"];
+const FIELDS = ["COMPANY_NAME","QUARTER_INFO","CALL_DATE","TONE","GUIDANCE","MARGIN_OUTLOOK","CAPEX","ORDER_BOOK","RISKS","SOURCE","FINAL CONCALL LOCK STATUS"];
+const NUMBERED = "(?:KEY_TAKEAWAY|TAKEAWAY|REVENUE|PROFIT|PIPELINE|COMMITMENT)_\\d{1,2}";
+const HEADS = /\s*\[(KEY TAKEAWAYS|REVENUE GROWTH & COMPOSITION|PROFITABILITY & BALANCE SHEET|INVESTMENT & PIPELINE|GUIDANCE & COMMITMENTS)\]\s*/gi;
 // Pasted output can lose its line breaks. Put every field back on its own line.
 function normalizeLock(text) {
-  const re = new RegExp("\\s*\\b(" + FIELDS.join("|") + ")\\s*:", "g");
-  return String(text || "").replace(/\r/g, "").replace(/\*\*/g, "").replace(re, "\n$1:")
+  const re = new RegExp("\\s*\\b(" + FIELDS.join("|") + "|" + NUMBERED + ")\\s*:", "g");
+  return String(text || "").replace(/\r/g, "").replace(/\*\*/g, "").replace(HEADS, "\n[$1]\n").replace(re, "\n$1:")
     .replace(/\s*(END VERIFIED CONCALL LOCK)/g, "\n$1");
 }
 const nd = v => /^(n\/?d|none|nil|na|n\/a|not discussed|-|–)$/i.test(String(v || "").trim()) ? "" : String(v || "").trim();
+// All numbered lines for one prefix (e.g. REVENUE_1, REVENUE_2…), in number order.
+function numbered(b, prefix) {
+  const re = new RegExp("^[\\s*>-]*" + prefix + "_(\\d{1,2})\\s*:\\s*(.*)$", "gmi");
+  const got = []; let m;
+  while ((m = re.exec(b))) got.push([+m[1], nd(m[2])]);
+  return got.sort((a, z) => a[0] - z[0]).map(x => x[1]).filter(Boolean);
+}
+function parseCom(s) {
+  const p = String(s || "").split("|").map(x => x.trim());
+  return { c: p[0] || "", s: p[1] || "", t: p[2] || "", st: p.slice(3).join(" | ") || "" };
+}
 function parseLocks(text) {
   text = normalizeLock(text);
   const out = [];
@@ -253,11 +361,14 @@ function parseLocks(text) {
     const b = m[0];
     const field = n => { const r = new RegExp("^[\\s*>-]*" + n + "\\s*:\\s*(.*)$", "mi").exec(b); return r ? r[1].trim() : ""; };
     const problems = [];
+    let tks = numbered(b, "KEY_TAKEAWAY");
+    if (!tks.length) tks = numbered(b, "TAKEAWAY");   // older lock format
     const d = {
       name: field("COMPANY_NAME"), q: normQ(field("QUARTER_INFO")), date: nd(field("CALL_DATE")),
       tone: (toneOf(field("TONE").split(/[\s|]/)[0]) || [""])[0],
       guidance: nd(field("GUIDANCE")),
-      takeaways: [1, 2, 3, 4].map(i => nd(field("TAKEAWAY_" + i))),
+      takeaways: tks, revenue: numbered(b, "REVENUE"), profit: numbered(b, "PROFIT"), pipeline: numbered(b, "PIPELINE"),
+      commitments: numbered(b, "COMMITMENT").map(parseCom),
       margin: nd(field("MARGIN_OUTLOOK")), capex: nd(field("CAPEX")), orderbook: nd(field("ORDER_BOOK")),
       risks: nd(field("RISKS")), source: nd(field("SOURCE"))
     };
@@ -265,6 +376,7 @@ function parseLocks(text) {
     if (!d.q) problems.push("Quarter not found");
     if (!d.tone) problems.push("Tone not found (expected Positive, Neutral or Cautious)");
     if (!/FINAL CONCALL LOCK STATUS:\s*VERIFIED/i.test(b)) problems.push("Lock is not marked VERIFIED (output may be cut off)");
+    d.commitments.forEach((c, i) => { if (!c.s || !c.t) problems.push(`Commitment ${i + 1} is not in "Commitment | Specifics | Timeline | Status" form`); });
     out.push({ data: d, problems });
   }
   return out;
@@ -282,8 +394,9 @@ function addFiles(files) {
 }
 
 // ---------- review / edit ----------
-const WORDS = 20;  // takeaway word limit; longer ones are highlighted
+const WORDS = 42;  // headline (6) + text (35) with a little slack; longer points are flagged
 const wc = s => String(s || "").trim().split(/\s+/).filter(Boolean).length;
+const lines = s => String(s || "").split("\n").map(x => nd(x)).filter(Boolean);
 function reviewItem(q) {
   const side = q.kind === "edit"
     ? `<div class="audit"><b>Editing:</b> ${esc(q.data.name)}<br>Change any field and click Save changes.</div>`
@@ -292,7 +405,12 @@ function reviewItem(q) {
     return `<div class="item"><div>${side}</div><div><p class="problems">${esc(q.error)}</p><div class="itembtns"><button data-skip="${q.id}">Remove</button></div></div></div>`;
   const d = q.data;
   const inp = (f, v, lab, ph) => `<div><label>${lab}</label><input type="text" data-f="${f}" value="${esc(v)}"${ph ? ` placeholder="${ph}"` : ""}></div>`;
-  const tk = (i) => `<div class="r"><div><label>Takeaway ${i + 1}</label><input type="text" data-f="tk${i}" value="${esc(d.takeaways[i] || "")}"${wc(d.takeaways[i]) > WORDS ? ` class="flag" title="More than ${WORDS} words"` : ""}></div></div>`;
+  const area = (f, arr, lab, max) => {
+    const a = list(arr), long = a.some(x => wc(x) > WORDS);
+    return `<div class="r"><div><label>${lab} — one point per line (max ${max})</label><textarea data-f="${f}" rows="${Math.max(3, a.length + 1)}"${long ? ` class="flag" title="A point is longer than ${WORDS} words"` : ""}>${esc(a.join("\n"))}</textarea></div></div>`;
+  };
+  const comText = coms(d).map(c => [c.c, c.s, c.t].concat(c.st ? [c.st] : []).join(" | ")).join("\n");
+  const legacy = d.margin || d.capex || d.orderbook;
   return `<div class="item" data-id="${q.id}"><div>${side}</div><div class="form">
     <div class="r r3">
       ${inp("name", d.name, "Company name")}
@@ -301,9 +419,11 @@ function reviewItem(q) {
     </div>
     <div class="r r2">${inp("date", d.date, "Call date", "16 Oct 2026")}<div></div></div>
     <div class="r">${inp("guidance", d.guidance, "Guidance")}</div>
-    ${[0, 1, 2, 3].map(tk).join("")}
-    <div class="r r2">${inp("margin", d.margin, "Margins")}${inp("capex", d.capex, "Capex")}</div>
-    <div class="r r2">${inp("orderbook", d.orderbook, "Order book")}${inp("risks", d.risks, "Risks")}</div>
+    ${SECTIONS.map(([f, , title, , max]) => area(f, d[f], title, max)).join("")}
+    <div class="r"><div><label>Guidance & Commitments — one row per line: Commitment | Specifics | Timeline | Status (max ${COM_MAX})</label><textarea data-f="commitments" rows="${Math.max(3, coms(d).length + 1)}">${esc(comText)}</textarea></div></div>
+    ${legacy ? `<div class="r r2">${inp("margin", d.margin, "Margins (old format)")}${inp("capex", d.capex, "Capex (old format)")}</div>
+    <div class="r r2">${inp("orderbook", d.orderbook, "Order book (old format)")}<div></div></div>` : ""}
+    <div class="r">${inp("risks", d.risks, "Risks")}</div>
     ${q.problems && q.problems.length ? `<p class="problems">${q.problems.map(esc).join("<br>")}</p>` : ""}
     <div class="itembtns"><button class="primary" data-add="${q.id}">${q.kind === "edit" ? "Save changes" : "Add to concalls"}</button><button data-skip="${q.id}">${q.kind === "edit" ? "Cancel" : "Skip"}</button></div>
   </div></div>`;
@@ -316,11 +436,14 @@ function renderReview() {
     ${queue.map(reviewItem).join("")}</div>`;
 }
 function readItem(el, it) {
-  const get = f => el.querySelector(`[data-f="${f}"]`).value.trim();
-  return { name: get("name"), q: normQ(get("q")), date: get("date"), tone: get("tone"),
-    guidance: nd(get("guidance")), takeaways: [0, 1, 2, 3].map(i => nd(get("tk" + i))),
-    margin: nd(get("margin")), capex: nd(get("capex")), orderbook: nd(get("orderbook")), risks: nd(get("risks")),
-    source: it && it.data ? it.data.source || "" : "" };
+  const get = f => { const x = el.querySelector(`[data-f="${f}"]`); return x ? x.value.trim() : ""; };
+  const d = { name: get("name"), q: normQ(get("q")), date: get("date"), tone: get("tone"), guidance: nd(get("guidance")) };
+  SECTIONS.forEach(([f, , , , max]) => { d[f] = lines(get(f)).slice(0, max); });
+  d.commitments = lines(get("commitments")).slice(0, COM_MAX).map(parseCom);
+  d.margin = nd(get("margin")); d.capex = nd(get("capex")); d.orderbook = nd(get("orderbook"));
+  d.risks = nd(get("risks"));
+  d.source = it && it.data ? it.data.source || "" : "";
+  return d;
 }
 function addFromReview(id) {
   const el = document.querySelector(`.item[data-id="${id}"]`);
@@ -342,8 +465,7 @@ function startEdit(k) {
   const d = allData().find(x => keyOf(x) === k);
   if (!d) return;
   queue = queue.filter(x => !(x.kind === "edit" && x.oldKey === k));
-  queue.unshift({ id: Math.random().toString(36).slice(2), kind: "edit", status: "ready", oldKey: k, problems: [],
-    data: Object.assign({}, d, { takeaways: (d.takeaways || []).concat(["", "", "", ""]).slice(0, 4) }) });
+  queue.unshift({ id: Math.random().toString(36).slice(2), kind: "edit", status: "ready", oldKey: k, problems: [], data: Object.assign({}, d) });
   renderReview();
   document.getElementById("review").scrollIntoView({ behavior: "smooth" });
 }
@@ -354,8 +476,9 @@ function saveFile() {
   const text = "// Concall Rythm data. Saved from the page with \"Save data file\".\n" +
     "window.CONCALL_DATA = [\n" + data.map(d => {
       const o = { name: d.name, q: d.q, date: d.date, tone: d.tone, guidance: d.guidance,
-        takeaways: (d.takeaways || []).filter(Boolean), margin: d.margin, capex: d.capex,
-        orderbook: d.orderbook, risks: d.risks, source: d.source };
+        takeaways: list(d.takeaways), revenue: list(d.revenue), profit: list(d.profit), pipeline: list(d.pipeline), commitments: coms(d) };
+      ["margin", "capex", "orderbook"].forEach(k => { if (d[k]) o[k] = d[k]; });
+      o.risks = d.risks; o.source = d.source;
       return "  " + JSON.stringify(o);
     }).join(",\n") + "\n];\n";
   const a = document.createElement("a");
@@ -366,6 +489,12 @@ function saveFile() {
 }
 
 // ---------- events ----------
+document.getElementById("expandall").addEventListener("click", () => {
+  const cards = [...document.querySelectorAll("#grid .card .toggle")].map(b => b.closest(".card"));
+  const on = !cards.every(c => c.classList.contains("open"));
+  cards.forEach(c => setOpen(c, on)); syncExpandAll();
+});
+window.addEventListener("hashchange", openFromHash);
 document.getElementById("sortby").addEventListener("change", e => { sortBy = e.target.value; render(); });
 document.getElementById("search").addEventListener("input", e => { search = e.target.value; render(); });
 document.getElementById("quarter").addEventListener("change", e => { quarter = e.target.value; render(); });
@@ -378,8 +507,12 @@ document.getElementById("lockread").addEventListener("click", () => {
   if (addLockText(locktext.value)) { lockbox.hidden = true; locktext.value = ""; }
 });
 document.getElementById("grid").addEventListener("click", e => {
-  if (e.target.dataset.e) { startEdit(e.target.dataset.e); return; }
-  const k = e.target.dataset.k;
+  const t = e.target.closest("button");
+  if (!t) return;
+  if (t.dataset.t) { const c = t.closest(".card"); const on = !c.classList.contains("open"); setOpen(c, on);
+    if (!on && c.getBoundingClientRect().top < 0) c.scrollIntoView({ block: "start" }); syncExpandAll(); return; }
+  if (t.dataset.e) { startEdit(t.dataset.e); return; }
+  const k = t.dataset.k;
   if (k && confirm("Remove this company from the concalls?")) { removeEntry(k); render(); }
 });
 document.getElementById("review").addEventListener("click", e => {
@@ -395,6 +528,7 @@ window.addEventListener("dragover", e => e.preventDefault());
 window.addEventListener("drop", e => { e.preventDefault(); depth = 0; drop.classList.remove("on"); if (ADMIN) addFiles(e.dataTransfer.files); });
 
 render();
+openFromHash();
 </script>
 </body>
 </html>
