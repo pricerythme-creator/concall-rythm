@@ -102,6 +102,15 @@
   .tvn .mm { display:inline-block; margin-top:6px; font-size:12px; font-weight:600; padding:2px 9px; border-radius:10px; background:#fdecec; color:#c62828; }
   .tvn .mm.good { background:#e6f6ec; color:#007a3a; }
   .sec.s-dil { --sc:#c62828; }
+  .obx { margin:14px 0 0; border:1px solid #fbd5a8; border-left:4px solid #e8861a; border-radius:10px; padding:9px 12px; background:#fff3e3; font-size:13px; }
+  .obx .lab { color:#9a4f00; }
+  .obx table { border-collapse:collapse; width:100%; }
+  .obx td { padding:4px 0; vertical-align:top; border-bottom:1px dashed #f6d9b5; }
+  .obx tr:last-child td { border-bottom:none; }
+  .obx td:first-child { width:150px; color:#6b7280; font-size:12px; padding-right:10px; }
+  .obx .up { color:#007a3a; font-weight:600; } .obx .dn { color:#c62828; font-weight:600; }
+  .obx ul { margin:2px 0 0; padding-left:18px; }
+  .obx.cpx { border-color:#cde89a; border-left-color:#65a30d; background:#f2fbdc; } .obx.cpx .lab { color:#3f6212; } .obx.cpx td { border-bottom-color:#dcefb8; }
   .dtype { font-size:11px; font-weight:700; padding:1px 8px; border-radius:10px; background:#fdecec; color:#c62828; margin-right:6px; white-space:nowrap; }
   .credsum { font-size:12px; color:#374151; padding:10px 14px 12px; margin:0; border-top:1px solid var(--line); line-height:1.6; }
   .credsum b { font-family:Poppins,Inter,sans-serif; }
@@ -363,7 +372,8 @@ const COM_MAX = 12;
 const MET_MAX = 20;
 // "Metric | Value" rows.
 function parseMet(s) { const p = String(s || "").split("|").map(x => x.trim()); return { m: p[0] || "", v: p.slice(1).join(" | ") || "" }; }
-const mets = d => (d.metrics || []).filter(x => x && (x.m || x.v));
+const tp = v => String(v == null ? "" : v).replace(/\s*\|\s*$/, "");
+const mets = d => (d.metrics || []).filter(x => x && (x.m || x.v)).map(x => ({ m: tp(x.m), v: tp(x.v) }));
 // Status values the prompt may give a commitment row.
 const stClass = s => "st-" + String(s || "").toLowerCase().replace(/[^a-z]/g, "");
 const tracked = cs => cs.some(c => c.st && !/^not tracked$/i.test(c.st));
@@ -414,7 +424,7 @@ function point(s) {
   const m = /^\[?([^:\]]{2,60}?)\]?\s*:\s+([\s\S]+)$/.exec(String(s || ""));
   return m && m[1].trim().split(/\s+/).length <= 8 ? `<b>${esc(m[1].trim())}:</b> ${esc(m[2])}` : esc(s);
 }
-const coms = d => (d.commitments || []).filter(c => c && (c.c || c.s || c.t));
+const coms = d => (d.commitments || []).filter(c => c && (c.c || c.s || c.t)).map(c => ({ c: tp(c.c), s: tp(c.s), t: tp(c.t), st: tp(c.st) }));
 
 // ---------- routing: "#" = list, "#company" = latest concall, "#company/q2-fy27" = that quarter ----------
 function route() {
@@ -548,6 +558,113 @@ const ytdLine = y => !y ? "" : [y.st, y.act, y.ev].join(" | ");
 // 5. Dilution & balance-sheet warnings.
 function parseDil(s) { const p = String(s || "").split("|").map(x => x.trim()); return { t: p[0] || "", x: p.slice(1).join(" | ") }; }
 const dils = d => (d.dilution || []).filter(x => x && (x.t || x.x));
+// ---------- Order book (Section I) ----------
+const pipes = s => String(s || "").split("|").map(x => x.trim());
+function readOrder(field, b) {
+  const bk = pipes(field("ORDER_BOOK")), inf = pipes(field("ORDER_INFLOW")), base = pipes(field("ORDER_REVENUE_BASE"));
+  if (!/\|/.test(field("ORDER_BOOK"))) bk.length = Math.min(bk.length, 1);   // old one-line format
+  const o = {
+    book: nd(bk[0]) ? { v: bk[0], asof: nd(bk[1]), cmp: nd(bk.slice(2).join(" | ")) } : null,
+    inflow: nd(inf[0]) || nd(inf[1]) ? { per: nd(inf[0]), v: nd(inf[1]), cmp: nd(inf.slice(2).join(" | ")) } : null,
+    exec: nd(field("ORDER_EXECUTION")), pipe: nd(field("ORDER_PIPELINE")),
+    base: nd(base[0]) && nd(base[1]) ? { per: base[0], v: base[1] } : null,
+    wins: numbered(b, "ORDER_WIN").map(x => { const q = pipes(x); return { who: q[0] || "", v: nd(q[1]), t: nd(q.slice(2).join(" | ")) }; })
+  };
+  return o.book || o.inflow || o.wins.length || o.pipe ? o : null;
+}
+// Cards made before Section I: take the order book / inflow from the Key Metrics table, where the prompt has always put it.
+const OB_ROW = /order\s*(book|backlog)|unexecuted\s*order|orders?\s*in\s*hand|outstanding\s*orders?/i;
+const OI_ROW = /order\s*(inflow|intake)|orders?\s*(received|won|booked)|new\s*orders?|\btcv\b|deal\s*wins?/i;
+function metricOrder(d) {
+  const ms = (d.metrics || []).map(x => ({ m: String(x.m || ""), v: String(x.v || "").replace(/\s*\|\s*$/, "") }));
+  const bk = ms.find(x => OB_ROW.test(x.m) && !OI_ROW.test(x.m)), inf = ms.find(x => OI_ROW.test(x.m));
+  if (!bk && !inf) return null;
+  // "INR4,800 crores, +25% YoY" → amount | comparison (a comma inside a number is not a split point)
+  const split = v => { const m = /,\s+(?=\D)/.exec(v); return m ? [v.slice(0, m.index).trim(), v.slice(m.index + m[0].length).trim()] : [v.trim(), ""]; };
+  const asOf = m => { const r = /\(([^)]*)\)/.exec(m) || /(?:as\s*(?:of|on)|at)\s+(.+)$/i.exec(m); return r ? r[1].trim() : null; };
+  return { book: bk ? { v: split(bk.v)[0], asof: asOf(bk.m), cmp: split(bk.v)[1] || null } : null,
+    inflow: inf ? { per: inf.m.replace(OI_ROW, "").replace(/[()]/g, "").trim() || null, v: split(inf.v)[0], cmp: split(inf.v)[1] || null } : null,
+    exec: null, pipe: null, base: null, wins: [], fromMetrics: true };
+}
+// The order data a card has: Section I, else the old one-line field, else its Key Metrics rows.
+const ord = d => d.order || (d.orderbook ? { book: { v: d.orderbook, asof: null, cmp: null }, inflow: null, exec: null, pipe: null, base: null, wins: [] } : metricOrder(d));
+// Order book in ₹ cr
+const obCr = d => { const o = ord(d); return o && o.book ? amtCr(o.book.v) : null; };
+const obText = d => { const o = ord(d); return o && o.book ? o.book.v : ""; };
+// Last full-year revenue to compare with: Section I base, else GUIDANCE_BASE for a revenue metric, else the projection's base year.
+function obBase(d) {
+  const o = ord(d);
+  if (o && o.base && amtCr(o.base.v) && !/\b(H1|H2|Q[1-4]|9M|half)\b/i.test(o.base.per || "")) return { per: o.base.per, v: amtCr(o.base.v) };
+  // only a full financial year can be compared with an order book (not H1, 9M or a quarter)
+  const fullYear = per => /^\s*FY\s*'?\d{2,4}\b/i.test(per || "") && !/\b(H1|H2|Q[1-4]|9M|half)\b/i.test(per || "");
+  if (d.gbase && d.gchange && isRevMetric(d.gchange.m) && fullYear(d.gbase.per) && amtCr(d.gbase.val)) return { per: d.gbase.per, v: amtCr(d.gbase.val) };
+  const pj = typeof projFor === "function" ? projFor(d) : null;
+  return pj && pj.base && pj.base.rev ? { per: pj.base.y, v: pj.base.rev } : null;
+}
+// Order book ÷ last year's revenue = years of revenue in hand.
+function cover(d) { const ob = obCr(d), b = obBase(d); return ob != null && b && b.v > 0 ? { x: ob / b.v, per: b.per, base: b.v, ob } : null; }
+const obDown = d => !!(ord(d) && ord(d).book) && /\b(down|declin|lower|fell|decrease|dropped|reduc)/i.test(ord(d).book.cmp || "");
+function orderBox(d) {
+  const o = ord(d);
+  if (!o) return "";
+  const c = cover(d);
+  const row = (k, v) => v ? `<tr><td>${k}</td><td>${v}</td></tr>` : "";
+  return `<div class="obx"><div class="lab">Order book</div><table>
+    ${obText(d) ? row("Order book", `<b>${esc(obText(d))}</b>${o.book && o.book.asof ? ` <span class="mt">as of ${esc(o.book.asof)}</span>` : ""}${o.book && o.book.cmp ? ` · <span class="${obDown(d) ? "dn" : "up"}">${esc(o.book.cmp)}</span>` : ""}`) : ""}
+    ${row("Order book ÷ revenue", c ? `<b>${f1(c.x)}x</b> ${esc(c.per)} revenue of ₹${f0(c.base)} cr (about ${f1(c.x)} years of revenue in hand)` : "")}
+    ${row("Order inflow", o && o.inflow ? `${o.inflow.per ? esc(o.inflow.per) + ": " : ""}<b>${esc(o.inflow.v || "")}</b>${o.inflow.cmp ? ` · ${esc(o.inflow.cmp)}` : ""}` : "")}
+    ${row("Execution period", o && o.exec ? esc(o.exec) : "")}
+    ${row("Bid pipeline", o && o.pipe ? esc(o.pipe) : "")}
+  </table>
+  ${o && o.wins.length ? `<div class="lab" style="margin-top:8px">Orders named on the call</div><ul>${o.wins.map(w => `<li><b>${esc(w.who)}</b>${w.v ? ` · ${esc(w.v)}` : ""}${w.t ? ` <span class="mt">(${esc(w.t)})</span>` : ""}</li>`).join("")}</ul>` : ""}</div>`;
+}
+// ---------- Capacity & capex (Section J) ----------
+function readCap(field, b) {
+  const u = pipes(field("CAPACITY_UTILISATION")), pl = pipes(field("CAPEX_PLAN"));
+  const c = {
+    util: nd(u[0]) ? { v: u[0], scope: nd(u[1]), per: nd(u.slice(2).join(" | ")) } : null,
+    adds: numbered(b, "CAPACITY_ADD").map(x => { const q = pipes(x); return { what: q[0] || "", cap: nd(q[1]), start: nd(q[2]), capex: nd(q[3]), pot: nd(q.slice(4).join(" | ")) }; }).filter(x => x.what),
+    plan: nd(pl[0]) ? { amt: pl[0], per: nd(pl[1]), fund: nd(pl.slice(2).join(" | ")) } : null,
+    turn: nd(field("ASSET_TURN"))
+  };
+  return c.util || c.adds.length || c.plan || c.turn ? c : null;
+}
+// Older cards: utilisation and capex rows in Key Metrics, or the old one-line Capex field.
+const UT_ROW = /utili[sz]ation/i, CX_ROW = /\bcapex\b|capital\s*expenditure/i;
+function metricCap(d) {
+  const ms = (d.metrics || []).map(x => ({ m: String(x.m || ""), v: String(x.v || "").replace(/\s*\|\s*$/, "") }));
+  const u = ms.find(x => UT_ROW.test(x.m)), cx = ms.find(x => CX_ROW.test(x.m));
+  if (!u && !cx && !d.capex) return null;
+  return { util: u ? { v: u.v, scope: /^\s*(capacity\s*)?utili[sz]ation\s*$/i.test(u.m) ? null : u.m, per: null } : null, adds: [],
+    plan: cx ? { amt: cx.v, per: cx.m, fund: null } : (d.capex ? { amt: d.capex, per: null, fund: null } : null), turn: null, fromMetrics: true };
+}
+const capOf = d => d.cap || metricCap(d);
+const utilPct = d => { const c = capOf(d); const m = c && c.util ? /(\d+(?:\.\d+)?)\s*%/.exec(c.util.v) : null; return m ? parseFloat(m[1]) : null; };
+// Last full-year revenue, for comparing what new capacity can add.
+function fyRevenue(d) {
+  const fullYear = per => /^\s*FY\s*'?\d{2,4}\b/i.test(per || "") && !/\b(H1|H2|Q[1-4]|9M|half)\b/i.test(per || "");
+  if (d.gbase && d.gchange && isRevMetric(d.gchange.m) && fullYear(d.gbase.per) && amtCr(d.gbase.val)) return { per: d.gbase.per, v: amtCr(d.gbase.val) };
+  const pj = typeof projFor === "function" ? projFor(d) : null;
+  return pj && pj.base && pj.base.rev ? { per: pj.base.y, v: pj.base.rev } : null;
+}
+// Revenue potential of the new capacity, where management put a ₹ figure on it.
+function runway(d) {
+  const c = capOf(d); if (!c) return null;
+  const pots = c.adds.map(a => amtCr(a.pot)).filter(v => v != null && v > 0);
+  const pot = pots.length ? pots.reduce((x, y) => x + y, 0) : null, base = fyRevenue(d);
+  return { pot, base, pct: pot != null && base && base.v > 0 ? pot / base.v * 100 : null };
+}
+function capBox(d) {
+  const c = capOf(d); if (!c) return "";
+  const r = runway(d), row = (k, v) => v ? `<tr><td>${k}</td><td>${v}</td></tr>` : "";
+  return `<div class="obx cpx"><div class="lab">Capacity &amp; capex</div><table>
+    ${row("Utilisation", c.util ? `<b>${esc(c.util.v)}</b>${c.util.scope ? ` <span class="mt">${esc(c.util.scope)}</span>` : ""}${c.util.per ? ` <span class="mt">(${esc(c.util.per)})</span>` : ""}` : "")}
+    ${row("Capex plan", c.plan ? `<b>${esc(c.plan.amt)}</b>${c.plan.per ? ` · ${esc(c.plan.per)}` : ""}${c.plan.fund ? ` · ${esc(c.plan.fund)}` : ""}` : "")}
+    ${row("Asset turn", c.turn ? esc(c.turn) : "")}
+    ${row("New capacity can add", r && r.pot != null ? `<b>₹${f0(r.pot)} cr</b> of revenue at full use${r.pct != null ? ` = <b>${f0(r.pct)}%</b> of ${esc(r.base.per)} revenue (₹${f0(r.base.v)} cr)` : ""}` : "")}
+  </table>
+  ${c.adds.length ? `<div class="lab" style="margin-top:8px">Capacity being added</div><ul>${c.adds.map(a => `<li><b>${esc(a.what)}</b>${a.cap ? ` · ${esc(a.cap)}` : ""}${a.start ? ` · from ${esc(a.start)}` : ""}${a.capex ? ` · capex ${esc(a.capex)}` : ""}${a.pot ? ` · <span class="up">revenue potential ${esc(a.pot)}</span>` : ""}</li>`).join("")}</ul>` : ""}</div>`;
+}
 
 function flagsOf(d) {
   const f = [];
@@ -560,6 +677,7 @@ function flagsOf(d) {
   const ts = toneShift(d); if (ts && !ts.up) f.push(`Tone worsened (${toneOf(ts.from.tone)[0]} → ${toneOf(d.tone)[0]})`);
   const tk = talk(d); if (tk && tk.bad) f.push(`Optimistic talk, profit ${tk.np.text}`);
   dils(d).forEach(x => f.push(x.t || "Dilution"));
+  if (obDown(d)) f.push("Order book down");
   const c = cred(d); if (c.total >= 3 && c.pct < 0.5) f.push(`Credibility ${c.k} of ${c.total} kept`);
   return f;
 }
@@ -613,7 +731,9 @@ function guided(d) {
 }
 const guidedText = d => guided(d).text;
 const guidedPct = d => guided(d).pct;
-let bullTop = 20;
+// "Show top N" per board: the choices, and what is currently picked.
+const TOP_CHOICES = { "Bullish Guidance": [20, 50], "Order Book": [50, 75], "Capacity Runway": [50, 75] };
+const topPick = { "Bullish Guidance": 20, "Order Book": 50, "Capacity Runway": 50 };
 const byYoy = (x, y) => (yoyNum(y) ?? -1e9) - (yoyNum(x) ?? -1e9);
 const yoyCell = d => { const v = yoyNum(d); return d.yoy ? `<span class="yoy ${v != null && v < 0 ? "dn" : "up"}">${esc(d.yoy)}</span>` : `<span class="cntc z">–</span>`; };
 const shiftCell = (d, down) => { const g = d.gchange; return `${g.was ? `<span class="was">${esc(g.was)}</span><span class="arr">→</span>` : ""}<span class="now${down ? " dn" : ""}">${esc(g.now || "–")}</span>`; };
@@ -623,7 +743,7 @@ const BOARDS = [
   { tab: "Bullish Guidance", title: "Bullish guidances", unit: "Guidances", sub: "The strongest guidances in the {Q} concalls, ranked by guided growth", cls: "",
     basis: "The quarter's strongest guidances, ranked by guided growth: the growth % management stated (lower end of a range), or the growth a ₹ target implies against last year's actual. Raised, maintained and new guidance all count; cut or withdrawn guidance and a Cautious tone are left out. Companies with guidance but no growth figure are listed after the ranked ones.",
     test: d => !!(d.gchange || d.guidance) && !["Cut", "Withdrawn"].includes(gch(d)) && !/^cautious$/i.test(d.tone),
-    sort: (x, y) => (guidedPct(y) ?? -1e9) - (guidedPct(x) ?? -1e9) || byYoy(x, y), top: () => bullTop, rank: true, picker: true,
+    sort: (x, y) => (guidedPct(y) ?? -1e9) - (guidedPct(x) ?? -1e9) || byYoy(x, y), top: () => topPick["Bullish Guidance"], rank: true, picker: true,
     cols: ["#", "Company", "Guidance", "Earlier", "Now", "Guided growth"],
     row: (d, i) => [`<span class="cntc z" style="color:#6b7280">${i + 1}</span>`, esc(d.name), esc(d.gchange ? d.gchange.m : "Guidance"),
       d.gchange && d.gchange.was ? `<span class="was">${esc(d.gchange.was)}</span>` : `<span class="cntc z">—</span>`,
@@ -646,6 +766,30 @@ const BOARDS = [
     cols: ["Company", "Target", "Capacity", "Orders", "Margin", "Sentiment"],
     row: d => [esc(d.name), d.decode.target ? `${esc(d.decode.target.m)}: <b>${esc(rangeText(d.decode.target))}</b>${d.decode.target.p ? ` <span class="mt">by ${esc(d.decode.target.p)}</span>` : ""}` : "–",
       ckCell(d, "capacity"), ckCell(d, "orders"), ckCell(d, "realism"), badge(d.tone)] },
+  { tab: "Order Book", title: "Order book", unit: "Companies", sub: "Orders in hand in the {Q} concalls, largest first", cls: "blue",
+    basis: "Companies that reported an order book on the call, sorted by order book size, highest first (₹ crore as stated). The × revenue column shows how many years of last year's revenue the order book covers. Order books stated in USD, or with no amount, are listed after the ranked ones.",
+    test: d => { const o = ord(d); return obCr(d) != null || !!(o && (o.book || o.inflow)); },
+    sort: (x, y) => (obCr(y) ?? -1) - (obCr(x) ?? -1) || ((cover(y) || {}).x ?? -1) - ((cover(x) || {}).x ?? -1), top: () => topPick["Order Book"], picker: true,
+    cols: ["#", "Company", "Order book", "× revenue", "Order inflow", "Execution", "Sentiment"],
+    row: (d, i) => { const c = cover(d), o = ord(d) || {};
+      return [`<span class="cntc z" style="color:#6b7280">${i + 1}</span>`, esc(d.name),
+        `<b>${esc(obText(d) || "–")}</b>${o.book && o.book.asof ? `<div class="mt" style="font-size:11px">as of ${esc(o.book.asof)}</div>` : ""}${o.book && o.book.cmp ? `<div class="${obDown(d) ? "now dn" : "now"}" style="font-size:12px">${esc(o.book.cmp)}</div>` : ""}`,
+        c ? `<span class="yoy up">${f1(c.x)}x</span><div class="mt" style="font-size:11px">${esc(c.per)} ₹${f0(c.base)} cr</div>` : `<span class="cntc z">—</span>`,
+        o.inflow ? `${esc(o.inflow.v || "")}${o.inflow.per ? `<div class="mt" style="font-size:11px">${esc(o.inflow.per)}${o.inflow.cmp ? " · " + esc(o.inflow.cmp) : ""}</div>` : ""}` : `<span class="cntc z">—</span>`,
+        o.exec ? esc(o.exec) : `<span class="cntc z">—</span>`, badge(d.tone)]; } },
+  { tab: "Capacity Runway", title: "Capacity runway", unit: "Companies", sub: "New capacity in the {Q} concalls, ranked by the revenue it can add", cls: "",
+    basis: "Companies that discussed utilisation, new capacity or capex on the call. Ranked by the revenue potential of new capacity as management stated it, as a % of last full-year revenue; then by current utilisation (fuller plants first). Companies without a stated revenue potential follow, by utilisation.",
+    test: d => !!capOf(d),
+    sort: (x, y) => ((runway(y) || {}).pct ?? -1) - ((runway(x) || {}).pct ?? -1) || ((runway(y) || {}).pot ?? -1) - ((runway(x) || {}).pot ?? -1) || (utilPct(y) ?? -1) - (utilPct(x) ?? -1),
+    top: () => topPick["Capacity Runway"], picker: true,
+    cols: ["#", "Company", "Utilisation", "New capacity", "Capex plan", "Can add", "Sentiment"],
+    row: (d, i) => { const c = capOf(d), r = runway(d), a = c.adds;
+      return [`<span class="cntc z" style="color:#6b7280">${i + 1}</span>`, esc(d.name),
+        c.util ? `<b>${esc(c.util.v)}</b>${c.util.scope ? `<div class="mt" style="font-size:11px">${esc(c.util.scope)}</div>` : ""}` : `<span class="cntc z">—</span>`,
+        a.length ? a.slice(0, 2).map(x => `<div><b>${esc(x.what)}</b>${x.start ? ` <span class="mt" style="font-size:11px">from ${esc(x.start)}</span>` : ""}</div>`).join("") + (a.length > 2 ? `<div class="mt" style="font-size:11px">+${a.length - 2} more</div>` : "") : `<span class="cntc z">—</span>`,
+        c.plan ? `${esc(c.plan.amt)}${c.plan.per ? `<div class="mt" style="font-size:11px">${esc(c.plan.per)}</div>` : ""}` : `<span class="cntc z">—</span>`,
+        r && r.pot != null ? `<span class="yoy up">₹${f0(r.pot)} cr</span>${r.pct != null ? `<div class="mt" style="font-size:11px">${f0(r.pct)}% of ${esc(r.base.per)} revenue</div>` : ""}` : `<span class="cntc z">—</span>`,
+        badge(d.tone)]; } },
   { tab: "Tone Improved", title: "Tone improved", unit: "Companies", sub: "Management sounded better than on its previous call", cls: "",
     basis: "Companies whose management sentiment improved since their previous concall (Cautious → Neutral → Optimistic). Biggest change first, then by this quarter's revenue growth YoY.",
     test: d => { const t = toneShift(d); return !!(t && t.up); }, sort: (x, y) => toneShift(y).steps - toneShift(x).steps || byYoy(x, y),
@@ -675,6 +819,8 @@ const EMPTY = {
   "Guidance Cut": "No company has cut or withdrawn guidance in this quarter so far.",
   "Strong Signals": "No company has all three Signal Check items marked Yes.",
   "Promises Kept": "No earlier commitment has been marked Delivered in this quarter so far.",
+  "Order Book": "No company has reported an order book in this quarter so far.",
+  "Capacity Runway": "No company has discussed capacity or capex in this quarter so far.",
   "Tone Improved": "No company sounded better than on its previous call. This needs two quarters of concalls.",
   "Talk vs Numbers": "No mismatch between management's tone and reported results in this quarter so far.",
   "Red Flags": "No red flags in this quarter."
@@ -691,7 +837,7 @@ function boardHtml(b, rows, data) {
   return `<div class="board">
     <div class="bhead ${b.cls}"><div><div class="eb">Concall Tracker · ${esc(quarter)}</div><h2>${b.title}</h2><p>${esc(b.sub.replace("{Q}", quarter))}</p></div>
       <div class="cnt"><b>${total}</b><span>${b.unit}</span></div></div>
-    <div class="bbody">${b.picker ? `<div class="bpick">Show top <select id="bulltop">${[20, 50].map(n => `<option${n === bullTop ? " selected" : ""}>${n}</option>`).join("")}</select></div>` : ""}${rows.length ? `<table class="bt"><thead><tr>${b.cols.map(c => `<th>${c}</th>`).join("")}</tr></thead>
+    <div class="bbody">${b.picker ? `<div class="bpick">Show top <select class="toppick" data-board="${esc(b.tab)}">${TOP_CHOICES[b.tab].map(n => `<option${n === topPick[b.tab] ? " selected" : ""}>${n}</option>`).join("")}</select></div>` : ""}${rows.length ? `<table class="bt"><thead><tr>${b.cols.map(c => `<th>${c}</th>`).join("")}</tr></thead>
       <tbody>${rows.map((d, ri) => `<tr data-go="${esc(linkTo(d, d.q !== latestQ(data, d.name)))}">${b.row(d, ri).map((c, i) => `<td class="${b.cols[i] === "Company" ? "co" : b.cols[i] === "Guidance" ? "mt" : ""}">${c}</td>`).join("")}</tr>`).join("")}</tbody></table>`
       : `<div class="bempty">${EMPTY[b.tab]}${ADMIN && b.tab === "Talk vs Numbers" && !RES().length ? " (Admin: results_data.js from Earnings Rythm was not found in this folder.)" : ""}</div>`}
       ${also.length ? `<div class="bnote"><b>Also upgraded:</b> ${also.map(d => `${esc(d.name)} (${esc(d.gchange.m)} ${esc(d.gchange.was || "")}${d.gchange.was ? " → " : ""}${esc(d.gchange.now)})`).join(" · ")}</div>` : ""}
@@ -707,7 +853,7 @@ function detail(d) {
     const pts = list(d[f]);
     return pts.length ? `<div class="sec s-${cls}"><h3>${title}</h3><ul>${pts.map(x => `<li>${point(x)}</li>`).join("")}</ul></div>` : "";
   };
-  const kv = KV.filter(([k]) => d[k]).map(([k, l]) => `<li><b>${l}:</b> ${esc(d[k])}</li>`).join("");
+  const kv = KV.filter(([k]) => d[k] && k !== "orderbook" && k !== "capex").map(([k, l]) => `<li><b>${l}:</b> ${esc(d[k])}</li>`).join("");
   const cs = coms(d), tr = tracked(cs);
   const table = cs.length ? `<div class="sec s-com"><h3>Guidance & Commitments</h3><div class="tablewrap"><table class="com">
       <thead><tr><th>Commitment</th><th>Specifics</th><th>Timeline</th>${tr ? "<th>Status</th>" : ""}</tr></thead>
@@ -728,8 +874,10 @@ function detail(d) {
       ${d.ytd ? `<div class="ytd">Year to date vs full-year guidance:<span class="ytdtag ${d.ytd.st.replace(/\s/g, "")}">${esc(d.ytd.st)}</span>${d.ytd.act ? ` · <b>${esc(d.ytd.act)}</b>` : ""}${d.ytd.ev ? `<div class="ev">${esc(d.ytd.ev)}</div>` : ""}</div>` : ""}</div>` : ""}
     ${signal(d)}
     ${talkBox(d)}
+    ${orderBox(d)}
+    ${capBox(d)}
     ${SECTIONS.map(sec).join("")}
-    ${kv ? `<div class="sec s-old"><h3>Margins, Capex & Order book</h3><ul>${kv}</ul></div>` : ""}
+    ${kv ? `<div class="sec s-old"><h3>Margins</h3><ul>${kv}</ul></div>` : ""}
     ${table}
     ${dils(d).length ? `<div class="sec s-dil"><h3>Dilution & Balance Sheet Warnings</h3><ul>${dils(d).map(x => `<li>${x.t ? `<span class="dtype">${esc(x.t)}</span>` : ""}${esc(x.x)}</li>`).join("")}</ul></div>` : ""}
     ${mtable}
@@ -779,13 +927,14 @@ function projAll() {
 function projFor(d) {
   const all = projAll();
   if (all[keyOf(d)]) return all[keyOf(d)];
-  return Object.values(all).filter(p => slug(p.name) === slug(d.name)).sort((a, z) => qRank(z.q) - qRank(a.q))[0] || null;
+  const same = p => slug(p.name) === slug(d.name) || normName(p.name) === normName(d.name);
+  return Object.values(all).filter(same).sort((a, z) => (z.q === d.q) - (a.q === d.q) || qRank(z.q) - qRank(a.q))[0] || null;
 }
 const pnum = s => { const t = String(s == null ? "" : s).replace(/[₹,%\s]|cr\b|crores?/gi, ""); const v = parseFloat(t); return isFinite(v) ? v : null; };
 const nextFY = (y, i) => { const m = /FY\s*(\d{2})/i.exec(y || ""); return m ? "FY" + String(+m[1] + i).padStart(2, "0") + "E" : "Year " + i; };
 function parseProjLocks(text) {
   const keys = ["COMPANY_NAME","QUARTER_INFO","PRICE_DATE","CMP","SHARES_CR","BASE_YEAR","YTD_ACTUAL","GUIDED_Y1","YEAR_\\d","BUILD_\\d{1,2}","SCENARIO_BEAR","SCENARIO_BASE","SCENARIO_BULL","PEERS","ASSUMPTION_\\d","CHECK_\\d","RISK_TO_FORECAST_\\d","VALUE_NOTE","SOURCE"];
-  text = cleanPaste(text).replace(/\*\*/g, "").replace(new RegExp("\\s*\\b(" + keys.join("|") + ")\\s*:", "g"), "\n$1:").replace(/\s*(END PROJECTION LOCK)/g, "\n$1");
+  text = cleanPaste(text).replace(/\*\*/g, "").replace(new RegExp("\\s*\\b(" + keys.join("|") + ")\\s*:", "g"), "\n$1:").replace(/\s*(END PROJECTION LOCK)/g, "\n$1").replace(/[ \t]*\|[ \t]*(?=\n|$)/g, "");
   const out = [];
   const re = /BEGIN PROJECTION LOCK[\s\S]*?(?:END PROJECTION LOCK|$)/g; let m;
   while ((m = re.exec(text))) {
@@ -795,7 +944,7 @@ function parseProjLocks(text) {
     const nums = n => { const r = []; const re2 = new RegExp("^[\\s*>-]*" + n + "_(\\d{1,2})\\s*:\\s*(.*)$", "gmi"); let x; while ((x = re2.exec(b))) r.push([+x[1], nd(x[2])]); return r.sort((a, z) => a[0] - z[0]).map(x => x[1]).filter(Boolean); };
     const bp = parts("BASE_YEAR"), yt = parts("YTD_ACTUAL"), gy = parts("GUIDED_Y1");
     const p = { name: f("COMPANY_NAME"), q: normQ(f("QUARTER_INFO")), date: nd(f("PRICE_DATE")), cmp: pnum(f("CMP")), shares: pnum(f("SHARES_CR")),
-      ytd: nd(yt[0]) ? { per: yt[0], rev: pnum(yt[1]), ebitda: pnum(yt[2]), pat: pnum(yt[3]) } : null,
+      ytd: nd(yt[0]) ? { per: yt[0], rev: pnum(yt[1]), ebitda: pnum(yt[2]), pat: pnum(yt[3]), prev: pnum(yt[4]) } : null,
       guide: { rev: pnum(gy[0]), em: pnum(gy[1]), pm: pnum(gy[2]) },
       base: { y: bp[0] || "", rev: pnum(bp[1]), ebitda: pnum(bp[2]), pat: pnum(bp[3]), toSh: pnum(bp[4]), eps: pnum(bp[5]) }, years: [], sc: {},
       peers: nd(f("PEERS")), assumptions: nums("ASSUMPTION"), checks: nums("CHECK"),
@@ -857,11 +1006,20 @@ function pageChecks(p, rows) {
   if (yt && mo && yt.rev != null) {
     const rest = y.rev - yt.rev, pace = (rest / (12 - mo)) / (yt.rev / mo) * 100 - 100;
     ok(pace >= -5, `Revenue: ${esc(yt.per)} ₹${f0(yt.rev)} cr is ${f1(yt.rev / y.rev * 100)}% of ${esc(y.y)} ₹${f0(y.rev)} cr. The rest of the year needs ₹${f0(rest)} cr, a monthly pace ${pace >= 0 ? "+" : ""}${f1(pace)}% vs the year so far${pace < -5 ? ", with no reason given in the forecast that the business slows" : ""}.`);
+    if (yt.prev && p.base && p.base.rev && p.base.rev > yt.prev) {
+      const g1 = (yt.rev / yt.prev - 1) * 100, restPrev = p.base.rev - yt.prev, g2 = (rest / restPrev - 1) * 100;
+      ok(g2 >= g1 - 5, `Growth YoY: ${esc(yt.per)} ${g1 >= 0 ? "+" : ""}${f1(g1)}%; the rest of ${esc(y.y)} needs ${g2 >= 0 ? "+" : ""}${f1(g2)}% (₹${f0(rest)} cr vs ₹${f0(restPrev)} cr last year)${g2 < g1 - 5 ? ": growth slows by more than 5 points" : ""}.`);
+    }
     if (yt.pat != null) {
       const rp = y.pat - yt.pat, pp = (rp / (12 - mo)) / (yt.pat / mo) * 100 - 100;
       ok(pp >= -5, `PAT: ${esc(yt.per)} ₹${f0(yt.pat)} cr; the rest of the year needs ₹${f0(rp)} cr, a monthly pace ${pp >= 0 ? "+" : ""}${f1(pp)}% vs the year so far.`);
     }
   }
+  if (yt && yt.rev && yt.ebitda != null && y.m != null) {
+    const ym = yt.ebitda / yt.rev * 100;
+    ok(y.m >= ym - 2, `${esc(y.y)} EBITDA margin ${f1(y.m)}% vs ${esc(yt.per)} ${f1(ym)}%${y.m < ym - 2 ? " (more than 2 points lower: check other income and the EBITDA basis)" : ""}.`);
+  }
+  if (yt && yt.pat != null && y.pat != null && y.pat < yt.pat) ok(false, `${esc(y.y)} PAT ₹${f0(y.pat)} cr is below the ₹${f0(yt.pat)} cr already earned in ${esc(yt.per)}.`);
   const pm = y.rev ? y.pat / y.rev * 100 : null, em = y.m;
   if (p.guide && p.guide.pm != null && pm != null) ok(Math.abs(pm - p.guide.pm) <= 0.5, `${esc(y.y)} PAT margin ${f1(pm)}% vs management's ${p.guide.pm}%${Math.abs(pm - p.guide.pm) > 0.5 ? " (off by more than 0.5 points)" : ""}.`);
   if (p.guide && p.guide.em != null && em != null) ok(Math.abs(em - p.guide.em) <= 0.5, `${esc(y.y)} EBITDA margin ${f1(em)}% vs management's ${p.guide.em}%.`);
@@ -965,10 +1123,10 @@ function onRoute() {
 }
 
 // ---------- reading concall lock text ----------
-const FIELDS = ["COMPANY_NAME","QUARTER_INFO","CALL_DATE","TONE","GUIDANCE_CHANGE","GUIDANCE_GROWTH","GUIDANCE_BASE","REVENUE_YOY","YTD_VS_GUIDANCE","GUIDANCE","MARGIN_OUTLOOK","CAPEX","ORDER_BOOK",
+const FIELDS = ["COMPANY_NAME","QUARTER_INFO","CALL_DATE","TONE","GUIDANCE_CHANGE","GUIDANCE_GROWTH","GUIDANCE_BASE","REVENUE_YOY","YTD_VS_GUIDANCE","GUIDANCE","MARGIN_OUTLOOK","CAPEX","ORDER_BOOK","ORDER_INFLOW","ORDER_EXECUTION","ORDER_PIPELINE","ORDER_REVENUE_BASE","CAPACITY_UTILISATION","CAPEX_PLAN","ASSET_TURN",
   "DECODE_TARGET","DECODE_MARGIN_REALISM","DECODE_MARGIN","DECODE_CAPACITY","DECODE_ORDERS","RISKS","SOURCE","FINAL CONCALL LOCK STATUS"];
-const NUMBERED = "(?:KEY_TAKEAWAY|TAKEAWAY|METRIC|REVENUE|PROFIT|PIPELINE|COMMITMENT|DILUTION)_\\d{1,2}";
-const HEADS = /\s*\[(KEY METRICS|KEY TAKEAWAYS|REVENUE GROWTH & COMPOSITION|PROFITABILITY & BALANCE SHEET|INVESTMENT & PIPELINE|GUIDANCE & COMMITMENTS|DECODE|DILUTION & BALANCE SHEET WARNINGS)\]\s*/gi;
+const NUMBERED = "(?:KEY_TAKEAWAY|TAKEAWAY|METRIC|REVENUE|PROFIT|PIPELINE|COMMITMENT|DILUTION|ORDER_WIN|CAPACITY_ADD)_\\d{1,2}";
+const HEADS = /\s*\[(KEY METRICS|KEY TAKEAWAYS|REVENUE GROWTH & COMPOSITION|PROFITABILITY & BALANCE SHEET|INVESTMENT & PIPELINE|GUIDANCE & COMMITMENTS|DECODE|DILUTION & BALANCE SHEET WARNINGS|ORDER BOOK|CAPACITY & CAPEX)\]\s*/gi;
 // GUIDANCE_BASE: Period | Value  (last actual for the same metric, as stated)
 function parseBase(s) { const p = String(s || "").split("|").map(x => x.trim()); return nd(p[0]) && nd(p[1]) ? { per: p[0], val: p[1] } : null; }
 // GUIDANCE_CHANGE: Metric | Earlier | Now | Change
@@ -997,7 +1155,8 @@ function readDecode(field) {
 function normalizeLock(text) {
   const re = new RegExp("\\s*\\b(" + FIELDS.join("|") + "|" + NUMBERED + ")\\s*:", "g");
   return String(text || "").replace(/\r/g, "").replace(/\*\*/g, "").replace(HEADS, "\n[$1]\n").replace(re, "\n$1:")
-    .replace(/\s*(END VERIFIED CONCALL LOCK)/g, "\n$1");
+    .replace(/\s*(END VERIFIED CONCALL LOCK)/g, "\n$1")
+    .replace(/[ \t]*\|[ \t]*(?=\n|$)/g, "");   // stray pipe at a line end, also after a one-line paste is split
 }
 const nd = v => /^(n\/?d|none|nil|na|n\/a|not discussed|-|–)$/i.test(String(v || "").trim()) ? "" : String(v || "").trim();
 // All numbered lines for one prefix (e.g. REVENUE_1, REVENUE_2…), in number order.
@@ -1038,8 +1197,10 @@ function parseLocks(text) {
       takeaways: tks, revenue: numbered(b, "REVENUE"), profit: numbered(b, "PROFIT"), pipeline: numbered(b, "PIPELINE"),
       commitments: numbered(b, "COMMITMENT").map(parseCom),
       dilution: numbered(b, "DILUTION").map(parseDil),
+      order: readOrder(field, b),
+      cap: readCap(field, b),
       metrics: numbered(b, "METRIC").map(parseMet),
-      margin: nd(field("MARGIN_OUTLOOK")), capex: nd(field("CAPEX")), orderbook: nd(field("ORDER_BOOK")),
+      margin: nd(field("MARGIN_OUTLOOK")), capex: nd(field("CAPEX")), orderbook: /\|/.test(field("ORDER_BOOK")) ? "" : nd(field("ORDER_BOOK")),
       risks: nd(field("RISKS")), source: nd(multi(b, "SOURCE", "FINAL CONCALL LOCK STATUS|END VERIFIED CONCALL LOCK")),
       decode: readDecode(field)
     };
@@ -1058,7 +1219,10 @@ function cleanPaste(t) {
   return String(t || "").replace(/\r/g, "")
     .replace(/<cite\b[^>]*\/?>(?:[\s\S]*?<\/cite>)?/gi, "").replace(/【[^】]*】/g, "")
     .replace(/\\[ \t]*(?=\n|$)/g, "").replace(/\\(?=\s)/g, "")
-    .replace(/[ \t]+\n/g, "\n");
+    .replace(/[ \t]+\n/g, "\n")
+    .replace(/^[ \t]*\|[ \t]*(?=[A-Z_]+[0-9]*\s*:)/gm, "")          // "| METRIC_1: ..."
+    .replace(/[ \t]*\|[ \t]*(?=\n|$)/g, "")                          // "... value |"
+    .replace(/[ \t]*\|[ \t]*(?=(?:[A-Z]+_)+\d*\s*:)/g, " ");          // one-line paste: "value | METRIC_2:"
 }
 function addLockText(text) {
   text = cleanPaste(text);
@@ -1066,13 +1230,16 @@ function addLockText(text) {
   if (/PROJECTION LOCK FAILED/.test(text)) alert("The projection prompt returned PROJECTION LOCK FAILED: " + (/PROJECTION LOCK FAILED\s*([^\n]*)/.exec(text) || [, ""])[1]);
   if (projs.length) {
     const bad = projs.filter(p => !p.name || !p.q || p.base.rev == null || p.years.some(y => y.g == null || y.m == null));
+    const missing = p => [!p.name && "COMPANY_NAME", !p.q && "QUARTER_INFO", p.base.rev == null && "BASE_YEAR",
+      ...p.years.map((y, i) => (y.g == null || y.m == null) && "YEAR_" + (i + 1)), p.sc.base.lo == null && "SCENARIO_BASE"].filter(Boolean);
     projs.filter(p => !bad.includes(p)).forEach(p => { projLocal[keyOf(p)] = p; });
     projSaveLocal();
     // Concall locks in the same paste count as cards on their way in (they wait in the review form).
-    const inPaste = /BEGIN VERIFIED CONCALL LOCK/.test(text) ? parseLocks(text.replace(/BEGIN PROJECTION LOCK[\s\S]*?(?:END PROJECTION LOCK|$)/g, "")).filter(x => x.data).map(x => slug(x.data.name)) : [];
-    const noCard = projs.filter(p => !bad.includes(p) && !inPaste.includes(slug(p.name)) && !allData().some(d => slug(d.name) === slug(p.name)));
+    const inPaste = /BEGIN VERIFIED CONCALL LOCK/.test(text) ? parseLocks(text.replace(/BEGIN PROJECTION LOCK[\s\S]*?(?:END PROJECTION LOCK|$)/g, "")).filter(x => x.data).map(x => normName(x.data.name)) : [];
+    const noCard = projs.filter(p => !bad.includes(p) && !inPaste.includes(normName(p.name)) && !allData().some(d => normName(d.name) === normName(p.name)));
     alert(`Projection added for: ${projs.filter(p => !bad.includes(p)).map(p => p.name + " (" + p.q + ")").join(", ") || "none"}.` +
-      (bad.length ? `\nCould not read (missing name, quarter, base revenue, growth or margin): ${bad.map(p => p.name || "unnamed").join(", ")}.` : "") +
+      (bad.length ? `\nCould not read: ${bad.map(p => (p.name || "unnamed") + " — missing " + missing(p).join(", ")).join("; ")}.\nIf lines are missing, the chat app probably turned them into a table when you copied. Ask the model for its output inside one plain-text code block and copy again.` : "") +
+      projs.filter(p => !bad.includes(p) && missing(p).length).map(p => `\nWarning: ${p.name} is missing ${missing(p).join(", ")}.`).join("") +
       (noCard.length ? `\nNo concall card yet for: ${noCard.map(p => p.name).join(", ")}. Add its concall lock to see the projection.` : "") +
       (inPaste.length ? "\nCheck the concall card in the review form below and click Add to concalls." : "") +
       "\nThe projection shows at the bottom of the company page. Click Save data file to publish it.");
@@ -1125,6 +1292,13 @@ function reviewItem(q) {
     ${SECTIONS.map(([f, , title, , max]) => area(f, d[f], title, max)).join("")}
     <div class="r"><div><label>Guidance & Commitments — one row per line: Commitment | Specifics | Timeline | Status (max ${COM_MAX})</label><textarea data-f="commitments" rows="${Math.max(3, coms(d).length + 1)}">${esc(comText)}</textarea></div></div>
     <div class="r"><div><label>Dilution & balance-sheet warnings — one row per line: Type | Details (max 4)</label><textarea data-f="dilution" rows="${Math.max(2, dils(d).length + 1)}">${esc(dils(d).map(x => [x.t, x.x].join(" | ")).join("\n"))}</textarea></div></div>
+    <div class="r r2">${inp("obook", d.order && d.order.book ? [d.order.book.v, d.order.book.asof, d.order.book.cmp].join(" | ") : (d.orderbook || ""), "Order book — Value | As of | Comparison")}${inp("oinflow", d.order && d.order.inflow ? [d.order.inflow.per, d.order.inflow.v, d.order.inflow.cmp].join(" | ") : "", "Order inflow — Period | Value | Comparison")}</div>
+    <div class="r r2">${inp("oexec", d.order && d.order.exec || "", "Execution period")}${inp("obase", d.order && d.order.base ? d.order.base.per + " | " + d.order.base.v : "", "Revenue base for order book — Period | Value", "FY26 | INR1,900 crores")}</div>
+    <div class="r">${inp("opipe", d.order && d.order.pipe || "", "Bid pipeline")}</div>
+    <div class="r"><div><label>Orders named on the call — one per line: Customer or segment | Value | Timeline (max 4)</label><textarea data-f="owins" rows="${Math.max(2, (d.order && d.order.wins.length || 0) + 1)}">${esc((d.order && d.order.wins || []).map(w => [w.who, w.v, w.t].join(" | ")).join("\n"))}</textarea></div></div>
+    <div class="r r2">${inp("cutil", d.cap && d.cap.util ? [d.cap.util.v, d.cap.util.scope, d.cap.util.per].join(" | ") : "", "Capacity utilisation — Value | Scope | Period")}${inp("cplan", d.cap && d.cap.plan ? [d.cap.plan.amt, d.cap.plan.per, d.cap.plan.fund].join(" | ") : (d.capex || ""), "Capex plan — Amount | Period | Funding")}</div>
+    <div class="r">${inp("cturn", d.cap && d.cap.turn || "", "Asset turn (as stated)")}</div>
+    <div class="r"><div><label>Capacity being added — one per line: What | Capacity | Start | Capex | Revenue potential (max 5)</label><textarea data-f="cadds" rows="${Math.max(2, (d.cap && d.cap.adds.length || 0) + 1)}">${esc((d.cap && d.cap.adds || []).map(a => [a.what, a.cap, a.start, a.capex, a.pot].join(" | ")).join("\n"))}</textarea></div></div>
     <div class="r"><div><label>Key Metrics — one row per line: Metric | Value (max ${MET_MAX})</label><textarea data-f="metrics" rows="${Math.max(3, mets(d).length + 1)}">${esc(metText)}</textarea></div></div>
     ${legacy ? `<div class="r r2">${inp("margin", d.margin, "Margins (old format)")}${inp("capex", d.capex, "Capex (old format)")}</div>
     <div class="r r2">${inp("orderbook", d.orderbook, "Order book (old format)")}<div></div></div>` : ""}
@@ -1150,7 +1324,24 @@ function readItem(el, it) {
   d.metrics = lines(get("metrics")).slice(0, MET_MAX).map(parseMet);
   d.commitments = lines(get("commitments")).slice(0, COM_MAX).map(parseCom);
   d.dilution = lines(get("dilution")).slice(0, 4).map(parseDil);
+  {
+    const bk = pipes(get("obook")), inf = pipes(get("oinflow")), ba = pipes(get("obase"));
+    const o = { book: nd(bk[0]) ? { v: bk[0], asof: nd(bk[1]), cmp: nd(bk.slice(2).join(" | ")) } : null,
+      inflow: nd(inf[0]) || nd(inf[1]) ? { per: nd(inf[0]), v: nd(inf[1]), cmp: nd(inf.slice(2).join(" | ")) } : null,
+      exec: nd(get("oexec")), pipe: nd(get("opipe")), base: nd(ba[0]) && nd(ba[1]) ? { per: ba[0], v: ba[1] } : null,
+      wins: lines(get("owins")).slice(0, 4).map(x => { const q = pipes(x); return { who: q[0] || "", v: nd(q[1]), t: nd(q.slice(2).join(" | ")) }; }) };
+    d.order = o.book || o.inflow || o.wins.length || o.pipe ? o : null;
+  }
   d.margin = nd(get("margin")); d.capex = nd(get("capex")); d.orderbook = nd(get("orderbook"));
+  if (d.order && d.order.book) d.orderbook = "";   // the order book now lives in Section I only
+  {
+    const u = pipes(get("cutil")), pl = pipes(get("cplan"));
+    const c = { util: nd(u[0]) ? { v: u[0], scope: nd(u[1]), per: nd(u.slice(2).join(" | ")) } : null,
+      adds: lines(get("cadds")).slice(0, 5).map(x => { const q = pipes(x); return { what: q[0] || "", cap: nd(q[1]), start: nd(q[2]), capex: nd(q[3]), pot: nd(q.slice(4).join(" | ")) }; }).filter(x => x.what),
+      plan: nd(pl[0]) ? { amt: pl[0], per: nd(pl[1]), fund: nd(pl.slice(2).join(" | ")) } : null, turn: nd(get("cturn")) };
+    d.cap = c.util || c.adds.length || c.plan || c.turn ? c : null;
+    if (d.cap && d.cap.plan) d.capex = "";   // capex now lives in Section J only
+  }
   d.risks = nd(get("risks"));
   d.source = it && it.data ? it.data.source || "" : "";
   const dc = { target: parseRange(get("dtarget")), margin: parseRange(get("dmargin")) };
@@ -1195,7 +1386,7 @@ function saveFile() {
   const text = "// Concall Rythm data. Saved from the page with \"Save data file\".\n" +
     "window.CONCALL_DATA = [\n" + data.map(d => {
       const o = { name: d.name, q: d.q, date: d.date, tone: d.tone, guidance: d.guidance, gchange: d.gchange || null, ggrowth: d.ggrowth || "", gbase: d.gbase || null, yoy: d.yoy || "", metrics: mets(d),
-        takeaways: list(d.takeaways), revenue: list(d.revenue), profit: list(d.profit), pipeline: list(d.pipeline), commitments: coms(d), ytd: d.ytd || null, dilution: dils(d) };
+        takeaways: list(d.takeaways), revenue: list(d.revenue), profit: list(d.profit), pipeline: list(d.pipeline), commitments: coms(d), ytd: d.ytd || null, dilution: dils(d), order: d.order || null, cap: d.cap || null };
       ["margin", "capex", "orderbook"].forEach(k => { if (d[k]) o[k] = d[k]; });
       if (d.decode) o.decode = d.decode;
       o.risks = d.risks; o.source = d.source;
@@ -1213,7 +1404,7 @@ window.addEventListener("hashchange", onRoute);
 document.getElementById("search").addEventListener("input", e => { search = e.target.value; render(); });
 document.getElementById("quarter").addEventListener("change", e => { quarter = e.target.value; render(); });
 document.getElementById("listbox").addEventListener("change", e => {
-  if (e.target.id === "bulltop") { bullTop = +e.target.value; render(); }
+  if (e.target.classList.contains("toppick")) { topPick[e.target.dataset.board] = +e.target.value; render(); }
 });
 document.getElementById("tabs").addEventListener("click", e => {
   const t = e.target.closest("[data-tab]");
