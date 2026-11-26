@@ -44,9 +44,9 @@
   .search:focus, select:focus { outline:2px solid rgba(0,113,188,.25); border-color:var(--blue); }
   .basisline { font-size:12px; color:var(--muted); }
   /* tabs (same look as Earnings Rythm) */
-  .tabs { display:flex; flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; border-bottom:1px solid var(--line); margin:0 0 16px; }
+  .tabs { display:flex; flex-wrap:wrap; row-gap:2px; overflow-x:visible; scrollbar-width:none; border-bottom:1px solid var(--line); margin:0 0 16px; }
   .tabs::-webkit-scrollbar { display:none; }
-  .tab { padding:12px 14px; cursor:pointer; white-space:nowrap; font-family:Poppins,Inter,sans-serif; font-size:14px; font-weight:500; color:#5b6270; border-bottom:3px solid transparent; }
+  .tab { padding:10px 12px; cursor:pointer; white-space:nowrap; font-family:Poppins,Inter,sans-serif; font-size:14px; font-weight:500; color:#5b6270; border-bottom:3px solid transparent; }
   .tab:hover { color:var(--blue); }
   .tab.on { color:var(--blue); font-weight:600; border-color:var(--blue); }
   .tab .n { display:inline-block; margin-left:6px; min-width:20px; padding:0 6px; border-radius:10px; background:#eef1f5; color:#5b6270; font-size:11px; font-weight:600; line-height:18px; text-align:center; font-family:Inter,sans-serif; }
@@ -277,6 +277,7 @@
     .foot { margin-top:14px; } .foot img { width:120px; }
     .disclaimer { font-size:9px; }
   }
+  @media (max-width:640px) { .tabs { flex-wrap:nowrap; overflow-x:auto; } }
   @media (max-width:820px) {
     h1 { font-size:21px; } .cname { font-size:20px; }
     .colayout { grid-template-columns:1fr; } .hist { position:static; }
