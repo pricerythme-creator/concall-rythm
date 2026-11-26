@@ -379,6 +379,19 @@ const stClass = s => "st-" + String(s || "").toLowerCase().replace(/[^a-z]/g, ""
 const tracked = cs => cs.some(c => c.st && !/^not tracked$/i.test(c.st));
 
 // ---------- data ----------
+// Names typed in ALL CAPS (as some transcripts print them) are shown in normal case.
+// Short words and words with no vowels stay in capitals, as they are usually initials (GNG, HFCL, JSW, WAM).
+const SMALL = /^(AND|OF|THE|FOR|IN|ON|&)$/;
+function niceName(n) {
+  n = String(n || "").trim();
+  if (!n || /[a-z]/.test(n)) return n;
+  return n.split(/(\s+|-|\()/).map((w, i) => {
+    if (!/[A-Z]/.test(w)) return w;
+    if (SMALL.test(w)) return i ? w.toLowerCase() : w[0] + w.slice(1).toLowerCase();
+    if (w.length <= 3 || !/[AEIOU]/.test(w.replace(/^[^A-Z]+/, ""))) return w;
+    return w[0] + w.slice(1).toLowerCase();
+  }).join("");
+}
 const keyOf = d => `${d.name}|${d.q}`.toLowerCase();
 let local = (() => {
   try { return JSON.parse(localStorage.getItem(STORE)) || { items:[], removed:[] }; }
@@ -386,6 +399,7 @@ let local = (() => {
 })();
 function saveLocal() { try { localStorage.setItem(STORE, JSON.stringify(local)); } catch (e) {} }
 function allData() {
+  (window.CONCALL_DATA || []).concat(local.items).forEach(d => { d.name = niceName(d.name); });
   if (!ADMIN) return (window.CONCALL_DATA || []).slice();
   const map = new Map();
   (window.CONCALL_DATA || []).forEach(d => map.set(keyOf(d), d));
@@ -943,7 +957,7 @@ function parseProjLocks(text) {
     const parts = n => f(n).split("|").map(x => x.trim());
     const nums = n => { const r = []; const re2 = new RegExp("^[\\s*>-]*" + n + "_(\\d{1,2})\\s*:\\s*(.*)$", "gmi"); let x; while ((x = re2.exec(b))) r.push([+x[1], nd(x[2])]); return r.sort((a, z) => a[0] - z[0]).map(x => x[1]).filter(Boolean); };
     const bp = parts("BASE_YEAR"), yt = parts("YTD_ACTUAL"), gy = parts("GUIDED_Y1");
-    const p = { name: f("COMPANY_NAME"), q: normQ(f("QUARTER_INFO")), date: nd(f("PRICE_DATE")), cmp: pnum(f("CMP")), shares: pnum(f("SHARES_CR")),
+    const p = { name: niceName(f("COMPANY_NAME")), q: normQ(f("QUARTER_INFO")), date: nd(f("PRICE_DATE")), cmp: pnum(f("CMP")), shares: pnum(f("SHARES_CR")),
       ytd: nd(yt[0]) ? { per: yt[0], rev: pnum(yt[1]), ebitda: pnum(yt[2]), pat: pnum(yt[3]), prev: pnum(yt[4]) } : null,
       guide: { rev: pnum(gy[0]), em: pnum(gy[1]), pm: pnum(gy[2]) },
       base: { y: bp[0] || "", rev: pnum(bp[1]), ebitda: pnum(bp[2]), pat: pnum(bp[3]), toSh: pnum(bp[4]), eps: pnum(bp[5]) }, years: [], sc: {},
@@ -1190,7 +1204,7 @@ function parseLocks(text) {
     let tks = numbered(b, "KEY_TAKEAWAY");
     if (!tks.length) tks = numbered(b, "TAKEAWAY");   // older lock format
     const d = {
-      name: field("COMPANY_NAME"), q: normQ(field("QUARTER_INFO")), date: nd(field("CALL_DATE")),
+      name: niceName(field("COMPANY_NAME")), q: normQ(field("QUARTER_INFO")), date: nd(field("CALL_DATE")),
       tone: (toneOf(field("TONE").split(/[\s|]/)[0]) || [""])[0],
       guidance: nd(field("GUIDANCE")),
       gchange: parseGChange(field("GUIDANCE_CHANGE")), ggrowth: nd(field("GUIDANCE_GROWTH")), gbase: parseBase(field("GUIDANCE_BASE")), yoy: nd(field("REVENUE_YOY")), ytd: parseYtd(field("YTD_VS_GUIDANCE")),
