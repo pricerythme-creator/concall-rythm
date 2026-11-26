@@ -43,6 +43,73 @@
   .searchwrap svg { position:absolute; right:9px; top:50%; transform:translateY(-50%); width:15px; height:15px; color:#555; pointer-events:none; }
   .search:focus, select:focus { outline:2px solid rgba(0,113,188,.25); border-color:var(--blue); }
   .basisline { font-size:12px; color:var(--muted); }
+  /* tabs (same look as Earnings Rythm) */
+  .tabs { display:flex; flex-wrap:nowrap; overflow-x:auto; scrollbar-width:none; border-bottom:1px solid var(--line); margin:0 0 16px; }
+  .tabs::-webkit-scrollbar { display:none; }
+  .tab { padding:12px 14px; cursor:pointer; white-space:nowrap; font-family:Poppins,Inter,sans-serif; font-size:14px; font-weight:500; color:#5b6270; border-bottom:3px solid transparent; }
+  .tab:hover { color:var(--blue); }
+  .tab.on { color:var(--blue); font-weight:600; border-color:var(--blue); }
+  .tab .n { display:inline-block; margin-left:6px; min-width:20px; padding:0 6px; border-radius:10px; background:#eef1f5; color:#5b6270; font-size:11px; font-weight:600; line-height:18px; text-align:center; font-family:Inter,sans-serif; }
+  .tab.on .n { background:var(--blue); color:#fff; }
+
+  /* tracker boards */
+  .board { border-radius:14px; overflow:hidden; background:#fff; border:1px solid var(--line); box-shadow:0 4px 16px rgba(17,24,39,.06); }
+  .bhead { --b1:#0b3d2e; --b2:#0f5a44; position:relative; padding:22px 26px 20px; background:linear-gradient(120deg,var(--b1),var(--b2)); color:#fff; display:flex; justify-content:space-between; align-items:center; gap:16px; }
+  .bhead.red { --b1:#5a1414; --b2:#8a2323; } .bhead.violet { --b1:#2e1065; --b2:#4c1d95; } .bhead.blue { --b1:#0b3557; --b2:#0b5c94; } .bhead.amber { --b1:#5b2f05; --b2:#8a4a0b; }
+  .bhead .eb { font-size:12px; font-weight:700; letter-spacing:2px; color:#f2c56b; text-transform:uppercase; }
+  .bhead h2 { font-family:Poppins,Inter,sans-serif; font-size:32px; line-height:1.1; margin:6px 0 6px; font-weight:700; }
+  .bhead p { margin:0; font-size:14px; opacity:.85; }
+  .bhead .cnt { flex:none; width:96px; height:96px; border-radius:50%; background:#f2c56b; color:#1a1d23; display:flex; flex-direction:column; align-items:center; justify-content:center; }
+  .bhead .cnt b { font-family:Poppins,Inter,sans-serif; font-size:38px; line-height:1; }
+  .bhead .cnt span { font-size:10px; font-weight:700; letter-spacing:1px; text-transform:uppercase; margin-top:2px; }
+  .bbody { padding:16px 18px; overflow-x:auto; }
+  table.bt { width:100%; border-collapse:collapse; font-size:14px; }
+  table.bt th { text-align:left; font-size:11px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; color:#f2c56b; background:#16241f; padding:10px 12px; white-space:nowrap; }
+  table.bt td { padding:11px 12px; border-bottom:1px solid #eef0f3; vertical-align:middle; overflow-wrap:anywhere; }
+  table.bt td .yoy { white-space:normal; }
+  table.bt td.co { min-width:120px; }
+  table.bt td:first-child, table.bt th:first-child { white-space:nowrap; overflow-wrap:normal; width:1%; }
+  table.bt tbody tr { cursor:pointer; } table.bt tbody tr:hover td { background:#f6faf8; }
+  table.bt td.co { font-weight:700; }
+  table.bt td.mt { color:#6b7280; }
+  .was { color:#9ca3af; text-decoration:line-through; }
+  .arr { color:#e0a92e; padding:0 6px; font-weight:700; }
+  .now { font-weight:700; color:#0f6b3f; } .now.dn { color:#c62828; }
+  .yoy { font-weight:700; white-space:nowrap; } .yoy.up { color:#0f6b3f; } .yoy.dn { color:#c62828; }
+  .ck { display:inline-flex; width:22px; height:22px; border-radius:50%; align-items:center; justify-content:center; font-size:12px; font-weight:700; color:#fff; background:#cbd5e1; }
+  .ck.y { background:#009245; } .ck.n { background:#d64545; }
+  .cntc { font-weight:700; font-size:15px; } .cntc.g { color:#0f6b3f; } .cntc.a { color:#b45309; } .cntc.b { color:#0071bc; } .cntc.r { color:#c62828; } .cntc.z { color:#cbd5e1; font-weight:500; }
+  .flag { display:inline-block; font-size:11px; font-weight:600; padding:2px 8px; border-radius:10px; background:#fdecec; color:#c62828; margin:2px 4px 2px 0; white-space:nowrap; }
+  .bnote { margin:12px 0 0; padding:10px 14px; border-left:4px solid #e0a92e; background:#fbf8f1; border-radius:6px; font-size:13px; color:#374151; }
+  .bfoot { display:flex; justify-content:space-between; flex-wrap:wrap; gap:6px; padding:12px 26px; background:#0b3d2e; color:#d1e7dd; font-size:12px; }
+  .bfoot b { color:#f2c56b; }
+  .bpick { display:flex; justify-content:flex-end; align-items:center; gap:6px; font-size:12px; color:#4b5563; margin:0 0 8px; }
+  .bpick select { padding:3px 6px; font-size:12px; }
+  .bempty { padding:26px 6px; color:var(--muted); font-size:14px; }
+  .gchg { margin-top:6px; font-size:13px; }
+  .chg { font-size:11px; font-weight:700; padding:1px 8px; border-radius:10px; margin-left:6px; }
+  .chg.Raised { background:#e6f6ec; color:#007a3a; } .chg.Cut, .chg.Withdrawn { background:#fdecec; color:#c62828; }
+  .chg.Maintained { background:#eef1f5; color:#4b5563; } .chg.New { background:#f1ebfe; color:#6d28d9; }
+  @media (max-width:820px) { .bhead { padding:18px 16px; } .bhead h2 { font-size:24px; } .bhead .cnt { width:70px; height:70px; } .bhead .cnt b { font-size:28px; } .bbody { padding:10px 8px; } .bfoot { padding:10px 16px; } }
+  .credchip { font-size:12px; font-weight:600; padding:3px 10px; border-radius:12px; background:#eef1f5; color:#4b5563; white-space:nowrap; }
+  .credchip.hi { background:#e6f6ec; color:#007a3a; } .credchip.mid { background:#fff4e0; color:#b45309; } .credchip.lo { background:#fdecec; color:#c62828; }
+  .ytd { margin-top:8px; padding-top:8px; border-top:1px dashed #cfe1f0; font-size:13px; }
+  .ytdtag { font-size:11px; font-weight:700; padding:1px 8px; border-radius:10px; margin-left:6px; background:#eef1f5; color:#4b5563; }
+  .ytdtag.Ahead, .ytdtag.Ontrack { background:#e6f6ec; color:#007a3a; } .ytdtag.Behind { background:#fdecec; color:#c62828; }
+  .ytd .ev { color:#6b7280; font-size:12px; margin-top:2px; }
+  .tvn { margin:14px 0 0; border:1px solid #d6e6f3; border-radius:10px; padding:9px 12px; background:#f7fbfe; font-size:13px; }
+  .tvn .lab { color:#0b4f82; }
+  .tvn .mm { display:inline-block; margin-top:6px; font-size:12px; font-weight:600; padding:2px 9px; border-radius:10px; background:#fdecec; color:#c62828; }
+  .tvn .mm.good { background:#e6f6ec; color:#007a3a; }
+  .sec.s-dil { --sc:#c62828; }
+  .dtype { font-size:11px; font-weight:700; padding:1px 8px; border-radius:10px; background:#fdecec; color:#c62828; margin-right:6px; white-space:nowrap; }
+  .credsum { font-size:12px; color:#374151; padding:10px 14px 12px; margin:0; border-top:1px solid var(--line); line-height:1.6; }
+  .credsum b { font-family:Poppins,Inter,sans-serif; }
+  table.list th.ract, table.list td.ract { width:76px; text-align:right; white-space:nowrap; cursor:default; }
+  .redit, .rdel { border:1px solid #e3e6eb; background:#fff; border-radius:6px; width:28px; height:28px; margin-left:4px; font-size:14px; line-height:1; color:#6b7280; cursor:pointer; }
+  .redit:hover { color:var(--blue); border-color:#b9d6ec; background:#f3f8fc; }
+  .rdel:hover { color:#c62828; border-color:#f3c4c4; background:#fff5f5; }
+  .listbox.plain { background:none; border:none; box-shadow:none; overflow:visible; }
   .listbox { background:#fff; border:1px solid var(--line); border-radius:12px; box-shadow:0 2px 8px rgba(17,24,39,.04); overflow:hidden; }
   table.list { width:100%; border-collapse:collapse; font-size:14px; }
   table.list th { text-align:left; font-size:12px; font-weight:600; color:#0b4f82; background:#eef5fb; padding:10px 14px; border-bottom:1px solid var(--line); white-space:nowrap; cursor:pointer; user-select:none; }
@@ -97,6 +164,49 @@
   .risk { margin-top:16px; background:#fff5f5; border-left:3px solid #d64545; border-radius:6px; padding:7px 10px; color:#7a2e2e; }
   .risk b { display:block; font-size:10px; letter-spacing:.5px; text-transform:uppercase; color:var(--down); margin-bottom:2px; }
   .srcline { margin-top:14px; font-size:11px; color:var(--muted); }
+
+  /* Signal Check (from the lock's DECODE section) */
+  .sig { margin:14px 0 0; border:1px solid #e9e3fb; border-radius:10px; overflow:hidden; }
+  .sig .sh { display:flex; justify-content:space-between; align-items:center; gap:8px; padding:8px 12px; background:linear-gradient(90deg,#f1ebfe,#e8f2fa); }
+  .sig .sh b { font-family:Poppins,Inter,sans-serif; font-size:13px; font-weight:600; color:#4c1d95; }
+  .sig .score { font-size:12px; font-weight:600; padding:2px 9px; border-radius:10px; background:#fff; color:#4c1d95; }
+  .sig .tg { padding:9px 12px 4px; font-size:13px; }
+  .sig .tg span { color:var(--muted); font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.4px; margin-right:6px; }
+  .sig ul { list-style:none; margin:0; padding:4px 12px 10px; }
+  .sig li { display:grid; grid-template-columns:22px 150px minmax(0,1fr); gap:8px; padding:6px 0; border-top:1px dashed #eee; align-items:start; }
+  .sig li:first-child { border-top:none; }
+  .sig .ic { width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:700; color:#fff; background:#94a3b8; }
+  .sig .ic.y { background:#009245; } .sig .ic.n { background:#d64545; }
+  .sig .k { font-weight:600; font-size:13px; }
+  .sig .ev { color:#4b5563; font-size:13px; }
+
+  /* 3-year projection: public and read-only; editable in ?admin */
+  .proj { margin-top:22px; border:2px dashed #f2b8d6; border-radius:12px; padding:14px 16px; background:#fffafd; }
+  .proj h3 { font-family:Poppins,Inter,sans-serif; font-size:15px; margin:0 0 2px; color:#9d174d; }
+  .proj h4 { font-family:Poppins,Inter,sans-serif; font-size:13px; margin:16px 0 6px; color:#9d174d; }
+  .proj .pnote { font-size:11px; color:var(--muted); margin:0 0 8px; }
+  .proj .pbtns { display:flex; gap:8px; flex-wrap:wrap; margin:8px 0 0; }
+  .proj .pbtns button { font-size:12px; padding:5px 10px; }
+  .proj .pw { overflow-x:auto; }
+  .proj table { width:100%; border-collapse:collapse; font-size:13px; font-variant-numeric:tabular-nums; }
+  .proj th { text-align:right; font-weight:600; color:#9d174d; padding:6px 8px; border-bottom:1px solid #f0d5e3; white-space:nowrap; }
+  .proj th:first-child, .proj td:first-child { text-align:left; white-space:nowrap; }
+  .proj td { text-align:right; padding:5px 8px; border-bottom:1px solid #f6e6ee; white-space:nowrap; }
+  .proj tr.b td { font-weight:700; } .proj tr.sub td { color:#6b7280; font-size:12px; }
+  .proj td.act { background:#fbf3f7; }
+  .proj input { width:76px; font:inherit; font-size:13px; padding:3px 5px; border:1px solid #e6cf7a; border-radius:4px; text-align:right; background:#fffbe6; }
+  .proj input.why { width:100%; text-align:left; }
+  .proj .top2 { display:flex; gap:14px; flex-wrap:wrap; align-items:center; font-size:13px; margin:6px 0 2px; }
+  .proj .up { color:#007a3a; } .proj .dn { color:#c62828; }
+  .proj .sc-bear td:first-child { color:#c62828; font-weight:700; } .proj .sc-base td:first-child { color:#0071bc; font-weight:700; } .proj .sc-bull td:first-child { color:#007a3a; font-weight:700; }
+  .proj ul { margin:0; padding-left:18px; font-size:13px; } .proj li { margin-bottom:4px; }
+  .proj .vnote { margin-top:10px; font-size:13px; background:#fff; border-left:3px solid #e0a92e; padding:7px 10px; border-radius:6px; }
+  .proj table.sct th:nth-child(-n+4), .proj table.sct td:nth-child(-n+4) { width:1%; }
+  .proj table.sct td:last-child { white-space:normal; min-width:260px; }
+  .proj .pdisc { font-size:12px; line-height:1.5; color:#7a2e4f; background:#fff; border:1px solid #f2b8d6; border-left:4px solid #d63384; border-radius:6px; padding:8px 11px; margin:6px 0 8px; }
+  .proj ul.pchk { list-style:none; padding-left:0; } .proj ul.pchk li { padding:4px 0; border-bottom:1px dashed #f0d5e3; }
+  .proj .empty2 { font-size:13px; color:#4b5563; }
+  @media (max-width:820px) { .sig li { grid-template-columns:22px minmax(0,1fr); } .sig .ev { grid-column:2; } }
   .cfoot { display:flex; justify-content:flex-end; gap:4px; margin-top:6px; }
   .edit, .del { border:none; background:none; color:#aaa; font-size:14px; padding:0 4px; cursor:pointer; }
   .edit:hover { color:var(--blue); } .del:hover { color:var(--down); }
@@ -140,13 +250,40 @@
   .problems { color:var(--down); font-size:12px; margin:8px 0 0; }
   .itembtns { display:flex; gap:8px; margin-top:12px; }
 
+  /* Save as PDF: the browser's print, showing only the company card */
+  .pdfbtns { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+  .pdfbtn { font-size:12px; font-weight:600; padding:6px 12px; border:1px solid #cfe1f0; border-radius:8px; background:#fff; color:var(--blue); cursor:pointer; }
+  .pdfbtn:hover { background:#e8f2fa; }
+  .pdfbtn.pj { border-color:#f2b8d6; color:#9d174d; }
+  @media print {
+    @page { size:A4; margin:12mm; }
+    * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    body { background:#fff !important; padding:0; font-size:12px; }
+    .wrap { max-width:none; }
+    .top { box-shadow:none; padding:8px 0 10px; margin-bottom:10px; }
+    .actions, #lockbox, #review, #listview, .back, .pdfbtns, .cfoot, .hist, .drop, .contact { display:none !important; }
+    .colayout { display:block; }
+    .card { box-shadow:none; border:1px solid #d5dae2; border-top-width:4px; padding:12px 14px; }
+    .card:hover { box-shadow:none; transform:none; }
+    .sec, .sig, .tvn, .guid, .risk, .proj h4, tr, .bnote { break-inside:avoid; page-break-inside:avoid; }
+    .sec h3, .proj h4 { break-after:avoid; page-break-after:avoid; }
+    .tablewrap, .proj .pw { overflow:visible; }
+    .proj { break-before:page; border-style:solid; }
+    .proj .pbtns { display:none; }
+    .proj input { border:none; background:none; padding:0; width:auto; font-weight:600; }
+    .proj table.sct input { width:44px; }
+    .proj table.sct td:last-child { width:58%; min-width:0; }
+    body.print-noproj .proj { display:none !important; }
+    .foot { margin-top:14px; } .foot img { width:120px; }
+    .disclaimer { font-size:9px; }
+  }
   @media (max-width:820px) {
     h1 { font-size:21px; } .cname { font-size:20px; }
     .colayout { grid-template-columns:1fr; } .hist { position:static; }
     .item, .form .r3, .form .r2 { grid-template-columns:1fr; } .searchwrap { width:100%; }
     .card { padding:16px 14px 12px; } table.com td:last-child { white-space:normal; }
     table.list th, table.list td { padding:10px 8px; } table.list th.n, table.list td.n { width:34px; }
-    table.list td.dt, table.list th.dt { display:none; }
+    table.list td.dt, table.list th.dt { display:none; } .credchip { font-size:11px; padding:2px 7px; }
   }
 </style>
 </head>
@@ -171,6 +308,7 @@
 
   <!-- Page 1: company list -->
   <div id="listview">
+    <div class="tabs" id="tabs"></div>
     <div class="tools">
       <div class="searchwrap">
         <input type="search" id="search" class="search" placeholder="Search Company" autocomplete="off">
@@ -195,13 +333,17 @@
   </div>
 </div>
 
+<!-- Old separate projections file, if still present. concall_data.js (loaded next) now carries the projections too and takes over. -->
+<script src="projection_data.js"></script>
 <script src="concall_data.js"></script>
+<!-- Optional: copy results_data.js from Earnings Rythm into this folder for the Talk vs Numbers check. -->
+<script src="results_data.js"></script>
 <script>
 const STORE = "priceRythm.concall.v1";
 // Editing controls appear only when the page is opened with ?admin in the link.
 const ADMIN = /[?&]admin\b/i.test(location.search);
 if (ADMIN) document.body.classList.add("admin");
-let quarter = null, search = "", sortKey = "date", sortDir = -1;
+let quarter = null, search = "", sortKey = "date", sortDir = -1, tab = 0;
 let queue = [];
 let listScroll = 0;
 const slug = s => String(s || "").toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
@@ -268,7 +410,7 @@ const badge = tone => { const t = toneOf(tone); return t ? `<span class="badge $
 const list = a => (a || []).filter(Boolean);
 // "Headline: text" -> bold headline. Only when the part before ": " is short.
 function point(s) {
-  const m = /^([^:]{2,60}):\s+([\s\S]+)$/.exec(String(s || ""));
+  const m = /^\[?([^:\]]{2,60}?)\]?\s*:\s+([\s\S]+)$/.exec(String(s || ""));
   return m && m[1].trim().split(/\s+/).length <= 8 ? `<b>${esc(m[1].trim())}:</b> ${esc(m[2])}` : esc(s);
 }
 const coms = d => (d.commitments || []).filter(c => c && (c.c || c.s || c.t));
@@ -285,6 +427,7 @@ const linkTo = (d, withQ) => "#" + slug(d.name) + (withQ ? "/" + slug(d.q) : "")
 function render() {
   const r = route();
   const data = allData();
+  DATA = data;
   const rows = r ? data.filter(d => slug(d.name) === r.co) : [];
   if (r && rows.length) renderCompany(rows, r.q);
   else renderList(data);
@@ -308,17 +451,252 @@ function renderList(data) {
   rows.sort((x, y) =>
     sortKey === "name" ? sortDir * byName(x, y)
     : sortKey === "tone" ? sortDir * (tr(x) - tr(y)) || byName(x, y)
+    : sortKey === "cred" ? ((cred(x).pct ?? -1) - (cred(y).pct ?? -1)) * sortDir || byName(x, y)
     : sortDir * (dateVal(x.date) - dateVal(y.date)) || byName(x, y));
 
-  const how = { name: "company name", date: "call date", tone: "management sentiment" }[sortKey];
+  // Tabs: All Companies + tracker boards. Counts use the whole quarter, not the search.
+  const inQ = data.filter(d => d.q === quarter);
+  document.getElementById("tabs").innerHTML = [["All Companies", inQ.length]].concat(BOARDS.map(b => [b.tab, Math.min(inQ.filter(b.test).length, (typeof b.top === "function" ? b.top() : b.top) || 1e9)]))
+    .map(([l, n], i) => `<div class="tab${i === tab ? " on" : ""}" data-tab="${i}">${l}<span class="n">${n}</span></div>`).join("");
+  const box = document.getElementById("listbox");
+  box.classList.toggle("plain", tab > 0);
+  if (tab > 0) {
+    const b = BOARDS[tab - 1];
+    document.getElementById("basisline").textContent = quarter ? `${b.basis}${term ? " Filtered by search." : ""} Click a company to read its concall.` : "";
+    box.innerHTML = boardHtml(b, rows.filter(b.test), data);
+    return;
+  }
+  const how = { name: "company name", date: "call date", tone: "management sentiment", cred: "credibility (share of earlier promises kept)" }[sortKey];
   document.getElementById("basisline").textContent = quarter
     ? `${term ? "Search results" : "All companies with " + quarter + " concalls"} (${rows.length}), sorted by ${how}. Click a company to read its concall.` : "";
   const th = (k, l, cls) => `<th class="${cls || ""}${sortKey === k ? " on" : ""}" data-sort="${k}">${l}<span class="sa">${sortKey === k ? (sortDir > 0 ? "▲" : "▼") : "▲▼"}</span></th>`;
   document.getElementById("listbox").innerHTML = rows.length
-    ? `<table class="list"><thead><tr><th class="n">#</th>${th("name", "Company")}${th("date", "Call date", "dt")}${th("tone", "Mgmt Sentiment")}</tr></thead>
+    ? `<table class="list"><thead><tr><th class="n">#</th>${th("name", "Company")}${th("date", "Call date", "dt")}${th("tone", "Mgmt Sentiment")}${th("cred", "Credibility")}${ADMIN ? '<th class="ract"></th>' : ""}</tr></thead>
        <tbody>${rows.map((d, i) => `<tr data-go="${esc(linkTo(d, d.q !== latestQ(data, d.name)))}"><td class="n">${i + 1}.</td>
-         <td class="co"><a href="${esc(linkTo(d, d.q !== latestQ(data, d.name)))}">${esc(d.name)}</a></td><td class="dt">${esc(d.date)}</td><td>${badge(d.tone)}</td></tr>`).join("")}</tbody></table>`
+         <td class="co"><a href="${esc(linkTo(d, d.q !== latestQ(data, d.name)))}">${esc(d.name)}</a></td><td class="dt">${esc(d.date)}</td><td>${badge(d.tone)}</td><td>${credChip(d)}</td>${ADMIN ? `<td class="ract"><button class="redit" data-e="${esc(keyOf(d))}" title="Edit this card">✎</button><button class="rdel" data-k="${esc(keyOf(d))}" title="Delete this card">×</button></td>` : ""}</tr>`).join("")}</tbody></table>`
     : `<div class="empty">${term ? "No company matches “" + esc(search.trim()) + "”." : "No concalls added yet."}</div>`;
+}
+// ---------- tracker boards ----------
+const gch = d => (d.gchange && d.gchange.ch) || "";
+const yoyNum = d => { const m = /([+\-−–]?)\s*(\d+(?:\.\d+)?)\s*%/.exec(d.yoy || ""); return m ? parseFloat(m[2]) * (/[-−–]/.test(m[1]) ? -1 : 1) : null; };
+const backed = d => d.decode ? CHECKS.filter(([k]) => d.decode[k] && d.decode[k].v === "Yes").length : 0;
+const stCount = (d, s) => coms(d).filter(c => new RegExp("^" + s + "$", "i").test((c.st || "").trim())).length;
+// History of one company across quarters (DATA is set on every render).
+let DATA = [];
+const sameCo = d => DATA.filter(x => slug(x.name) === slug(d.name));
+const prevOf = d => sameCo(d).filter(x => qRank(x.q) < qRank(d.q)).sort((a, z) => qRank(z.q) - qRank(a.q))[0] || null;
+const toneRank = d => { const t = toneOf(d && d.tone); return t ? t[2] : null; };
+function toneShift(d) {
+  const p = prevOf(d), a = toneRank(p), b = toneRank(d);
+  return a == null || b == null || a === b ? null : { from: p, up: b < a, steps: Math.abs(a - b) };
+}
+// 1. Credibility: earlier commitments resolved on later calls, up to this quarter.
+function cred(d) {
+  const c = { k: 0, r: 0, n: 0 };
+  sameCo(d).filter(x => qRank(x.q) <= qRank(d.q)).forEach(x => { c.k += stCount(x, "Delivered"); c.r += stCount(x, "Revised"); c.n += stCount(x, "Not mentioned"); });
+  c.total = c.k + c.r + c.n;
+  c.pct = c.total ? c.k / c.total : null;
+  return c;
+}
+const credChip = d => { const c = cred(d); if (!c.total) return `<span class="credchip" title="Needs commitments tracked across quarters">–</span>`;
+  const cls = c.pct >= 0.7 ? "hi" : c.pct >= 0.4 ? "mid" : "lo";
+  return `<span class="credchip ${cls}" title="Delivered ${c.k}, Revised ${c.r}, Not mentioned ${c.n}">${c.k} of ${c.total} kept</span>`; };
+// 2. Talk vs numbers: this company's result for the same quarter in Earnings Rythm's results_data.js.
+const RES = () => window.RESULTS_DATA || [];
+const normName = s => String(s || "").toLowerCase().replace(/\b(limited|ltd|the|india|ind)\b/g, "").replace(/[^a-z0-9]/g, "");
+function resultOf(d) {
+  const m = RES().filter(r => r && r.periods && r.periods[2] === d.q && normName(r.name) === normName(d.name));
+  return m.find(r => /consol/i.test(r.basis)) || m[0] || null;
+}
+function resGrowth(r, key) {
+  const t = r.g && r.g[key] && r.g[key][0];
+  if (t) {
+    if (/loss\s*→\s*profit/i.test(t)) return { kind: "pos", text: t };
+    if (/profit\s*→\s*loss/i.test(t)) return { kind: "neg", text: t };
+    const m = /([+\-−–]?)\s*([\d,]+(?:\.\d+)?)\s*%/.exec(t);
+    if (m) { const v = parseFloat(m[2].replace(/,/g, "")) * (/[-−–]/.test(m[1]) ? -1 : 1); return { kind: "num", val: v, text: t }; }
+  }
+  const a = r[key] && r[key][0], b = r[key] && r[key][2];
+  if (a == null || b == null) return { kind: "na", text: "N/D" };
+  if (a < 0 && b >= 0) return { kind: "pos", text: "Loss → Profit" };
+  if (a >= 0 && b < 0) return { kind: "neg", text: "Profit → Loss" };
+  if (a === 0) return { kind: "na", text: "–" };
+  const v = (b - a) / Math.abs(a) * 100;
+  return { kind: "num", val: v, text: (v >= 0 ? "+" : "") + v.toFixed(1) + "%" };
+}
+const UP_STRONG = 20;   // net profit growth (%) treated as strong
+function talk(d) {
+  const r = resultOf(d);
+  if (!r) return null;
+  const sales = resGrowth(r, "sales"), np = resGrowth(r, "np");
+  const down = np.kind === "neg" || (np.kind === "num" && np.val < 0);
+  const strong = np.kind === "pos" || (np.kind === "num" && np.val >= UP_STRONG);
+  const t = /^(positive|optimistic)$/i.test(d.tone) ? "opt" : /^cautious$/i.test(d.tone) ? "cau" : "neu";
+  const flag = t === "opt" && down ? "Optimistic talk, profit down" : t === "cau" && strong ? "Cautious talk, profit up" : "";
+  return { r, sales, np, flag, bad: t === "opt" && down };
+}
+const gcls2 = g => g.kind === "pos" || (g.kind === "num" && g.val >= 0) ? "up" : g.kind === "na" ? "" : "dn";
+// 3. Year-to-date vs full-year guidance.
+function parseYtd(s) {
+  const p = String(s || "").split("|").map(x => x.trim());
+  if (!nd(p[0])) return null;
+  const st = /^ahead/i.test(p[0]) ? "Ahead" : /^on\s*track/i.test(p[0]) ? "On track" : /^behind/i.test(p[0]) ? "Behind" : "Not stated";
+  return { st, act: nd(p[1]), ev: nd(p.slice(2).join(" | ")) };
+}
+const ytdLine = y => !y ? "" : [y.st, y.act, y.ev].join(" | ");
+// 5. Dilution & balance-sheet warnings.
+function parseDil(s) { const p = String(s || "").split("|").map(x => x.trim()); return { t: p[0] || "", x: p.slice(1).join(" | ") }; }
+const dils = d => (d.dilution || []).filter(x => x && (x.t || x.x));
+
+function flagsOf(d) {
+  const f = [];
+  if (/^cautious$/i.test(d.tone)) f.push("Cautious tone");
+  if (gch(d) === "Cut") f.push("Guidance cut");
+  if (gch(d) === "Withdrawn") f.push("Guidance withdrawn");
+  const nm = stCount(d, "Not mentioned"); if (nm) f.push(nm + " promise" + (nm > 1 ? "s" : "") + " not mentioned");
+  if (d.decode) CHECKS.forEach(([k, , l]) => { if (d.decode[k] && d.decode[k].v === "No") f.push(l.replace(/^Backed by/, "Not backed by").replace("Margin talk realistic", "Margin talk unrealistic")); });
+  if (d.ytd && d.ytd.st === "Behind") f.push("Behind full-year guidance");
+  const ts = toneShift(d); if (ts && !ts.up) f.push(`Tone worsened (${toneOf(ts.from.tone)[0]} → ${toneOf(d.tone)[0]})`);
+  const tk = talk(d); if (tk && tk.bad) f.push(`Optimistic talk, profit ${tk.np.text}`);
+  dils(d).forEach(x => f.push(x.t || "Dilution"));
+  const c = cred(d); if (c.total >= 3 && c.pct < 0.5) f.push(`Credibility ${c.k} of ${c.total} kept`);
+  return f;
+}
+// Guided growth: GUIDANCE_GROWTH, or the "Now" value when the guidance itself is a growth %. Lower end of a range.
+// Amount in ₹ crore from text like "INR3,000 crores plus", "₹1.2 lakh crore", "USD 2 billion" is not converted (returns null).
+function amtCr(s) {
+  const t = String(s || "").toLowerCase();
+  if (/usd|\$|eur|€|million|billion|\bmn\b|\bbn\b/.test(t) && !/inr|₹|rs\.?\s|crore/.test(t)) return null;
+  const m = /([\d,]+(?:\.\d+)?)/.exec(t); if (!m) return null;
+  const v = parseFloat(m[1].replace(/,/g, ""));
+  return /lakh\s*cr/.test(t) ? v * 1e5 : /crore|\bcr\b|₹|inr|rs/.test(t) ? v : null;
+}
+// Financial-year number from "FY26", "FY 2026", "Q2 FY27" → 26 / 27; calendar "2030" → 30.
+const fyNum = t => { const m = /FY\s*'?(?:20)?(\d{2})(?!\d)/i.exec(t || "") || /\b20(\d{2})\b/.exec(t || ""); return m ? +m[1] : null; };
+// Year a target refers to: "FY28", "by 2030", "in the next two financial years"; default the current financial year.
+function targetFY(text, d) {
+  const cur = fyNum(d.q) ?? 0;
+  const t = String(text || "");
+  const n = /next\s+(two|2|three|3|four|4|five|5)\s+(?:financial\s+|fiscal\s+)?years/i.exec(t);
+  if (n) return cur - 1 + ({ two: 2, three: 3, four: 4, five: 5 }[n[1].toLowerCase()] || +n[1]);
+  const f = fyNum(t);
+  return f != null && f >= cur ? f : cur;
+}
+const isRevMetric = m => /revenue|sales|top\s*line|turnover/i.test(m || "");
+// Guided growth for the Bullish board: 1) stated %, 2) a growth-type guidance %, 3) implied from a ₹ target vs last year's actual.
+function guided(d) {
+  const lowPct = t => { const m = /(\d+(?:\.\d+)?)\s*(?:%|[–-])/.exec(t || ""); return m ? parseFloat(m[1]) : null; };
+  if (d.ggrowth && lowPct(d.ggrowth) != null) return { pct: lowPct(d.ggrowth), text: d.ggrowth };
+  const g = d.gchange;
+  if (g && /growth/i.test(g.m) && /%/.test(g.now || "") && lowPct(g.now) != null) return { pct: lowPct(g.now), text: g.now };
+  const tgt = g ? amtCr(g.now) : null;
+  let base = d.gbase && amtCr(d.gbase.val) != null ? { per: d.gbase.per, v: amtCr(d.gbase.val) } : null;
+  const pj = typeof projFor === "function" ? projFor(d) : null;
+  if (!base && pj && pj.base && pj.base.rev && (!g || isRevMetric(g.m))) base = { per: pj.base.y, v: pj.base.rev };
+  // A target under half the base is almost always a different scope (e.g. one store vs the whole company): don't compare.
+  if (tgt != null && base && base.v > 0 && tgt / base.v >= 0.5 && (!g || isRevMetric(g.m) || d.gbase)) {
+    // A target several years out is turned into growth per year, so it ranks fairly against one-year guidance.
+    const bFY = fyNum(base.per) ?? ((fyNum(d.q) ?? 0) - 1);
+    const tFY = targetFY(`${g ? g.m : ""} ${g ? g.now : ""}`, d) ;
+    const yrs = Math.max(1, tFY - bFY);
+    const pct = (Math.pow(tgt / base.v, 1 / yrs) - 1) * 100;
+    const tot = (tgt / base.v - 1) * 100;
+    return { pct, text: `~${pct >= 0 ? "+" : ""}${Math.round(pct)}%${yrs > 1 ? `/yr (${tot >= 0 ? "+" : ""}${Math.round(tot)}% total over ${yrs} yrs)` : ""} implied`,
+      note: `₹${f0(tgt)} cr${yrs > 1 ? " by FY" + String(tFY).padStart(2, "0") : ""} vs ${base.per || "last year"} ₹${f0(base.v)} cr${yrs > 1 ? ` (${yrs} yrs)` : ""}` };
+  }
+  if (pj && pj.guide && pj.guide.rev && pj.base && pj.base.rev) {
+    const pct = (pj.guide.rev / pj.base.rev - 1) * 100;
+    return { pct, text: `~${pct >= 0 ? "+" : ""}${Math.round(pct)}% implied`, note: `₹${f0(pj.guide.rev)} cr guided vs ${pj.base.y} ₹${f0(pj.base.rev)} cr` };
+  }
+  return { pct: null, text: "" };
+}
+const guidedText = d => guided(d).text;
+const guidedPct = d => guided(d).pct;
+let bullTop = 20;
+const byYoy = (x, y) => (yoyNum(y) ?? -1e9) - (yoyNum(x) ?? -1e9);
+const yoyCell = d => { const v = yoyNum(d); return d.yoy ? `<span class="yoy ${v != null && v < 0 ? "dn" : "up"}">${esc(d.yoy)}</span>` : `<span class="cntc z">–</span>`; };
+const shiftCell = (d, down) => { const g = d.gchange; return `${g.was ? `<span class="was">${esc(g.was)}</span><span class="arr">→</span>` : ""}<span class="now${down ? " dn" : ""}">${esc(g.now || "–")}</span>`; };
+const ckCell = (d, k) => { const c = d.decode && d.decode[k]; return `<span class="ck ${c ? (c.v === "Yes" ? "y" : "n") : ""}" title="${esc(c ? c.e : "Not discussed")}">${c ? (c.v === "Yes" ? "✓" : "✗") : "–"}</span>`; };
+const num = (n, cls) => `<span class="cntc ${n ? cls : "z"}">${n}</span>`;
+const BOARDS = [
+  { tab: "Bullish Guidance", title: "Bullish guidances", unit: "Guidances", sub: "The strongest guidances in the {Q} concalls, ranked by guided growth", cls: "",
+    basis: "The quarter's strongest guidances, ranked by guided growth: the growth % management stated (lower end of a range), or the growth a ₹ target implies against last year's actual. Raised, maintained and new guidance all count; cut or withdrawn guidance and a Cautious tone are left out. Companies with guidance but no growth figure are listed after the ranked ones.",
+    test: d => !!(d.gchange || d.guidance) && !["Cut", "Withdrawn"].includes(gch(d)) && !/^cautious$/i.test(d.tone),
+    sort: (x, y) => (guidedPct(y) ?? -1e9) - (guidedPct(x) ?? -1e9) || byYoy(x, y), top: () => bullTop, rank: true, picker: true,
+    cols: ["#", "Company", "Guidance", "Earlier", "Now", "Guided growth"],
+    row: (d, i) => [`<span class="cntc z" style="color:#6b7280">${i + 1}</span>`, esc(d.name), esc(d.gchange ? d.gchange.m : "Guidance"),
+      d.gchange && d.gchange.was ? `<span class="was">${esc(d.gchange.was)}</span>` : `<span class="cntc z">—</span>`,
+      `<span class="arr">→</span><span class="now">${esc(d.gchange && d.gchange.now || d.ggrowth || "–")}</span>${gch(d) && gch(d) !== "Maintained" ? ` <span class="chg ${gch(d)}">${gch(d)}</span>` : ""}`,
+      (() => { const gd = guided(d); return gd.pct == null ? `<span class="cntc z" title="No growth % stated and no base figure to compare with">—</span>`
+        : `<span class="yoy ${gd.pct >= 0 ? "up" : "dn"}" title="${esc(gd.note || "As stated by management")}">${esc(gd.text)}</span>${gd.note ? `<div class="mt" style="font-size:11px">${esc(gd.note)}</div>` : ""}`; })()] },
+  { tab: "Guidance Raised", title: "Guidance raised", unit: "Upgrades", sub: "Companies that lifted their guidance on this call", cls: "",
+    basis: "Companies that raised guidance on this call, ranked by this quarter's revenue growth YoY as management stated it.",
+    test: d => gch(d) === "Raised", sort: byYoy,
+    cols: ["Company", "Guidance", "Earlier → Now", "Q Rev YoY", "Sentiment"],
+    row: d => [esc(d.name), esc(d.gchange.m), shiftCell(d), yoyCell(d), badge(d.tone)] },
+  { tab: "Guidance Cut", title: "Guidance cut", unit: "Downgrades", sub: "Companies that lowered or withdrew guidance on this call", cls: "red",
+    basis: "Companies that cut or withdrew guidance on this call, ranked by this quarter's revenue growth YoY as management stated it, weakest first.",
+    test: d => gch(d) === "Cut" || gch(d) === "Withdrawn", sort: (x, y) => (yoyNum(x) ?? 1e9) - (yoyNum(y) ?? 1e9),
+    cols: ["Company", "Guidance", "Earlier → Now", "Q Rev YoY", "Sentiment"],
+    row: d => [esc(d.name), esc(d.gchange.m) + (gch(d) === "Withdrawn" ? ' <span class="chg Withdrawn">Withdrawn</span>' : ""), shiftCell(d, true), yoyCell(d), badge(d.tone)] },
+  { tab: "Strong Signals", title: "Backed targets", unit: "3 of 3", sub: "Targets backed by capacity, by orders or customers, and by realistic margin talk", cls: "violet",
+    basis: "Companies whose Signal Check is 3 of 3 backed (capacity, orders / customers, margin realism), ranked by this quarter's revenue growth YoY.",
+    test: d => backed(d) === 3, sort: byYoy,
+    cols: ["Company", "Target", "Capacity", "Orders", "Margin", "Sentiment"],
+    row: d => [esc(d.name), d.decode.target ? `${esc(d.decode.target.m)}: <b>${esc(rangeText(d.decode.target))}</b>${d.decode.target.p ? ` <span class="mt">by ${esc(d.decode.target.p)}</span>` : ""}` : "–",
+      ckCell(d, "capacity"), ckCell(d, "orders"), ckCell(d, "realism"), badge(d.tone)] },
+  { tab: "Tone Improved", title: "Tone improved", unit: "Companies", sub: "Management sounded better than on its previous call", cls: "",
+    basis: "Companies whose management sentiment improved since their previous concall (Cautious → Neutral → Optimistic). Biggest change first, then by this quarter's revenue growth YoY.",
+    test: d => { const t = toneShift(d); return !!(t && t.up); }, sort: (x, y) => toneShift(y).steps - toneShift(x).steps || byYoy(x, y),
+    cols: ["Company", "Previous call", "This call", "Guidance", "Q Rev YoY"],
+    row: d => { const t = toneShift(d); return [esc(d.name), `${badge(t.from.tone)} <span class="mt">${esc(t.from.q)}</span>`, `<span class="arr">→</span>${badge(d.tone)}`,
+      d.gchange ? `${esc(d.gchange.m)}${gch(d) ? ` <span class="chg ${gch(d)}">${gch(d)}</span>` : ""}` : `<span class="cntc z">–</span>`, yoyCell(d)]; } },
+  { tab: "Talk vs Numbers", title: "Talk vs numbers", unit: "Mismatches", sub: "Where management's tone and the reported results point different ways", cls: "blue",
+    basis: `Management sentiment compared with the same quarter's reported results from Earnings Rythm. Flagged: Optimistic tone with net profit down YoY, or Cautious tone with net profit up ${UP_STRONG}% or more.`,
+    test: d => { const t = talk(d); return !!(t && t.flag); }, sort: (x, y) => (talk(y).bad ? 1 : 0) - (talk(x).bad ? 1 : 0),
+    cols: ["Company", "Mgmt Sentiment", "Sales YoY", "Net Profit YoY", "Mismatch"],
+    row: d => { const t = talk(d); return [esc(d.name), badge(d.tone), `<span class="yoy ${gcls2(t.sales)}">${esc(t.sales.text)}</span>`,
+      `<span class="yoy ${gcls2(t.np)}">${esc(t.np.text)}</span>`, `<span class="flag"${t.bad ? "" : ' style="background:#e6f6ec;color:#007a3a"'}>${esc(t.flag)}</span>`]; } },
+  { tab: "Promises Kept", title: "Promises kept", unit: "Delivered", sub: "Earlier commitments that management said were done on this call", cls: "blue",
+    basis: "Companies with at least one commitment from their previous call marked Delivered, ranked by number delivered.",
+    test: d => stCount(d, "Delivered") > 0, sort: (x, y) => stCount(y, "Delivered") - stCount(x, "Delivered") || byYoy(x, y),
+    cols: ["Company", "Delivered", "Pending", "Revised", "Not mentioned", "Credibility", "Sentiment"],
+    row: d => [esc(d.name), num(stCount(d, "Delivered"), "g"), num(stCount(d, "Pending"), "a"), num(stCount(d, "Revised"), "b"), num(stCount(d, "Not mentioned"), "r"), credChip(d), badge(d.tone)] },
+  { tab: "Red Flags", title: "Red flags", unit: "Companies", sub: "Cautious tone, guidance cut, dropped promises or unbacked targets", cls: "amber",
+    basis: "Companies with any of: Cautious tone, tone worse than last call, guidance cut or withdrawn, behind full-year guidance, a previous promise not mentioned, low credibility, a Signal Check marked No, Optimistic talk with profit down, or a dilution or balance-sheet warning. Most flags first.",
+    test: d => flagsOf(d).length > 0, sort: (x, y) => flagsOf(y).length - flagsOf(x).length,
+    cols: ["Company", "Red flags", "Q Rev YoY", "Sentiment"],
+    row: d => [esc(d.name), flagsOf(d).map(f => `<span class="flag">${esc(f)}</span>`).join(""), yoyCell(d), badge(d.tone)] }
+];
+const EMPTY = {
+  "Bullish Guidance": "No company has raised or given new guidance in this quarter so far.",
+  "Guidance Raised": "No company has raised guidance in this quarter so far.",
+  "Guidance Cut": "No company has cut or withdrawn guidance in this quarter so far.",
+  "Strong Signals": "No company has all three Signal Check items marked Yes.",
+  "Promises Kept": "No earlier commitment has been marked Delivered in this quarter so far.",
+  "Tone Improved": "No company sounded better than on its previous call. This needs two quarters of concalls.",
+  "Talk vs Numbers": "No mismatch between management's tone and reported results in this quarter so far.",
+  "Red Flags": "No red flags in this quarter."
+};
+function boardHtml(b, rows, data) {
+  rows = rows.slice().sort(b.sort);
+  const topN = typeof b.top === "function" ? b.top() : b.top;
+  if (topN) rows = rows.slice(0, topN);
+  // Like the reference card: revenue guidance in the table, other upgraded metrics in a note below it.
+  let also = b.tab === "Guidance Raised" ? rows.filter(d => !/revenue|sales/i.test(d.gchange.m)) : [];
+  if (also.length === rows.length) also = [];
+  const total = rows.length;
+  rows = rows.filter(d => !also.includes(d));
+  return `<div class="board">
+    <div class="bhead ${b.cls}"><div><div class="eb">Concall Tracker · ${esc(quarter)}</div><h2>${b.title}</h2><p>${esc(b.sub.replace("{Q}", quarter))}</p></div>
+      <div class="cnt"><b>${total}</b><span>${b.unit}</span></div></div>
+    <div class="bbody">${b.picker ? `<div class="bpick">Show top <select id="bulltop">${[20, 50].map(n => `<option${n === bullTop ? " selected" : ""}>${n}</option>`).join("")}</select></div>` : ""}${rows.length ? `<table class="bt"><thead><tr>${b.cols.map(c => `<th>${c}</th>`).join("")}</tr></thead>
+      <tbody>${rows.map((d, ri) => `<tr data-go="${esc(linkTo(d, d.q !== latestQ(data, d.name)))}">${b.row(d, ri).map((c, i) => `<td class="${b.cols[i] === "Company" ? "co" : b.cols[i] === "Guidance" ? "mt" : ""}">${c}</td>`).join("")}</tr>`).join("")}</tbody></table>`
+      : `<div class="bempty">${EMPTY[b.tab]}${ADMIN && b.tab === "Talk vs Numbers" && !RES().length ? " (Admin: results_data.js from Earnings Rythm was not found in this folder.)" : ""}</div>`}
+      ${also.length ? `<div class="bnote"><b>Also upgraded:</b> ${also.map(d => `${esc(d.name)} (${esc(d.gchange.m)} ${esc(d.gchange.was || "")}${d.gchange.was ? " → " : ""}${esc(d.gchange.now)})`).join(" · ")}</div>` : ""}
+    </div>
+    <div class="bfoot"><span>Management's own words from earnings calls · Educational only · Not a recommendation</span><span><b>CONCALL RYTHM</b> · price rythm</span></div>
+  </div>`;
 }
 const latestQ = (data, name) => data.filter(d => d.name === name).sort((a, z) => qRank(z.q) - qRank(a.q))[0].q;
 
@@ -343,16 +721,210 @@ function detail(d) {
       <div class="meta"><span>${esc(d.date)}</span><span class="basis">Concall</span><span>${esc(d.q)}</span></div>
       ${badge(d.tone)}
     </div>
-    ${d.guidance ? `<div class="guid"><div class="lab">Guidance</div>${esc(d.guidance)}</div>` : ""}
+    ${d.guidance || d.gchange ? `<div class="guid"><div class="lab">Guidance${d.gchange && d.gchange.ch ? `<span class="chg ${d.gchange.ch}">${d.gchange.ch}</span>` : ""}</div>${esc(d.guidance || "")}
+      ${d.gchange && (d.gchange.was || d.gchange.now) ? `<div class="gchg">${esc(d.gchange.m)}: ${d.gchange.was ? `<span class="was">${esc(d.gchange.was)}</span><span class="arr">→</span>` : ""}<span class="now${/Cut|Withdrawn/.test(d.gchange.ch) ? " dn" : ""}">${esc(d.gchange.now || "")}</span></div>` : ""}
+      ${d.yoy ? `<div class="gchg">This quarter's revenue YoY: <b>${esc(d.yoy)}</b></div>` : ""}
+      ${d.ytd ? `<div class="ytd">Year to date vs full-year guidance:<span class="ytdtag ${d.ytd.st.replace(/\s/g, "")}">${esc(d.ytd.st)}</span>${d.ytd.act ? ` · <b>${esc(d.ytd.act)}</b>` : ""}${d.ytd.ev ? `<div class="ev">${esc(d.ytd.ev)}</div>` : ""}</div>` : ""}</div>` : ""}
+    ${signal(d)}
+    ${talkBox(d)}
     ${SECTIONS.map(sec).join("")}
     ${kv ? `<div class="sec s-old"><h3>Margins, Capex & Order book</h3><ul>${kv}</ul></div>` : ""}
     ${table}
+    ${dils(d).length ? `<div class="sec s-dil"><h3>Dilution & Balance Sheet Warnings</h3><ul>${dils(d).map(x => `<li>${x.t ? `<span class="dtype">${esc(x.t)}</span>` : ""}${esc(x.x)}</li>`).join("")}</ul></div>` : ""}
     ${mtable}
     ${d.risks ? `<div class="risk"><b>Risks</b>${esc(d.risks)}</div>` : ""}
     ${d.source ? `<div class="srcline"><b>Source:</b> ${esc(d.source)}</div>` : ""}
+    ${projBox(d)}
     <div class="cfoot admin-only"><button class="edit" data-e="${esc(keyOf(d))}" title="Edit">✎</button><button class="del" data-k="${esc(keyOf(d))}" title="Remove">×</button></div>
   </div>`;
 }
+function talkBox(d) {
+  const t = talk(d);
+  if (!t) return "";
+  return `<div class="tvn"><div class="lab">Reported results · Earnings Rythm · ${esc(t.r.basis || "")}</div>
+    Sales YoY <b class="yoy ${gcls2(t.sales)}">${esc(t.sales.text)}</b> · Net Profit YoY <b class="yoy ${gcls2(t.np)}">${esc(t.np.text)}</b>
+    ${t.flag ? `<div><span class="mm${t.bad ? "" : " good"}">${esc(t.flag)}</span></div>` : ""}</div>`;
+}
+// ---------- Signal Check ----------
+const rangeText = r => !r ? "" : (r.lo && r.hi && r.lo !== r.hi ? `${r.lo} – ${r.hi}` : (r.lo || r.hi));
+function signal(d) {
+  const dc = d.decode;
+  if (!dc) return "";
+  const backed = CHECKS.filter(([k]) => dc[k] && dc[k].v === "Yes").length;
+  const rows = CHECKS.map(([k, , l]) => {
+    const c = dc[k];
+    const cls = !c ? "" : c.v === "Yes" ? "y" : "n";
+    return `<li><span class="ic ${cls}">${!c ? "–" : c.v === "Yes" ? "✓" : "✗"}</span><span class="k">${l}</span><span class="ev">${c ? esc(c.e || c.v) : "Not discussed on the call"}</span></li>`;
+  }).join("");
+  const tg = dc.target ? `<div class="tg"><span>Target</span>${esc(dc.target.m)}: <b>${esc(rangeText(dc.target))}</b>${dc.target.p ? " by " + esc(dc.target.p) : ""}</div>` : "";
+  const mg = dc.margin ? `<div class="tg"><span>Margin target</span>${esc(dc.margin.m)}: <b>${esc(rangeText(dc.margin))}</b></div>` : "";
+  return `<div class="sig"><div class="sh"><b>Signal Check</b><span class="score">${backed} of 3 backed</span></div>${tg}${mg}<ul>${rows}</ul></div>`;
+}
+
+// ---------- 3-year projection (public, read-only; edited in ?admin; kept in projection_data.js) ----------
+const PROJ_STORE = "priceRythm.concall.proj.v1";
+// Shown inside every projection box, on the page and in the PDF. Prasad's wording, unchanged.
+const PROJ_DISCLAIMER = "<b>Disclaimer:</b> I am not registered with SEBI as an investment adviser or research analyst. This post is for educational purposes only and is not a recommendation to buy or sell any security. The mentorship is educational: I do not provide personalised stock recommendations or manage money. The projections and valuations are my own and may be wrong. Do your own research or consult a registered adviser before investing.";
+let projLocal = (() => { try { return JSON.parse(localStorage.getItem(PROJ_STORE)) || {}; } catch (e) { return {}; } })();
+function projSaveLocal() { try { localStorage.setItem(PROJ_STORE, JSON.stringify(projLocal)); } catch (e) {} }
+function projAll() {
+  const m = {};
+  (window.PROJECTION_DATA || []).forEach(p => { m[keyOf(p)] = p; });
+  if (!ADMIN) return m;   // visitors see only the published file
+  Object.values(projLocal).forEach(p => { m[keyOf(p)] = p; });
+  return m;
+}
+// Same call's projection, else the company's latest one.
+function projFor(d) {
+  const all = projAll();
+  if (all[keyOf(d)]) return all[keyOf(d)];
+  return Object.values(all).filter(p => slug(p.name) === slug(d.name)).sort((a, z) => qRank(z.q) - qRank(a.q))[0] || null;
+}
+const pnum = s => { const t = String(s == null ? "" : s).replace(/[₹,%\s]|cr\b|crores?/gi, ""); const v = parseFloat(t); return isFinite(v) ? v : null; };
+const nextFY = (y, i) => { const m = /FY\s*(\d{2})/i.exec(y || ""); return m ? "FY" + String(+m[1] + i).padStart(2, "0") + "E" : "Year " + i; };
+function parseProjLocks(text) {
+  const keys = ["COMPANY_NAME","QUARTER_INFO","PRICE_DATE","CMP","SHARES_CR","BASE_YEAR","YTD_ACTUAL","GUIDED_Y1","YEAR_\\d","BUILD_\\d{1,2}","SCENARIO_BEAR","SCENARIO_BASE","SCENARIO_BULL","PEERS","ASSUMPTION_\\d","CHECK_\\d","RISK_TO_FORECAST_\\d","VALUE_NOTE","SOURCE"];
+  text = cleanPaste(text).replace(/\*\*/g, "").replace(new RegExp("\\s*\\b(" + keys.join("|") + ")\\s*:", "g"), "\n$1:").replace(/\s*(END PROJECTION LOCK)/g, "\n$1");
+  const out = [];
+  const re = /BEGIN PROJECTION LOCK[\s\S]*?(?:END PROJECTION LOCK|$)/g; let m;
+  while ((m = re.exec(text))) {
+    const b = m[0];
+    const f = n => { const r = new RegExp("^[\\s*>-]*" + n + "\\s*:\\s*(.*)$", "mi").exec(b); return r ? r[1].trim() : ""; };
+    const parts = n => f(n).split("|").map(x => x.trim());
+    const nums = n => { const r = []; const re2 = new RegExp("^[\\s*>-]*" + n + "_(\\d{1,2})\\s*:\\s*(.*)$", "gmi"); let x; while ((x = re2.exec(b))) r.push([+x[1], nd(x[2])]); return r.sort((a, z) => a[0] - z[0]).map(x => x[1]).filter(Boolean); };
+    const bp = parts("BASE_YEAR"), yt = parts("YTD_ACTUAL"), gy = parts("GUIDED_Y1");
+    const p = { name: f("COMPANY_NAME"), q: normQ(f("QUARTER_INFO")), date: nd(f("PRICE_DATE")), cmp: pnum(f("CMP")), shares: pnum(f("SHARES_CR")),
+      ytd: nd(yt[0]) ? { per: yt[0], rev: pnum(yt[1]), ebitda: pnum(yt[2]), pat: pnum(yt[3]) } : null,
+      guide: { rev: pnum(gy[0]), em: pnum(gy[1]), pm: pnum(gy[2]) },
+      base: { y: bp[0] || "", rev: pnum(bp[1]), ebitda: pnum(bp[2]), pat: pnum(bp[3]), toSh: pnum(bp[4]), eps: pnum(bp[5]) }, years: [], sc: {},
+      peers: nd(f("PEERS")), assumptions: nums("ASSUMPTION"), checks: nums("CHECK"),
+      build: nums("BUILD").map(x => { const q = x.split("|").map(t => t.trim()); return { y: q[0] || "", part: q[1] || "", rev: pnum(q[2]), m: pnum(q[3]), why: q.slice(4).join(" | ") }; }), risks: nums("RISK_TO_FORECAST"), note: nd(f("VALUE_NOTE")), source: nd(multi(b, "SOURCE", "END PROJECTION LOCK")) };
+    for (let i = 1; i <= 3; i++) { const y = parts("YEAR_" + i); p.years.push({ y: y[0] || nextFY(p.base.y, i), g: pnum(y[1]), m: pnum(y[2]), dep: pnum(y[3]), int: pnum(y[4]), tax: pnum(y[5]), mi: pnum(y[6]) ?? 0, sh: pnum(y[7]) }); }
+    ["BEAR", "BASE", "BULL"].forEach(k => { const x = parts("SCENARIO_" + k); p.sc[k.toLowerCase()] = { adj: pnum(x[0]) ?? 0, lo: pnum(x[1]), hi: pnum(x[2]), why: x.slice(3).join(" | ") }; });
+    p.orig = JSON.parse(JSON.stringify({ cmp: p.cmp, shares: p.shares, years: p.years, sc: p.sc }));
+    out.push(p);
+  }
+  return out;
+}
+// The model: Revenue → EBITDA → PBT → PAT → PAT to shareholders → EPS, three years from the base year.
+function projCalc(p) {
+  const rows = [{ y: p.base.y, rev: p.base.rev, ebitda: p.base.ebitda, pat: p.base.pat, toSh: p.base.toSh,
+    eps: p.base.eps ?? (p.base.toSh != null && p.shares ? p.base.toSh / p.shares : null), act: true }];
+  rows[0].m = rows[0].rev && rows[0].ebitda != null ? rows[0].ebitda / rows[0].rev * 100 : null;
+  p.years.forEach((y, i) => {
+    const prev = rows[i], rev = prev.rev * (1 + (y.g || 0) / 100), ebitda = rev * (y.m || 0) / 100;
+    const pbt = ebitda - (y.dep || 0) - (y.int || 0), pat = pbt * (1 - (y.tax || 0) / 100), toSh = pat * (1 - (y.mi || 0) / 100);
+    const sh = y.sh || p.shares;
+    rows.push({ y: y.y, rev, g: y.g, ebitda, m: y.m, dep: y.dep, int: y.int, pbt, pat, toSh, sh, eps: sh ? toSh / sh : null });
+  });
+  const eps3 = rows[3].eps;
+  const sc = ["bear", "base", "bull"].map(k => { const c = p.sc[k] || {}; const e = eps3 != null ? eps3 * (1 + (c.adj || 0) / 100) : null;
+    const lo = e != null && c.lo != null ? e * c.lo : null, hi = e != null && c.hi != null ? e * c.hi : null;
+    return { k, eps: e, lo: c.lo, hi: c.hi, vlo: lo, vhi: hi, ulo: lo != null && p.cmp ? (lo / p.cmp - 1) * 100 : null, uhi: hi != null && p.cmp ? (hi / p.cmp - 1) * 100 : null, why: c.why }; });
+  return { rows, sc };
+}
+const f0 = x => x == null || !isFinite(x) ? "–" : Math.round(x).toLocaleString("en-IN");
+const f1 = x => x == null || !isFinite(x) ? "–" : (+x).toFixed(1);
+const fpct = x => x == null || !isFinite(x) ? "–" : `<span class="${x >= 0 ? "up" : "dn"}">${x >= 0 ? "+" : ""}${Math.round(x)}%</span>`;
+// Revenue build from the lock, compared with the model each year.
+const fyKey = y => { const m = /FY\s*(\d{2})/i.exec(y || ""); return m ? m[1] : String(y || "").trim().toLowerCase(); };
+function buildHtml(p, rows) {
+  const b = (p.build || []).filter(x => x.part || x.rev != null);
+  if (!b.length) return "";
+  const yrs = rows.slice(1);
+  return `<h4>Revenue build (₹ cr)</h4><div class="pw"><table><thead><tr><th>Year · part</th><th>Revenue</th><th>EBITDA margin</th><th>EBITDA</th><th style="text-align:left">Basis</th></tr></thead><tbody>
+    ${yrs.map(y => {
+      const parts = b.filter(x => fyKey(x.y) === fyKey(y.y));
+      if (!parts.length) return "";
+      const rev = parts.reduce((a, x) => a + (x.rev || 0), 0), eb = parts.reduce((a, x) => a + (x.rev || 0) * (x.m || 0) / 100, 0);
+      const okR = Math.abs(rev - y.rev) <= 0.02 * y.rev, okE = Math.abs(eb - y.ebitda) <= 0.03 * Math.max(y.ebitda, 1);
+      return parts.map(x => `<tr><td>${esc(y.y)} · ${esc(x.part)}</td><td>${f0(x.rev)}</td><td>${f1(x.m)}%</td><td>${f0((x.rev || 0) * (x.m || 0) / 100)}</td><td style="text-align:left;white-space:normal;color:#6b7280">${esc(x.why)}</td></tr>`).join("") +
+        `<tr class="b"><td>${esc(y.y)} total</td><td>${f0(rev)}</td><td>${rev ? f1(eb / rev * 100) + "%" : "–"}</td><td>${f0(eb)}</td><td style="text-align:left;white-space:normal">${okR && okE
+          ? '<span class="up">✓ matches the model</span>'
+          : `<span class="dn">⚠ model has revenue ${f0(y.rev)}, EBITDA ${f0(y.ebitda)}: growth or margin above does not match this build</span>`}</td></tr>`;
+    }).join("")}
+  </tbody></table></div>`;
+}
+// Page's own checks on Year 1: year-to-date pace and management's margin guidance.
+function ytdMonths(per) {
+  const t = String(per || "").toLowerCase();
+  return /9\s*m|nine|q3/.test(t) ? 9 : /h1|half|q2|6\s*m/.test(t) ? 6 : /q1|3\s*m/.test(t) ? 3 : null;
+}
+function pageChecks(p, rows) {
+  const y = rows[1], out = [], ok = (good, t) => out.push(`<li class="${good ? "up" : "dn"}">${good ? "✓" : "⚠"} ${t}</li>`);
+  const yt = p.ytd, mo = yt && ytdMonths(yt.per);
+  if (yt && mo && yt.rev != null) {
+    const rest = y.rev - yt.rev, pace = (rest / (12 - mo)) / (yt.rev / mo) * 100 - 100;
+    ok(pace >= -5, `Revenue: ${esc(yt.per)} ₹${f0(yt.rev)} cr is ${f1(yt.rev / y.rev * 100)}% of ${esc(y.y)} ₹${f0(y.rev)} cr. The rest of the year needs ₹${f0(rest)} cr, a monthly pace ${pace >= 0 ? "+" : ""}${f1(pace)}% vs the year so far${pace < -5 ? ", with no reason given in the forecast that the business slows" : ""}.`);
+    if (yt.pat != null) {
+      const rp = y.pat - yt.pat, pp = (rp / (12 - mo)) / (yt.pat / mo) * 100 - 100;
+      ok(pp >= -5, `PAT: ${esc(yt.per)} ₹${f0(yt.pat)} cr; the rest of the year needs ₹${f0(rp)} cr, a monthly pace ${pp >= 0 ? "+" : ""}${f1(pp)}% vs the year so far.`);
+    }
+  }
+  const pm = y.rev ? y.pat / y.rev * 100 : null, em = y.m;
+  if (p.guide && p.guide.pm != null && pm != null) ok(Math.abs(pm - p.guide.pm) <= 0.5, `${esc(y.y)} PAT margin ${f1(pm)}% vs management's ${p.guide.pm}%${Math.abs(pm - p.guide.pm) > 0.5 ? " (off by more than 0.5 points)" : ""}.`);
+  if (p.guide && p.guide.em != null && em != null) ok(Math.abs(em - p.guide.em) <= 0.5, `${esc(y.y)} EBITDA margin ${f1(em)}% vs management's ${p.guide.em}%.`);
+  if (p.guide && p.guide.rev != null) out.push(`<li>${esc(y.y)} revenue ₹${f0(y.rev)} cr vs management's ₹${f0(p.guide.rev)} cr (${Math.abs(y.rev / p.guide.rev - 1) < 0.0005 ? "same" : (y.rev >= p.guide.rev ? "+" : "") + f1((y.rev / p.guide.rev - 1) * 100) + "%"}).</li>`);
+  return out.length ? `<h4>Page checks on ${esc(y.y)}</h4><ul class="pchk">${out.join("")}</ul>` : "";
+}
+function projOut(p) {
+  const { rows, sc } = projCalc(p);
+  const r = (l, fn, cls) => `<tr${cls ? ` class="${cls}"` : ""}><td>${l}</td>${rows.map(x => `<td${x.act ? ' class="act"' : ""}>${fn(x)}</td>`).join("")}</tr>`;
+  return `${ADMIN ? pageChecks(p, rows) : ""}<h4>Projection (₹ cr)</h4><div class="pw"><table><thead><tr><th></th>${rows.map(x => `<th>${esc(x.y)}${x.act ? " (actual)" : ""}</th>`).join("")}</tr></thead><tbody>
+    ${r("Revenue", x => f0(x.rev), "b")}${r("growth", x => x.act ? "" : f1(x.g) + "%", "sub")}
+    ${r("EBITDA", x => f0(x.ebitda))}${r("margin", x => x.m == null ? "–" : f1(x.m) + "%", "sub")}
+    ${r("PBT", x => x.act ? "" : f0(x.pbt))}
+    ${r("PAT", x => f0(x.pat), "b")}${r("PAT to shareholders", x => f0(x.toSh))}
+    ${r("Shares (cr)", x => x.act ? "" : (x.sh ? (+x.sh).toFixed(2) : "–"), "sub")}
+    ${r("EPS (₹)", x => f1(x.eps), "b")}${r("P/E at CMP", x => p.cmp && x.eps ? f1(p.cmp / x.eps) + "x" : "–", "sub")}
+  </tbody></table></div>
+  ${buildHtml(p, rows)}
+  <h4>Value from ${esc(rows[3].y)} EPS × P/E</h4><div class="pw"><table><thead><tr><th>Scenario</th><th>${esc(rows[3].y)} EPS</th><th>P/E</th><th>Value (₹)</th><th>vs CMP</th></tr></thead><tbody>
+    ${sc.map(x => `<tr class="sc-${x.k}"><td>${x.k[0].toUpperCase() + x.k.slice(1)}</td><td>${f1(x.eps)}</td><td>${x.lo ?? "–"}–${x.hi ?? "–"}x</td><td><b>${f0(x.vlo)}–${f0(x.vhi)}</b></td><td>${fpct(x.ulo)} to ${fpct(x.uhi)}</td></tr>`).join("")}
+  </tbody></table></div>`;
+}
+function projBox(d) {
+  const p = projFor(d);
+  if (!p) return !ADMIN ? "" : `<div class="proj"><h3>3-year projection</h3>
+    <p class="empty2">No projection yet (only you see this note). Run the Concall Data Lock prompt with the transcript and financials; paste its Part 2 output with <b>Paste data lock</b>, then click <b>Save data file</b>.</p></div>`;
+  const k = keyOf(p);
+  const inp = (path, v) => ADMIN ? `<input type="number" step="any" data-p="${path}" value="${v == null ? "" : v}">` : `<b>${v == null ? "–" : esc(v)}</b>`;
+  const yr = (l, f) => `<tr><td>${l}</td><td class="act"></td>${p.years.map((y, i) => `<td>${inp(`years.${i}.${f}`, y[f])}</td>`).join("")}</tr>`;
+  return `<div class="proj" data-pk="${esc(k)}"><h3>3-year projection & valuation</h3>
+    <div class="pdisc">${PROJ_DISCLAIMER}</div>
+    <p class="pnote">${p.q !== d.q ? `Built on the <b>${esc(p.q)}</b> call. ` : ""}${ADMIN ? "Admin: change any yellow box to test your own view; the tables recalculate. Visitors see the values saved in projection_data.js, read-only." : "Estimates built from management's statements on the call and reported financials."}</p>
+    <div class="top2"><span>CMP ₹ ${inp("cmp", p.cmp)}</span><span>${p.date ? "as of " + esc(p.date) : ""}</span><span>Shares (cr) ${inp("shares", p.shares)}</span></div>
+    <h4>Assumptions</h4><div class="pw"><table><thead><tr><th></th><th>${esc(p.base.y)}</th>${p.years.map(y => `<th>${esc(y.y)}</th>`).join("")}</tr></thead><tbody>
+      ${yr("Revenue growth %", "g")}${yr("EBITDA margin %", "m")}${yr("Depreciation", "dep")}${yr("Interest", "int")}${yr("Tax rate %", "tax")}${yr("Minority share %", "mi")}${yr("Shares cr (weighted)", "sh")}
+    </tbody></table></div>
+    <h4>Scenarios</h4><div class="pw"><table class="sct"><thead><tr><th>Scenario</th><th>EPS vs base %</th><th>P/E low</th><th>P/E high</th><th style="text-align:left">What has to happen</th></tr></thead><tbody>
+      ${["bear", "base", "bull"].map(s => `<tr class="sc-${s}"><td>${s[0].toUpperCase() + s.slice(1)}</td><td>${inp(`sc.${s}.adj`, p.sc[s].adj)}</td><td>${inp(`sc.${s}.lo`, p.sc[s].lo)}</td><td>${inp(`sc.${s}.hi`, p.sc[s].hi)}</td><td style="text-align:left;white-space:normal">${esc(p.sc[s].why || "")}</td></tr>`).join("")}
+    </tbody></table></div>
+    <div class="pout">${projOut(p)}</div>
+    ${p.assumptions.length ? `<h4>How it was built</h4><ul>${p.assumptions.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+    ${ADMIN && (p.checks || []).length ? `<h4>Self-check by the prompt</h4><ul>${p.checks.map(x => `<li>${esc(x.replace(/\s*\|\s*/, ": "))}</li>`).join("")}</ul>` : ""}
+    ${p.peers ? `<h4>Peer P/E</h4><p style="font-size:13px;margin:0">${esc(p.peers)}</p>` : ""}
+    ${p.risks.length ? `<h4>What would break it</h4><ul>${p.risks.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
+    ${p.note ? `<div class="vnote">${esc(p.note)}</div>` : ""}
+    ${p.source ? `<p class="pnote" style="margin-top:10px"><b>Source:</b> ${esc(p.source)}</p>` : ""}
+    <div class="pbtns admin-only"><button data-pr="reset">Reset to lock values</button><button data-pr="del">Remove projection</button></div>
+  </div>`;
+}
+function projEdit(box, input) {
+  const all = projAll(), p = all[box.dataset.pk];
+  if (!p) return;
+  const path = input.dataset.p.split("."), v = input.value === "" ? null : +input.value;
+  let o = p; for (let i = 0; i < path.length - 1; i++) o = o[path[i]];
+  o[path[path.length - 1]] = v;
+  projLocal[keyOf(p)] = p; projSaveLocal();
+  box.querySelector(".pout").innerHTML = projOut(p);
+}
+// Projections are saved in the same file as the cards (one Save button, one file to upload).
+function projText() {
+  const list = Object.values(projAll());
+  return list.length ? "// 3-year projections, shown on the public page with the disclaimer.\nwindow.PROJECTION_DATA = [\n" + list.map(p => "  " + JSON.stringify(p)).join(",\n") + "\n];\n" : "";
+}
+
 function renderCompany(rows, wantQ) {
   rows.sort((a, z) => qRank(z.q) - qRank(a.q));
   const d = rows.find(x => x.q === wantQ) || rows[0];
@@ -361,13 +933,17 @@ function renderCompany(rows, wantQ) {
   v.hidden = false;
   document.getElementById("qtitle").textContent = " - " + qLong(d.q);
   v.innerHTML = `<button class="back" id="back" type="button">← Back to all companies</button>
-    <div class="cohead"><h2 class="cname">${esc(d.name)}</h2></div>
+    <div class="cohead"><h2 class="cname">${esc(d.name)}</h2>
+      <div class="pdfbtns">${cred(d).total ? `<span>Credibility ${credChip(d)}</span>` : ""}
+        <button class="pdfbtn" data-pdf="card" title="Opens the print window: choose Save as PDF">Save as PDF</button>
+      </div></div>
     <div class="colayout">
       <div>${detail(d)}</div>
       <aside class="hist"><h2>Quarter History</h2>
         <table class="hq"><thead><tr><th>Quarter</th><th>Mgmt Sentiment</th></tr></thead>
         <tbody>${rows.map(x => `<tr data-go="${esc(linkTo(x, true))}"${x === d ? ' class="on"' : ""}><td>${esc(x.q)}</td><td>${badge(x.tone)}</td></tr>`).join("")}</tbody></table>
         ${rows.length < 2 ? `<p class="hnote">Earlier quarters appear here as they are added.</p>` : ""}
+        ${(() => { const c = cred(d); return c.total ? `<p class="credsum"><b>Credibility: ${c.k} of ${c.total} kept</b><br>Earlier promises resolved up to ${esc(d.q)}: Delivered ${c.k} · Revised ${c.r} · Not mentioned ${c.n}</p>` : ""; })()}
       </aside>
     </div>`;
   document.title = d.name + " – Concall Rythm";
@@ -388,9 +964,34 @@ function onRoute() {
 }
 
 // ---------- reading concall lock text ----------
-const FIELDS = ["COMPANY_NAME","QUARTER_INFO","CALL_DATE","TONE","GUIDANCE","MARGIN_OUTLOOK","CAPEX","ORDER_BOOK","RISKS","SOURCE","FINAL CONCALL LOCK STATUS"];
-const NUMBERED = "(?:KEY_TAKEAWAY|TAKEAWAY|METRIC|REVENUE|PROFIT|PIPELINE|COMMITMENT)_\\d{1,2}";
-const HEADS = /\s*\[(KEY METRICS|KEY TAKEAWAYS|REVENUE GROWTH & COMPOSITION|PROFITABILITY & BALANCE SHEET|INVESTMENT & PIPELINE|GUIDANCE & COMMITMENTS)\]\s*/gi;
+const FIELDS = ["COMPANY_NAME","QUARTER_INFO","CALL_DATE","TONE","GUIDANCE_CHANGE","GUIDANCE_GROWTH","GUIDANCE_BASE","REVENUE_YOY","YTD_VS_GUIDANCE","GUIDANCE","MARGIN_OUTLOOK","CAPEX","ORDER_BOOK",
+  "DECODE_TARGET","DECODE_MARGIN_REALISM","DECODE_MARGIN","DECODE_CAPACITY","DECODE_ORDERS","RISKS","SOURCE","FINAL CONCALL LOCK STATUS"];
+const NUMBERED = "(?:KEY_TAKEAWAY|TAKEAWAY|METRIC|REVENUE|PROFIT|PIPELINE|COMMITMENT|DILUTION)_\\d{1,2}";
+const HEADS = /\s*\[(KEY METRICS|KEY TAKEAWAYS|REVENUE GROWTH & COMPOSITION|PROFITABILITY & BALANCE SHEET|INVESTMENT & PIPELINE|GUIDANCE & COMMITMENTS|DECODE|DILUTION & BALANCE SHEET WARNINGS)\]\s*/gi;
+// GUIDANCE_BASE: Period | Value  (last actual for the same metric, as stated)
+function parseBase(s) { const p = String(s || "").split("|").map(x => x.trim()); return nd(p[0]) && nd(p[1]) ? { per: p[0], val: p[1] } : null; }
+// GUIDANCE_CHANGE: Metric | Earlier | Now | Change
+const CHG = ["Raised", "Cut", "Maintained", "New", "Withdrawn"];
+function parseGChange(s) {
+  const p = String(s || "").split("|").map(x => x.trim());
+  if (!nd(p[0])) return null;
+  const ch = CHG.find(c => new RegExp("^(?:change\\s*:\\s*)?" + c, "i").test(p[3] || "")) || "";
+  const lab = x => String(x || "").replace(/^(earlier|now|metric|change)\s*:\s*/i, "");
+  return { m: lab(p[0]), was: nd(lab(p[1])), now: nd(lab(p[2])), ch };
+}
+// DECODE section: target and margin rows, and three Yes/No checks with evidence.
+const CHECKS = [["capacity", "DECODE_CAPACITY", "Backed by capacity"], ["orders", "DECODE_ORDERS", "Backed by orders / customers"], ["realism", "DECODE_MARGIN_REALISM", "Margin talk realistic"]];
+function parseRange(s) { const p = String(s || "").split("|").map(x => x.trim()); return nd(p[0]) ? { m: p[0], lo: p[1] || "", hi: p[2] || p[1] || "", p: p[3] || "" } : null; }
+function parseCheck(s) {
+  const p = String(s || "").split("|").map(x => x.trim());
+  const v = /^y/i.test(p[0]) ? "Yes" : /^no\b/i.test(p[0]) ? "No" : "";
+  return v ? { v, e: p.slice(1).join(" | ") } : null;
+}
+function readDecode(field) {
+  const dc = { target: parseRange(field("DECODE_TARGET")), margin: parseRange(field("DECODE_MARGIN")) };
+  CHECKS.forEach(([k, f]) => { dc[k] = parseCheck(field(f)); });
+  return Object.values(dc).some(Boolean) ? dc : null;
+}
 // Pasted output can lose its line breaks. Put every field back on its own line.
 function normalizeLock(text) {
   const re = new RegExp("\\s*\\b(" + FIELDS.join("|") + "|" + NUMBERED + ")\\s*:", "g");
@@ -409,8 +1010,13 @@ function parseCom(s) {
   const p = String(s || "").split("|").map(x => x.trim());
   return { c: p[0] || "", s: p[1] || "", t: p[2] || "", st: p.slice(3).join(" | ") || "" };
 }
+// A field whose text runs over several lines, up to the next marker.
+function multi(b, name, stop) {
+  const m = new RegExp("^[\\s*>-]*" + name + "\\s*:\\s*([\\s\\S]*?)(?=\\n[\\s*>-]*(?:" + stop + ")|(?![\\s\\S]))", "mi").exec(b);
+  return m ? m[1].split("\n").map(x => x.trim()).filter(Boolean).join(" ") : "";
+}
 function parseLocks(text) {
-  text = normalizeLock(text);
+  text = normalizeLock(cleanPaste(text));
   const out = [];
   const failRe = /CONCALL LOCK FAILED\s*<*\s*([\s\S]*?)(?=BEGIN VERIFIED CONCALL LOCK|CONCALL LOCK FAILED|$)/g;
   let f;
@@ -427,11 +1033,14 @@ function parseLocks(text) {
       name: field("COMPANY_NAME"), q: normQ(field("QUARTER_INFO")), date: nd(field("CALL_DATE")),
       tone: (toneOf(field("TONE").split(/[\s|]/)[0]) || [""])[0],
       guidance: nd(field("GUIDANCE")),
+      gchange: parseGChange(field("GUIDANCE_CHANGE")), ggrowth: nd(field("GUIDANCE_GROWTH")), gbase: parseBase(field("GUIDANCE_BASE")), yoy: nd(field("REVENUE_YOY")), ytd: parseYtd(field("YTD_VS_GUIDANCE")),
       takeaways: tks, revenue: numbered(b, "REVENUE"), profit: numbered(b, "PROFIT"), pipeline: numbered(b, "PIPELINE"),
       commitments: numbered(b, "COMMITMENT").map(parseCom),
+      dilution: numbered(b, "DILUTION").map(parseDil),
       metrics: numbered(b, "METRIC").map(parseMet),
       margin: nd(field("MARGIN_OUTLOOK")), capex: nd(field("CAPEX")), orderbook: nd(field("ORDER_BOOK")),
-      risks: nd(field("RISKS")), source: nd(field("SOURCE"))
+      risks: nd(field("RISKS")), source: nd(multi(b, "SOURCE", "FINAL CONCALL LOCK STATUS|END VERIFIED CONCALL LOCK")),
+      decode: readDecode(field)
     };
     if (!d.name) problems.push("Company name not found");
     if (!d.q) problems.push("Quarter not found");
@@ -443,7 +1052,33 @@ function parseLocks(text) {
   }
   return out;
 }
+// Copy from chat apps can add a "\" at line ends, citation tags and markdown. Remove them before reading.
+function cleanPaste(t) {
+  return String(t || "").replace(/\r/g, "")
+    .replace(/<cite\b[^>]*\/?>(?:[\s\S]*?<\/cite>)?/gi, "").replace(/【[^】]*】/g, "")
+    .replace(/\\[ \t]*(?=\n|$)/g, "").replace(/\\(?=\s)/g, "")
+    .replace(/[ \t]+\n/g, "\n");
+}
 function addLockText(text) {
+  text = cleanPaste(text);
+  const projs = /BEGIN PROJECTION LOCK|PROJECTION LOCK FAILED/.test(text) ? parseProjLocks(text) : [];
+  if (/PROJECTION LOCK FAILED/.test(text)) alert("The projection prompt returned PROJECTION LOCK FAILED: " + (/PROJECTION LOCK FAILED\s*([^\n]*)/.exec(text) || [, ""])[1]);
+  if (projs.length) {
+    const bad = projs.filter(p => !p.name || !p.q || p.base.rev == null || p.years.some(y => y.g == null || y.m == null));
+    projs.filter(p => !bad.includes(p)).forEach(p => { projLocal[keyOf(p)] = p; });
+    projSaveLocal();
+    // Concall locks in the same paste count as cards on their way in (they wait in the review form).
+    const inPaste = /BEGIN VERIFIED CONCALL LOCK/.test(text) ? parseLocks(text.replace(/BEGIN PROJECTION LOCK[\s\S]*?(?:END PROJECTION LOCK|$)/g, "")).filter(x => x.data).map(x => slug(x.data.name)) : [];
+    const noCard = projs.filter(p => !bad.includes(p) && !inPaste.includes(slug(p.name)) && !allData().some(d => slug(d.name) === slug(p.name)));
+    alert(`Projection added for: ${projs.filter(p => !bad.includes(p)).map(p => p.name + " (" + p.q + ")").join(", ") || "none"}.` +
+      (bad.length ? `\nCould not read (missing name, quarter, base revenue, growth or margin): ${bad.map(p => p.name || "unnamed").join(", ")}.` : "") +
+      (noCard.length ? `\nNo concall card yet for: ${noCard.map(p => p.name).join(", ")}. Add its concall lock to see the projection.` : "") +
+      (inPaste.length ? "\nCheck the concall card in the review form below and click Add to concalls." : "") +
+      "\nThe projection shows at the bottom of the company page. Click Save data file to publish it.");
+    render();
+    if (!/BEGIN VERIFIED CONCALL LOCK|CONCALL LOCK FAILED/.test(text)) return true;
+    text = text.replace(/BEGIN PROJECTION LOCK[\s\S]*?(?:END PROJECTION LOCK|$)/g, "");
+  }
   const items = parseLocks(text);
   if (!items.length) { alert("No concall lock found. Paste the text from BEGIN VERIFIED CONCALL LOCK to END VERIFIED CONCALL LOCK."); return false; }
   items.forEach(it => queue.push({ id: Math.random().toString(36).slice(2), kind: "lock",
@@ -483,11 +1118,17 @@ function reviewItem(q) {
     </div>
     <div class="r r2">${inp("date", d.date, "Call date", "16 Oct 2026")}<div></div></div>
     <div class="r">${inp("guidance", d.guidance, "Guidance")}</div>
+    <div class="r r2">${inp("gchange", d.gchange ? [d.gchange.m, d.gchange.was, d.gchange.now, d.gchange.ch].join(" | ") : "", "Guidance change — Metric | Earlier | Now | Raised / Cut / Maintained / New / Withdrawn")}${inp("yoy", d.yoy || "", "Revenue YoY (as stated)", "+18%")}</div>
+    <div class="r r2">${inp("gbase", d.gbase ? d.gbase.per + " | " + d.gbase.val : "", "Guidance base — Period | last actual (as stated)", "FY26 | INR1,080 crores")}<div></div></div>
+    <div class="r r2">${inp("ggrowth", d.ggrowth || "", "Guided growth (as stated)", "40–45%")}${inp("ytd", ytdLine(d.ytd), "Year to date vs guidance — Ahead / On track / Behind / Not stated | actual | evidence")}</div>
     ${SECTIONS.map(([f, , title, , max]) => area(f, d[f], title, max)).join("")}
     <div class="r"><div><label>Guidance & Commitments — one row per line: Commitment | Specifics | Timeline | Status (max ${COM_MAX})</label><textarea data-f="commitments" rows="${Math.max(3, coms(d).length + 1)}">${esc(comText)}</textarea></div></div>
+    <div class="r"><div><label>Dilution & balance-sheet warnings — one row per line: Type | Details (max 4)</label><textarea data-f="dilution" rows="${Math.max(2, dils(d).length + 1)}">${esc(dils(d).map(x => [x.t, x.x].join(" | ")).join("\n"))}</textarea></div></div>
     <div class="r"><div><label>Key Metrics — one row per line: Metric | Value (max ${MET_MAX})</label><textarea data-f="metrics" rows="${Math.max(3, mets(d).length + 1)}">${esc(metText)}</textarea></div></div>
     ${legacy ? `<div class="r r2">${inp("margin", d.margin, "Margins (old format)")}${inp("capex", d.capex, "Capex (old format)")}</div>
     <div class="r r2">${inp("orderbook", d.orderbook, "Order book (old format)")}<div></div></div>` : ""}
+    <div class="r r2">${inp("dtarget", decodeLine(d, "target"), "Decode target — Metric | Low | High | Period")}${inp("dmargin", decodeLine(d, "margin"), "Decode margin — Margin type | Low | High")}</div>
+    ${CHECKS.map(([k, , l]) => `<div class="r">${inp("d" + k, decodeLine(d, k), l + " — Yes / No | evidence")}</div>`).join("")}
     <div class="r">${inp("risks", d.risks, "Risks")}</div>
     ${q.problems && q.problems.length ? `<p class="problems">${q.problems.map(esc).join("<br>")}</p>` : ""}
     <div class="itembtns"><button class="primary" data-add="${q.id}">${q.kind === "edit" ? "Save changes" : "Add to concalls"}</button><button data-skip="${q.id}">${q.kind === "edit" ? "Cancel" : "Skip"}</button></div>
@@ -502,14 +1143,25 @@ function renderReview() {
 }
 function readItem(el, it) {
   const get = f => { const x = el.querySelector(`[data-f="${f}"]`); return x ? x.value.trim() : ""; };
-  const d = { name: get("name"), q: normQ(get("q")), date: get("date"), tone: get("tone"), guidance: nd(get("guidance")) };
+  const d = { name: get("name"), q: normQ(get("q")), date: get("date"), tone: get("tone"), guidance: nd(get("guidance")),
+    gchange: parseGChange(get("gchange")), ggrowth: nd(get("ggrowth")), gbase: parseBase(get("gbase")), yoy: nd(get("yoy")), ytd: parseYtd(get("ytd")) };
   SECTIONS.forEach(([f, , , , max]) => { d[f] = lines(get(f)).slice(0, max); });
   d.metrics = lines(get("metrics")).slice(0, MET_MAX).map(parseMet);
   d.commitments = lines(get("commitments")).slice(0, COM_MAX).map(parseCom);
+  d.dilution = lines(get("dilution")).slice(0, 4).map(parseDil);
   d.margin = nd(get("margin")); d.capex = nd(get("capex")); d.orderbook = nd(get("orderbook"));
   d.risks = nd(get("risks"));
   d.source = it && it.data ? it.data.source || "" : "";
+  const dc = { target: parseRange(get("dtarget")), margin: parseRange(get("dmargin")) };
+  CHECKS.forEach(([k]) => { dc[k] = parseCheck(get("d" + k)); });
+  d.decode = Object.values(dc).some(Boolean) ? dc : null;
   return d;
+}
+// One decode field back to its "a | b | c" text, for the review form.
+function decodeLine(d, k) {
+  const x = d.decode && d.decode[k];
+  if (!x) return "";
+  return k === "target" ? [x.m, x.lo, x.hi, x.p].join(" | ") : k === "margin" ? [x.m, x.lo, x.hi].join(" | ") : [x.v, x.e].join(" | ");
 }
 function addFromReview(id) {
   const el = document.querySelector(`.item[data-id="${id}"]`);
@@ -541,12 +1193,13 @@ function saveFile() {
   const data = allData().sort((a, z) => qRank(z.q) - qRank(a.q));
   const text = "// Concall Rythm data. Saved from the page with \"Save data file\".\n" +
     "window.CONCALL_DATA = [\n" + data.map(d => {
-      const o = { name: d.name, q: d.q, date: d.date, tone: d.tone, guidance: d.guidance, metrics: mets(d),
-        takeaways: list(d.takeaways), revenue: list(d.revenue), profit: list(d.profit), pipeline: list(d.pipeline), commitments: coms(d) };
+      const o = { name: d.name, q: d.q, date: d.date, tone: d.tone, guidance: d.guidance, gchange: d.gchange || null, ggrowth: d.ggrowth || "", gbase: d.gbase || null, yoy: d.yoy || "", metrics: mets(d),
+        takeaways: list(d.takeaways), revenue: list(d.revenue), profit: list(d.profit), pipeline: list(d.pipeline), commitments: coms(d), ytd: d.ytd || null, dilution: dils(d) };
       ["margin", "capex", "orderbook"].forEach(k => { if (d[k]) o[k] = d[k]; });
+      if (d.decode) o.decode = d.decode;
       o.risks = d.risks; o.source = d.source;
       return "  " + JSON.stringify(o);
-    }).join(",\n") + "\n];\n";
+    }).join(",\n") + "\n];\n" + projText();
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([text], { type: "text/javascript" }));
   a.download = "concall_data.js";
@@ -558,6 +1211,13 @@ function saveFile() {
 window.addEventListener("hashchange", onRoute);
 document.getElementById("search").addEventListener("input", e => { search = e.target.value; render(); });
 document.getElementById("quarter").addEventListener("change", e => { quarter = e.target.value; render(); });
+document.getElementById("listbox").addEventListener("change", e => {
+  if (e.target.id === "bulltop") { bullTop = +e.target.value; render(); }
+});
+document.getElementById("tabs").addEventListener("click", e => {
+  const t = e.target.closest("[data-tab]");
+  if (t) { tab = +t.dataset.tab; render(); }
+});
 document.getElementById("listbox").addEventListener("click", e => {
   const th = e.target.closest("th[data-sort]");
   if (th) {
@@ -565,10 +1225,34 @@ document.getElementById("listbox").addEventListener("click", e => {
     if (sortKey === k) sortDir = -sortDir; else { sortKey = k; sortDir = k === "date" ? -1 : 1; }
     render(); return;
   }
+  // Admin edit / delete buttons on each row (they must not open the company page).
+  const rb = e.target.closest("button.redit, button.rdel");
+  if (rb) {
+    e.preventDefault(); e.stopPropagation();
+    if (rb.dataset.e) { startEdit(rb.dataset.e); return; }
+    if (rb.dataset.k) {
+      const name = rb.closest("tr").querySelector("td.co").textContent.trim();
+      if (confirm(`Delete ${name}?\nClick Save data file afterwards to remove it from the site.`)) { removeEntry(rb.dataset.k); render(); }
+    }
+    return;
+  }
   const tr = e.target.closest("tr[data-go]");
   if (tr) { e.preventDefault(); go(tr.dataset.go); }
 });
+// Save as PDF: print only this company's card; the file name comes from the page title.
+function savePdf(withProj) {
+  const name = (document.querySelector(".cname") || {}).textContent || "Concall";
+  const q = (document.querySelector(".hq tr.on td") || {}).textContent || "";
+  const old = document.title;
+  document.title = `${name}${q ? " " + q : ""} Concall Rythm`.replace(/[\\/:*?"<>|]/g, "");
+  document.body.classList.toggle("print-noproj", !withProj);
+  const done = () => { document.title = old; document.body.classList.remove("print-noproj"); window.removeEventListener("afterprint", done); };
+  window.addEventListener("afterprint", done);
+  window.print();
+}
 document.getElementById("coview").addEventListener("click", e => {
+  const pb = e.target.closest("[data-pdf]");
+  if (pb) { savePdf(true); return; }
   if (e.target.closest("#back")) {
     // Came from the list: step back (keeps search + scroll). Opened by a shared link: go to the list.
     if (fromList) history.go(-histSteps); else location.hash = "";
@@ -580,6 +1264,22 @@ document.getElementById("coview").addEventListener("click", e => {
   if (!b) return;
   if (b.dataset.e) { startEdit(b.dataset.e); return; }
   if (b.dataset.k && confirm("Remove this concall?")) { removeEntry(b.dataset.k); render(); }
+});
+document.getElementById("coview").addEventListener("input", e => {
+  const box = e.target.closest(".proj");
+  if (box && e.target.dataset.p) projEdit(box, e.target);
+});
+document.getElementById("coview").addEventListener("click", e => {
+  const b = e.target.closest("button[data-pr]");
+  if (!b) return;
+  const box = b.closest(".proj"), all = projAll(), p = all[box.dataset.pk];
+  if (!p) return;
+  if (b.dataset.pr === "reset") { Object.assign(p, JSON.parse(JSON.stringify(p.orig))); projLocal[keyOf(p)] = p; projSaveLocal(); render(); }
+  if (b.dataset.pr === "del" && confirm("Remove this projection from this browser? (A copy in projection_data.js stays until you save a new file.)")) {
+    delete projLocal[keyOf(p)]; projSaveLocal();
+    if (window.PROJECTION_DATA) window.PROJECTION_DATA = window.PROJECTION_DATA.filter(x => keyOf(x) !== keyOf(p));
+    render();
+  }
 });
 document.getElementById("files").addEventListener("change", e => { addFiles(e.target.files); e.target.value = ""; });
 document.getElementById("save").addEventListener("click", saveFile);
