@@ -85,6 +85,23 @@
   .bfoot b { color:#f2c56b; }
   .bpick { display:flex; justify-content:flex-end; align-items:center; gap:6px; font-size:12px; color:#4b5563; margin:0 0 8px; }
   .bpick select { padding:3px 6px; font-size:12px; }
+  table.bt.agg th.srt { cursor:pointer; user-select:none; } table.bt.agg th.srt .sa { color:#8a9a93; font-size:10px; margin-left:4px; } table.bt.agg th.srt.on .sa { color:#f2c56b; }
+  table.bt.agg tr.grp { cursor:pointer; } table.bt.agg tr.grp td { vertical-align:top; }
+  table.bt.agg td.ind { min-width:160px; overflow-wrap:normal; word-break:normal; }
+  table.bt.agg td.tog { color:#6b7280; width:1%; font-size:14px; }
+  table.bt.agg tr.grp.open td { background:#f6faf8; border-bottom:none; }
+  table.bt.agg tr.det td { padding-top:0; background:#f6faf8; cursor:default; }
+  table.sub { width:100%; border-collapse:collapse; font-size:13px; margin:0 0 6px; background:#fff; border:1px solid #e5e7eb; border-radius:6px; }
+  table.sub th { text-align:left; font-size:11px; font-weight:600; color:#6b7280; text-transform:none; letter-spacing:0; background:#f9fafb; padding:5px 8px; border-bottom:1px solid #e5e7eb; }
+  table.sub td { padding:5px 8px; border-bottom:1px solid #f1f3f6; overflow-wrap:normal; }
+  table.sub tr:last-child td { border-bottom:none; }
+  table.sub td:first-child { font-weight:600; white-space:nowrap; } table.sub td a { color:#0b4f82; text-decoration:none; } table.sub td a:hover { text-decoration:underline; }
+  .stag { display:inline-block; font-family:Inter,sans-serif; font-size:10px; font-weight:600; letter-spacing:.2px; text-transform:none; padding:1px 7px; border-radius:9px; margin-left:8px; vertical-align:middle; white-space:nowrap; }
+  .stag.ms { background:#e8f2fa; color:#0b4f82; border:1px solid #cfe1f0; } .stag.rf { background:#f1f3f6; color:#374151; border:1px solid #dfe3e8; } .stag.pr { background:#fdeaf3; color:#9d174d; border:1px solid #f2b8d6; }
+  .bhead .stag { margin:0 0 0 10px; } .cnote { display:block; font-size:11px; color:#6b7280; font-style:italic; margin-top:1px; }
+  .srckey { font-size:12px; color:#4b5563; margin:-8px 0 14px; display:flex; flex-wrap:wrap; gap:6px 14px; align-items:center; } .srckey .stag { margin:0 4px 0 0; }
+  .restore { font-size:11px; padding:1px 8px; margin-left:4px; }
+  .aggall { font-size:12px; padding:3px 10px; margin-right:10px; }
   .bempty { padding:26px 6px; color:var(--muted); font-size:14px; }
   .gchg { margin-top:6px; font-size:13px; }
   .chg { font-size:11px; font-weight:700; padding:1px 8px; border-radius:10px; margin-left:6px; }
@@ -111,6 +128,8 @@
   .obx .up { color:#007a3a; font-weight:600; } .obx .dn { color:#c62828; font-weight:600; }
   .obx ul { margin:2px 0 0; padding-left:18px; }
   .obx.cpx { border-color:#cde89a; border-left-color:#65a30d; background:#f2fbdc; } .obx.cpx .lab { color:#3f6212; } .obx.cpx td { border-bottom-color:#dcefb8; }
+  .gloss { margin:10px 0 0; font-size:13px; color:#374151; background:#f9fafb; border:1px solid #eceef2; border-radius:8px; padding:7px 12px; }
+  .gloss .lab { color:#6b7280; margin-right:8px; } .gloss .gt { display:inline-block; margin:2px 14px 2px 0; } .gloss .gt b { color:#0b4f82; }
   .dtype { font-size:11px; font-weight:700; padding:1px 8px; border-radius:10px; background:#fdecec; color:#c62828; margin-right:6px; white-space:nowrap; }
   .credsum { font-size:12px; color:#374151; padding:10px 14px 12px; margin:0; border-top:1px solid var(--line); line-height:1.6; }
   .credsum b { font-family:Poppins,Inter,sans-serif; }
@@ -202,16 +221,28 @@
   .proj th:first-child, .proj td:first-child { text-align:left; white-space:nowrap; }
   .proj td { text-align:right; padding:5px 8px; border-bottom:1px solid #f6e6ee; white-space:nowrap; }
   .proj tr.b td { font-weight:700; } .proj tr.sub td { color:#6b7280; font-size:12px; }
-  .proj td.act { background:#fbf3f7; }
+  .proj td.act { background:#fbf3f7; } .proj th .stag { margin:2px 0 0; font-size:9px; padding:0 5px; }
   .proj input { width:76px; font:inherit; font-size:13px; padding:3px 5px; border:1px solid #e6cf7a; border-radius:4px; text-align:right; background:#fffbe6; }
   .proj input.why { width:100%; text-align:left; }
+  .cind { font-size:13px; color:#4b5563; margin-top:2px; font-family:Inter,sans-serif; font-weight:500; }
+  .cind b { color:#0b4f82; font-weight:600; }
+  .ichip { display:inline-block; font-size:12px; padding:2px 8px; margin:2px 4px 2px 0; border-radius:10px; background:#eef5fb; color:#0b4f82; text-decoration:none; white-space:nowrap; }
+  .ichip:hover { background:#dbeafe; }
+  .ichip .mt { color:#6b7280; }
+  .cname .csym { font-size:13px; font-weight:600; color:#6b7280; letter-spacing:.04em; margin-left:6px; }
+  .proj .resn { font-size:12px; background:#f3f4f6; border:1px solid #e5e7eb; border-radius:8px; padding:7px 10px; margin:8px 0 4px; }
+  .proj .resn ul { margin:4px 0 0; padding-left:18px; } .proj .resn input { width:110px; font-size:12px; padding:2px 4px; }
+  .proj .resn button { font-size:11px; padding:2px 8px; margin-left:6px; }
   .proj .top2 { display:flex; gap:14px; flex-wrap:wrap; align-items:center; font-size:13px; margin:6px 0 2px; }
   .proj .up { color:#007a3a; } .proj .dn { color:#c62828; }
   .proj .sc-bear td:first-child { color:#c62828; font-weight:700; } .proj .sc-base td:first-child { color:#0071bc; font-weight:700; } .proj .sc-bull td:first-child { color:#007a3a; font-weight:700; }
   .proj ul { margin:0; padding-left:18px; font-size:13px; } .proj li { margin-bottom:4px; }
+  .proj h4.kar { font-size:15px; border-top:1px dashed #f0b6d4; padding-top:12px; margin-top:18px; }
   .proj .vnote { margin-top:10px; font-size:13px; background:#fff; border-left:3px solid #e0a92e; padding:7px 10px; border-radius:6px; }
   .proj table.sct th:nth-child(-n+4), .proj table.sct td:nth-child(-n+4) { width:1%; }
-  .proj table.sct td:last-child { white-space:normal; min-width:260px; }
+  .proj table.sct td:last-child { white-space:normal; min-width:170px; }
+  .proj table.scm td:last-child { white-space:normal; min-width:200px; }
+  .proj table.scm th { white-space:normal; vertical-align:bottom; } .proj table.scm th, .proj table.scm td { padding-left:6px; padding-right:6px; }
   .proj .pdisc { font-size:12px; line-height:1.5; color:#7a2e4f; background:#fff; border:1px solid #f2b8d6; border-left:4px solid #d63384; border-radius:6px; padding:8px 11px; margin:6px 0 8px; }
   .proj ul.pchk { list-style:none; padding-left:0; } .proj ul.pchk li { padding:4px 0; border-bottom:1px dashed #f0d5e3; }
   .proj .empty2 { font-size:13px; color:#4b5563; }
@@ -277,11 +308,12 @@
     .sec, .sig, .tvn, .guid, .risk, .proj h4, tr, .bnote { break-inside:avoid; page-break-inside:avoid; }
     .sec h3, .proj h4 { break-after:avoid; page-break-after:avoid; }
     .tablewrap, .proj .pw { overflow:visible; }
-    .proj { break-before:page; border-style:solid; }
+    .proj { border-style:solid; }
     .proj .pbtns { display:none; }
     .proj input { border:none; background:none; padding:0; width:auto; font-weight:600; }
     .proj table.sct input { width:44px; }
     .proj table.sct td:last-child { width:58%; min-width:0; }
+    .proj table.scm td:last-child { min-width:0; } .proj table.scm { font-size:11px; }
     body.print-noproj .proj { display:none !important; }
     .foot { margin-top:14px; } .foot img { width:120px; }
     .disclaimer { font-size:9px; }
@@ -305,9 +337,11 @@
     <div class="actions">
       <button id="lockbtn" class="admin-only">Paste data lock</button>
       <label class="btn admin-only">Add .txt<input type="file" id="files" accept=".txt,text/plain" multiple hidden></label>
+      <label class="btn admin-only" title="AmiBroker Exploration export: Symbol, Sector, Industry">Add industry CSV<input type="file" id="indfile" accept=".csv,text/csv" hidden></label>
       <button id="save" class="admin-only" title="Download concall_data.js to replace the one in this folder">Save data file</button>
     </div>
   </div>
+  <div class="srckey"><span><span class="stag ms">Management statement</span>what management said on the call</span><span><span class="stag rf">Reported financials</span>what the company reported in its results</span><span><span class="stag pr">Price Rythm estimate</span>our own projections and valuations, not company guidance</span></div>
   <div class="lockbox" id="lockbox" hidden>
     <h2>Paste data lock</h2>
     <p class="hint">Paste the full output of the Concall Data Lock prompt, from BEGIN VERIFIED CONCALL LOCK to END. You can paste several companies at once.</p>
@@ -346,8 +380,10 @@
 <!-- Old separate projections file, if still present. concall_data.js (loaded next) now carries the projections too and takes over. -->
 <script src="projection_data.js"></script>
 <script src="concall_data.js"></script>
-<!-- Optional: copy results_data.js from Earnings Rythm into this folder for the Talk vs Numbers check. -->
+<!-- Optional: copy results_data.js from Earnings Rythm into this folder. Used for Talk vs Numbers and for the projections' base year, year to date and CMP. -->
 <script src="results_data.js"></script>
+<!-- Optional: industry_data.js; normally the industry list is saved inside concall_data.js. -->
+<script src="industry_data.js"></script>
 <script>
 const STORE = "priceRythm.concall.v1";
 // Editing controls appear only when the page is opened with ?admin in the link.
@@ -368,7 +404,7 @@ const SECTIONS = [
   ["profit",    "PROFIT",       "Profitability & Balance Sheet", "prof", 5],
   ["pipeline",  "PIPELINE",     "Investment & Pipeline", "pipe", 6]
 ];
-const COM_MAX = 12;
+const COM_MAX = 20;
 const MET_MAX = 20;
 // "Metric | Value" rows.
 function parseMet(s) { const p = String(s || "").split("|").map(x => x.trim()); return { m: p[0] || "", v: p.slice(1).join(" | ") || "" }; }
@@ -379,6 +415,8 @@ const stClass = s => "st-" + String(s || "").toLowerCase().replace(/[^a-z]/g, ""
 const tracked = cs => cs.some(c => c.st && !/^not tracked$/i.test(c.st));
 
 // ---------- data ----------
+// NSE symbol as the link to Earnings Rythm: "NSE: RATNAVEER" → RATNAVEER; N/D or BSE-only → "".
+const symOf = v => { const t = nd(String(v || "").replace(/^\s*(nse|symbol)\s*[:\-]?\s*/i, "")).toUpperCase(); return /^[A-Z0-9&\-]{2,20}$/.test(t) ? t : ""; };
 // Names typed in ALL CAPS (as some transcripts print them) are shown in normal case.
 // Short words and words with no vowels stay in capitals, as they are usually initials (GNG, HFCL, JSW, WAM).
 const SMALL = /^(AND|OF|THE|FOR|IN|ON|&)$/;
@@ -398,7 +436,16 @@ let local = (() => {
   catch (e) { return { items:[], removed:[] }; }
 })();
 function saveLocal() { try { localStorage.setItem(STORE, JSON.stringify(local)); } catch (e) {} }
+// Chat apps mark line breaks with a "\" when text is copied; remove any left in saved cards (fixed once, kept on save).
+function unslash(o) {
+  if (typeof o === "string") return o.replace(/\\+[ \t]*$/, "").replace(/\\+(?=\s)/g, "").replace(/\\([:&_*#\[\]().\-])/g, "$1");
+  if (Array.isArray(o)) { o.forEach((v, i) => { o[i] = unslash(v); }); return o; }
+  if (o && typeof o === "object") Object.keys(o).forEach(k => { o[k] = unslash(o[k]); });
+  return o;
+}
+let unslashed = false;
 function allData() {
+  if (!unslashed) { unslashed = true; (window.CONCALL_DATA || []).concat(local.items).forEach(unslash); (window.PROJECTION_DATA || []).forEach(unslash); }
   (window.CONCALL_DATA || []).concat(local.items).forEach(d => { d.name = niceName(d.name); });
   if (!ADMIN) return (window.CONCALL_DATA || []).slice();
   const map = new Map();
@@ -428,6 +475,10 @@ function dateVal(s) {
   return m && m[2].toLowerCase() in MON ? new Date(+m[3], MON[m[2].toLowerCase()], +m[1]).getTime() : 0;
 }
 
+// ---------- source labels: what management said / what was reported / our own estimate ----------
+const TAGS = { ms: "Management statement", rf: "Reported financials", pr: "Price Rythm estimate" };
+const tag = k => `<span class="stag ${k}">${TAGS[k]}</span>`;
+const calcNote = `<span class="cnote">calculated by Price Rythm from management's figures</span>`;
 // ---------- shared ----------
 const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;" }[c]));
 const toneOf = t => TONES[String(t || "").toLowerCase()] || null;
@@ -482,9 +533,16 @@ function renderList(data) {
   // Tabs: All Companies + tracker boards. Counts use the whole quarter, not the search.
   const inQ = data.filter(d => d.q === quarter);
   document.getElementById("tabs").innerHTML = [["All Companies", inQ.length]].concat(BOARDS.map(b => [b.tab, Math.min(inQ.filter(b.test).length, (typeof b.top === "function" ? b.top() : b.top) || 1e9)]))
+    .concat(AGG.map(b => [b.tab, groups(inQ, b.want).length]))
     .map(([l, n], i) => `<div class="tab${i === tab ? " on" : ""}" data-tab="${i}">${l}<span class="n">${n}</span></div>`).join("");
   const box = document.getElementById("listbox");
   box.classList.toggle("plain", tab > 0);
+  if (tab > BOARDS.length) {
+    const b = AGG[tab - BOARDS.length - 1];
+    document.getElementById("basisline").textContent = quarter ? `${b.basis}${term ? " Filtered by search." : ""} Click a company to read its concall.` : "";
+    box.innerHTML = aggHtml(b, rows, data);
+    return;
+  }
   if (tab > 0) {
     const b = BOARDS[tab - 1];
     document.getElementById("basisline").textContent = quarter ? `${b.basis}${term ? " Filtered by search." : ""} Click a company to read its concall.` : "";
@@ -492,14 +550,17 @@ function renderList(data) {
     return;
   }
   const how = { name: "company name", date: "call date", tone: "management sentiment", cred: "credibility (share of earlier promises kept)" }[sortKey];
+  // Admin: cards deleted in this browser that are still in the published file (visitors still see them until you save).
+  const gone = ADMIN ? (window.CONCALL_DATA || []).filter(d => local.removed.includes(keyOf(d))) : [];
+  const goneNote = gone.length ? `<div class="bnote" style="margin:0 0 12px"><b>Deleted in this browser, still on the public page until you click Save data file (${gone.length}):</b> ${gone.map(d => `${esc(d.name)} (${esc(d.q)}) <button class="restore" data-r="${esc(keyOf(d))}" type="button">Restore</button>`).join(" · ")}</div>` : "";
   document.getElementById("basisline").textContent = quarter
     ? `${term ? "Search results" : "All companies with " + quarter + " concalls"} (${rows.length}), sorted by ${how}. Click a company to read its concall.` : "";
   const th = (k, l, cls) => `<th class="${cls || ""}${sortKey === k ? " on" : ""}" data-sort="${k}">${l}<span class="sa">${sortKey === k ? (sortDir > 0 ? "▲" : "▼") : "▲▼"}</span></th>`;
-  document.getElementById("listbox").innerHTML = rows.length
+  document.getElementById("listbox").innerHTML = goneNote + (rows.length
     ? `<table class="list"><thead><tr><th class="n">#</th>${th("name", "Company")}${th("date", "Call date", "dt")}${th("tone", "Mgmt Sentiment")}${th("cred", "Credibility")}${ADMIN ? '<th class="ract"></th>' : ""}</tr></thead>
        <tbody>${rows.map((d, i) => `<tr data-go="${esc(linkTo(d, d.q !== latestQ(data, d.name)))}"><td class="n">${i + 1}.</td>
          <td class="co"><a href="${esc(linkTo(d, d.q !== latestQ(data, d.name)))}">${esc(d.name)}</a></td><td class="dt">${esc(d.date)}</td><td>${badge(d.tone)}</td><td>${credChip(d)}</td>${ADMIN ? `<td class="ract"><button class="redit" data-e="${esc(keyOf(d))}" title="Edit this card">✎</button><button class="rdel" data-k="${esc(keyOf(d))}" title="Delete this card">×</button></td>` : ""}</tr>`).join("")}</tbody></table>`
-    : `<div class="empty">${term ? "No company matches “" + esc(search.trim()) + "”." : "No concalls added yet."}</div>`;
+    : `<div class="empty">${term ? "No company matches “" + esc(search.trim()) + "”." : "No concalls added yet."}</div>`);
 }
 // ---------- tracker boards ----------
 const gch = d => (d.gchange && d.gchange.ch) || "";
@@ -570,6 +631,9 @@ function parseYtd(s) {
 }
 const ytdLine = y => !y ? "" : [y.st, y.act, y.ev].join(" | ");
 // 5. Dilution & balance-sheet warnings.
+// GLOSSARY: Term | plain meaning
+function parseTerm(s) { const p = String(s || "").split("|").map(x => x.trim()); return { t: p[0] || "", m: p.slice(1).join(" | ") }; }
+const terms = d => (d.terms || []).filter(x => x && x.t);
 function parseDil(s) { const p = String(s || "").split("|").map(x => x.trim()); return { t: p[0] || "", x: p.slice(1).join(" | ") }; }
 const dils = d => (d.dilution || []).filter(x => x && (x.t || x.x));
 // ---------- Order book (Section I) ----------
@@ -623,9 +687,9 @@ function orderBox(d) {
   if (!o) return "";
   const c = cover(d);
   const row = (k, v) => v ? `<tr><td>${k}</td><td>${v}</td></tr>` : "";
-  return `<div class="obx"><div class="lab">Order book</div><table>
+  return `<div class="obx"><div class="lab">Order book ${tag("ms")}</div><table>
     ${obText(d) ? row("Order book", `<b>${esc(obText(d))}</b>${o.book && o.book.asof ? ` <span class="mt">as of ${esc(o.book.asof)}</span>` : ""}${o.book && o.book.cmp ? ` · <span class="${obDown(d) ? "dn" : "up"}">${esc(o.book.cmp)}</span>` : ""}`) : ""}
-    ${row("Order book ÷ revenue", c ? `<b>${f1(c.x)}x</b> ${esc(c.per)} revenue of ₹${f0(c.base)} cr (about ${f1(c.x)} years of revenue in hand)` : "")}
+    ${row("Order book ÷ revenue", c ? `<b>${f1(c.x)}x</b> ${esc(c.per)} revenue of ₹${f0(c.base)} cr (about ${f1(c.x)} years of revenue in hand)${calcNote}` : "")}
     ${row("Order inflow", o && o.inflow ? `${o.inflow.per ? esc(o.inflow.per) + ": " : ""}<b>${esc(o.inflow.v || "")}</b>${o.inflow.cmp ? ` · ${esc(o.inflow.cmp)}` : ""}` : "")}
     ${row("Execution period", o && o.exec ? esc(o.exec) : "")}
     ${row("Bid pipeline", o && o.pipe ? esc(o.pipe) : "")}
@@ -671,11 +735,11 @@ function runway(d) {
 function capBox(d) {
   const c = capOf(d); if (!c) return "";
   const r = runway(d), row = (k, v) => v ? `<tr><td>${k}</td><td>${v}</td></tr>` : "";
-  return `<div class="obx cpx"><div class="lab">Capacity &amp; capex</div><table>
+  return `<div class="obx cpx"><div class="lab">Capacity &amp; capex ${tag("ms")}</div><table>
     ${row("Utilisation", c.util ? `<b>${esc(c.util.v)}</b>${c.util.scope ? ` <span class="mt">${esc(c.util.scope)}</span>` : ""}${c.util.per ? ` <span class="mt">(${esc(c.util.per)})</span>` : ""}` : "")}
     ${row("Capex plan", c.plan ? `<b>${esc(c.plan.amt)}</b>${c.plan.per ? ` · ${esc(c.plan.per)}` : ""}${c.plan.fund ? ` · ${esc(c.plan.fund)}` : ""}` : "")}
     ${row("Asset turn", c.turn ? esc(c.turn) : "")}
-    ${row("New capacity can add", r && r.pot != null ? `<b>₹${f0(r.pot)} cr</b> of revenue at full use${r.pct != null ? ` = <b>${f0(r.pct)}%</b> of ${esc(r.base.per)} revenue (₹${f0(r.base.v)} cr)` : ""}` : "")}
+    ${row("New capacity can add", r && r.pot != null ? `<b>₹${f0(r.pot)} cr</b> of revenue at full use${r.pct != null ? ` = <b>${f0(r.pct)}%</b> of ${esc(r.base.per)} revenue (₹${f0(r.base.v)} cr)${calcNote}` : ""}` : "")}
   </table>
   ${c.adds.length ? `<div class="lab" style="margin-top:8px">Capacity being added</div><ul>${c.adds.map(a => `<li><b>${esc(a.what)}</b>${a.cap ? ` · ${esc(a.cap)}` : ""}${a.start ? ` · from ${esc(a.start)}` : ""}${a.capex ? ` · capex ${esc(a.capex)}` : ""}${a.pot ? ` · <span class="up">revenue potential ${esc(a.pot)}</span>` : ""}</li>`).join("")}</ul>` : ""}</div>`;
 }
@@ -702,9 +766,18 @@ function amtCr(s) {
   if (/usd|\$|eur|€|million|billion|\bmn\b|\bbn\b/.test(t) && !/inr|₹|rs\.?\s|crore/.test(t)) return null;
   const m = /([\d,]+(?:\.\d+)?)/.exec(t); if (!m) return null;
   const v = parseFloat(m[1].replace(/,/g, ""));
-  return /lakh\s*cr/.test(t) ? v * 1e5 : /crore|\bcr\b|₹|inr|rs/.test(t) ? v : null;
+  if (/^\s*[\d.,]+\s*%/.test(t.slice(m.index))) return null;   // "10% to 15% of …" is a share, not an amount
+  return /lakh\s*cr/.test(t) ? v * 1e5 : /crore|\bcr\b|₹|\binr|\brs\b/.test(t) ? v : null;
 }
 // Financial-year number from "FY26", "FY 2026", "Q2 FY27" → 26 / 27; calendar "2030" → 30.
+// "19-11-2026", "25 Nov 2026", "2026-11-25" → a comparable number (null if unreadable).
+function dateVal(s) {
+  const t = String(s || "").trim(), M = "janfebmaraprmayjunjulaugsepoctnovdec";
+  let m = /^(\d{1,2})[-\/.](\d{1,2})[-\/.](\d{4})$/.exec(t); if (m) return +m[3] * 10000 + +m[2] * 100 + +m[1];
+  m = /^(\d{4})-(\d{2})-(\d{2})/.exec(t); if (m) return +m[1] * 10000 + +m[2] * 100 + +m[3];
+  m = /(\d{1,2})\s+([a-z]{3})[a-z]*\.?,?\s+(\d{4})/i.exec(t); if (m && M.indexOf(m[2].toLowerCase()) >= 0) return +m[3] * 10000 + (M.indexOf(m[2].toLowerCase()) / 3 + 1) * 100 + +m[1];
+  return null;
+}
 const fyNum = t => { const m = /FY\s*'?(?:20)?(\d{2})(?!\d)/i.exec(t || "") || /\b20(\d{2})\b/.exec(t || ""); return m ? +m[1] : null; };
 // Year a target refers to: "FY28", "by 2030", "in the next two financial years"; default the current financial year.
 function targetFY(text, d) {
@@ -763,7 +836,7 @@ const BOARDS = [
       d.gchange && d.gchange.was ? `<span class="was">${esc(d.gchange.was)}</span>` : `<span class="cntc z">—</span>`,
       `<span class="arr">→</span><span class="now">${esc(d.gchange && d.gchange.now || d.ggrowth || "–")}</span>${gch(d) && gch(d) !== "Maintained" ? ` <span class="chg ${gch(d)}">${gch(d)}</span>` : ""}`,
       (() => { const gd = guided(d); return gd.pct == null ? `<span class="cntc z" title="No growth % stated and no base figure to compare with">—</span>`
-        : `<span class="yoy ${gd.pct >= 0 ? "up" : "dn"}" title="${esc(gd.note || "As stated by management")}">${esc(gd.text)}</span>${gd.note ? `<div class="mt" style="font-size:11px">${esc(gd.note)}</div>` : ""}`; })()] },
+        : `<span class="yoy ${gd.pct >= 0 ? "up" : "dn"}" title="${esc(gd.note || "As stated by management")}">${esc(gd.text)}</span>${gd.note ? `<div class="mt" style="font-size:11px">${esc(gd.note)}</div>${calcNote}` : ""}`; })()] },
   { tab: "Guidance Raised", title: "Guidance raised", unit: "Upgrades", sub: "Companies that lifted their guidance on this call", cls: "",
     basis: "Companies that raised guidance on this call, ranked by this quarter's revenue growth YoY as management stated it.",
     test: d => gch(d) === "Raised", sort: byYoy,
@@ -800,7 +873,7 @@ const BOARDS = [
     row: (d, i) => { const c = capOf(d), r = runway(d), a = c.adds;
       return [`<span class="cntc z" style="color:#6b7280">${i + 1}</span>`, esc(d.name),
         c.util ? `<b>${esc(c.util.v)}</b>${c.util.scope ? `<div class="mt" style="font-size:11px">${esc(c.util.scope)}</div>` : ""}` : `<span class="cntc z">—</span>`,
-        a.length ? a.slice(0, 2).map(x => `<div><b>${esc(x.what)}</b>${x.start ? ` <span class="mt" style="font-size:11px">from ${esc(x.start)}</span>` : ""}</div>`).join("") + (a.length > 2 ? `<div class="mt" style="font-size:11px">+${a.length - 2} more</div>` : "") : `<span class="cntc z">—</span>`,
+        a.length ? a.slice(0, 2).map(x => `<div><b>${esc(x.what)}</b>${x.cap ? ` · ${esc(x.cap)}` : ""}${x.start ? ` <span class="mt" style="font-size:11px">from ${esc(x.start)}</span>` : ""}</div>`).join("") + (a.length > 2 ? `<div class="mt" style="font-size:11px">+${a.length - 2} more</div>` : "") : `<span class="cntc z">—</span>`,
         c.plan ? `${esc(c.plan.amt)}${c.plan.per ? `<div class="mt" style="font-size:11px">${esc(c.plan.per)}</div>` : ""}` : `<span class="cntc z">—</span>`,
         r && r.pot != null ? `<span class="yoy up">₹${f0(r.pot)} cr</span>${r.pct != null ? `<div class="mt" style="font-size:11px">${f0(r.pct)}% of ${esc(r.base.per)} revenue</div>` : ""}` : `<span class="cntc z">—</span>`,
         badge(d.tone)]; } },
@@ -849,12 +922,159 @@ function boardHtml(b, rows, data) {
   const total = rows.length;
   rows = rows.filter(d => !also.includes(d));
   return `<div class="board">
-    <div class="bhead ${b.cls}"><div><div class="eb">Concall Tracker · ${esc(quarter)}</div><h2>${b.title}</h2><p>${esc(b.sub.replace("{Q}", quarter))}</p></div>
+    <div class="bhead ${b.cls}"><div><div class="eb">Concall Tracker · ${esc(quarter)} ${b.tab === "Talk vs Numbers" ? tag("ms") + tag("rf") : tag("ms")}</div><h2>${b.title}</h2><p>${esc(b.sub.replace("{Q}", quarter))}</p></div>
       <div class="cnt"><b>${total}</b><span>${b.unit}</span></div></div>
     <div class="bbody">${b.picker ? `<div class="bpick">Show top <select class="toppick" data-board="${esc(b.tab)}">${TOP_CHOICES[b.tab].map(n => `<option${n === topPick[b.tab] ? " selected" : ""}>${n}</option>`).join("")}</select></div>` : ""}${rows.length ? `<table class="bt"><thead><tr>${b.cols.map(c => `<th>${c}</th>`).join("")}</tr></thead>
       <tbody>${rows.map((d, ri) => `<tr data-go="${esc(linkTo(d, d.q !== latestQ(data, d.name)))}">${b.row(d, ri).map((c, i) => `<td class="${b.cols[i] === "Company" ? "co" : b.cols[i] === "Guidance" ? "mt" : ""}">${c}</td>`).join("")}</tr>`).join("")}</tbody></table>`
       : `<div class="bempty">${EMPTY[b.tab]}${ADMIN && b.tab === "Talk vs Numbers" && !RES().length ? " (Admin: results_data.js from Earnings Rythm was not found in this folder.)" : ""}</div>`}
       ${also.length ? `<div class="bnote"><b>Also upgraded:</b> ${also.map(d => `${esc(d.name)} (${esc(d.gchange.m)} ${esc(d.gchange.was || "")}${d.gchange.was ? " → " : ""}${esc(d.gchange.now)})`).join(" · ")}</div>` : ""}
+    </div>
+    <div class="bfoot"><span>Management's own words from earnings calls · Educational only · Not a recommendation</span><span><b>CONCALL RYTHM</b> · price rythm</span></div>
+  </div>`;
+}
+// ---------- Industry classification (Add industry CSV in admin; saved inside concall_data.js) ----------
+const IND_STORE = "priceRythm.concall.ind.v1";
+let indLocal = (() => { try { return JSON.parse(localStorage.getItem(IND_STORE)) || null; } catch (e) { return null; } })();
+const indAll = () => (ADMIN && indLocal) || window.INDUSTRY_DATA || {};
+// Match by the card's NSE symbol; if that is missing or not in the list (renamed, SME, BSE-only), by company name against the CSV's Full Name.
+let IND_NAMES = null, IND_NAMES_OF = null;
+function indByName(name) {
+  const m = indAll();
+  if (IND_NAMES_OF !== m) { IND_NAMES_OF = m; IND_NAMES = {};
+    Object.keys(m).forEach(sym => { const full = m[sym][2]; if (!full) return;
+      [normName(full), resKey(full)].forEach(k => { if (k) IND_NAMES[k] = IND_NAMES[k] === undefined ? sym : (IND_NAMES[k] === sym ? sym : null); }); }); }
+  const s = IND_NAMES[normName(name)] || IND_NAMES[resKey(name)];
+  return s ? m[s] : null;
+}
+const classOf = d => { const s = linkSym(d), m = indAll(); return (s && m[s]) || indByName(d.name) || null; };
+let groupLevel = "Industry";
+// One CSV line into cells (handles quotes).
+function csvCells(line) {
+  const out = []; let cur = "", q = false;
+  for (let i = 0; i < line.length; i++) { const ch = line[i];
+    if (q) { if (ch === '"') { if (line[i + 1] === '"') { cur += '"'; i++; } else q = false; } else cur += ch; }
+    else if (ch === '"') q = true; else if (ch === ",") { out.push(cur); cur = ""; } else cur += ch; }
+  out.push(cur); return out;
+}
+function importIndustryCsv(text) {
+  const ln = String(text || "").replace(/\r/g, "").split("\n").filter(x => x.trim());
+  if (!ln.length) { alert("The CSV is empty."); return; }
+  const h = csvCells(ln[0]).map(x => x.trim().toLowerCase());
+  const iS = h.indexOf("symbol") >= 0 ? h.indexOf("symbol") : h.indexOf("ticker"), iSe = h.indexOf("sector"), iI = h.indexOf("industry"), iN = h.indexOf("full name");
+  if (iS < 0 || iSe < 0 || iI < 0) { alert("The CSV needs columns named Symbol (or Ticker), Sector and Industry."); return; }
+  // Names are kept exactly as in AmiBroker; only spaces at the start or end (including a hidden non-breaking space) are removed.
+  const trim = x => String(x || "").replace(/^[\s ]+|[\s ]+$/g, "");
+  const map = {}; let trimmed = 0;
+  ln.slice(1).forEach(l => { const c = csvCells(l), sym = trim(c[iS]).toUpperCase(), se = trim(c[iSe]), ind = trim(c[iI]);
+    if (c[iSe] !== se || c[iI] !== ind) trimmed++;
+    if (sym && se && ind) map[sym] = iN >= 0 && trim(c[iN]) ? [se, ind, trim(c[iN])] : [se, ind]; });
+  const n = Object.keys(map).length;
+  if (!n) { alert("No rows with Symbol, Sector and Industry found."); return; }
+  indLocal = map; try { localStorage.setItem(IND_STORE, JSON.stringify(map)); } catch (e) {}
+  // Names that differ only in spaces or hyphens are different groups (as in AmiBroker): list them so they can be fixed there.
+  const key = x => x.toLowerCase().replace(/[^a-z0-9]/g, ""), g = {};
+  Object.values(map).forEach(([, ind]) => { (g[key(ind)] = g[key(ind)] || new Set()).add(ind); });
+  const near = Object.values(g).filter(x => x.size > 1).map(x => [...x].map(y => `"${y}"`).join(" vs "));
+  const cards = allData(), matched = cards.filter(d => classOf(d)).length, miss = cards.filter(d => !classOf(d));
+  alert(`Industry list loaded: ${n} stocks, ${new Set(Object.values(map).map(x => x[0])).size} sectors, ${new Set(Object.values(map).map(x => x[1])).size} industries.` +
+    `\nConcall cards matched: ${matched} of ${cards.length} (by NSE symbol, else by company name).` +
+    (miss.length ? `\n\nNot matched (${miss.length}) — open the card with ✎ and type its NSE symbol as in AmiBroker:\n${miss.map(d => d.name + " " + d.q + (linkSym(d) ? " — symbol " + linkSym(d) + " not in the CSV" : " — no NSE symbol")).join("\n")}` : "") +
+    (trimmed ? `\n${trimmed} name${trimmed > 1 ? "s" : ""} had a space at the start or end, removed.` : "") +
+    (near.length ? `\n\nThese industry names differ only by spaces or hyphens, so they count as separate industries. Fix them in AmiBroker if they are meant to be one:\n${near.join("\n")}` : "") +
+    "\n\nClick Save data file to publish.");
+  render();
+}
+function indText() {
+  const m = indAll();
+  return Object.keys(m).length ? "// Symbol → [Sector, Industry], from the AmiBroker industry CSV.\nwindow.INDUSTRY_DATA = " + JSON.stringify(m) + ";\n" : "";
+}
+// Group the quarter's cards by sector or industry. Cards with no industry are left out (listed for admin).
+function groups(rows, want) {
+  const g = new Map();
+  rows.filter(want).forEach(d => { const c = classOf(d); if (!c) return;
+    const k = groupLevel === "Sector" ? c[0] : c[1];
+    if (!g.has(k)) g.set(k, { name: k, sector: c[0], cos: [] });
+    g.get(k).cos.push(d); });
+  return [...g.values()];
+}
+const coLink = (d, extra) => `<a class="ichip" href="${esc(linkTo(d, false))}">${esc(d.name.replace(/\s+(limited|ltd\.?)$/i, ""))}${extra ? ` <span class="mt">${extra}</span>` : ""}</a>`;
+const hasOB = d => { const o = ord(d); return !!(o && (o.book || o.inflow)); };
+function obAgg(gr) {
+  const cs = gr.cos, amts = cs.map(obCr).filter(v => v != null);
+  const cov = cs.map(cover).filter(Boolean), sOb = cov.reduce((a, c) => a + c.ob, 0), sB = cov.reduce((a, c) => a + c.base, 0);
+  const top = cs.filter(d => obCr(d) != null).sort((a, z) => obCr(z) - obCr(a))[0] || null;
+  const dn = cs.filter(obDown).length, up = cs.filter(d => ord(d) && ord(d).book && !obDown(d) && /\+\s*\d|\b(up|rise|rose|higher|increas|grew|growth)/i.test(ord(d).book.cmp || "")).length;
+  return { total: amts.length ? amts.reduce((a, b) => a + b, 0) : null, nAmt: amts.length, x: sB > 0 ? sOb / sB : null, nCov: cov.length, top, up, dn };
+}
+function cxAgg(gr) {
+  const cs = gr.cos, pl = cs.map(d => { const c = capOf(d); return c && c.plan ? amtCr(c.plan.amt) : null; }).filter(v => v != null);
+  const ut = cs.map(utilPct).filter(v => v != null), pot = cs.map(d => (runway(d) || {}).pot).filter(v => v != null);
+  const adds = cs.reduce((a, d) => a + ((capOf(d) || {}).adds || []).length, 0);
+  return { capex: pl.length ? pl.reduce((a, b) => a + b, 0) : null, nCx: pl.length, util: ut.length ? ut.reduce((a, b) => a + b, 0) / ut.length : null, nUt: ut.length,
+    pot: pot.length ? pot.reduce((a, b) => a + b, 0) : null, adds };
+}
+// Industry boards: one row per industry, every column sortable (click the header). Click an industry to see its companies.
+const cz = `<span class="cntc z">—</span>`;
+const short = (t, n) => { t = String(t || "").replace(/\\+\s*$/, "").trim(); return t.length > n ? t.slice(0, n - 1).trim() + "…" : t; };
+const coName = d => d.name.replace(/\s+(limited|ltd\.?)$/i, "");
+const AGG = [
+  { tab: "Industry Order Books", title: "Order books by industry", unit: "Groups", cls: "blue", want: hasOB,
+    sub: "Orders in hand in the {Q} concalls, added up by {L}",
+    basis: "Companies that reported an order book or order inflow, grouped by your AmiBroker classification. Total = sum of order books stated in ₹ crore (USD figures are not added). × revenue = the group's order books ÷ the same companies' last full-year revenue. Click a column to sort; click an industry to see its companies.",
+    cols: ["{L}", "Companies", "Total order book (₹ cr)", "× revenue", "Up", "Down", "Largest"],
+    keys: [g => g.name, g => g.cos.length, g => obAgg(g).total, g => obAgg(g).x, g => obAgg(g).up, g => obAgg(g).dn, g => { const t = obAgg(g).top; return t ? obCr(t) : null; }],
+    def: 2,
+    row: g => { const a = obAgg(g);
+      return [a.total != null ? `<b>${f0(a.total)}</b>${a.nAmt < g.cos.length ? `<div class="mt" style="font-size:11px">${a.nAmt} of ${g.cos.length} in ₹</div>` : ""}` : cz,
+        a.x != null ? `<span class="yoy up">${f1(a.x)}x</span>` : cz, num(a.up, "g"), num(a.dn, "r"),
+        a.top ? `${esc(coName(a.top))}<div class="mt" style="font-size:11px">₹${f0(obCr(a.top))} cr</div>` : cz]; },
+    subCols: ["Company", "Order book", "× revenue", "Order inflow", "Execution"],
+    subSort: d => obCr(d) ?? -1,
+    subRow: d => { const o = ord(d) || {}, c = cover(d);
+      return [o.book ? `<b>${esc(short(o.book.v, 40))}</b>${o.book.cmp ? ` <span class="${obDown(d) ? "dn" : "up"}">${esc(short(o.book.cmp, 30))}</span>` : ""}` : "",
+        c ? f1(c.x) + "x" : "", o.inflow ? esc(short(o.inflow.v, 30)) : "", o.exec ? esc(short(o.exec, 30)) : ""]; } },
+  { tab: "Industry Capex", title: "Capex by industry", unit: "Groups", cls: "", want: d => !!capOf(d),
+    sub: "Capacity and capex plans in the {Q} concalls, added up by {L}",
+    basis: "Companies that discussed utilisation, new capacity or capex, grouped by your AmiBroker classification. Capex total = sum of capex plans stated in ₹ crore (periods differ by company). Utilisation = average of stated figures. Revenue potential = sum of what management said new capacity can add. Click a column to sort; click an industry to see its companies.",
+    cols: ["{L}", "Companies", "Capex plans (₹ cr)", "Avg utilisation", "Capacity additions", "Revenue potential (₹ cr)"],
+    keys: [g => g.name, g => g.cos.length, g => cxAgg(g).capex, g => cxAgg(g).util, g => cxAgg(g).adds, g => cxAgg(g).pot],
+    def: 2,
+    row: g => { const a = cxAgg(g);
+      return [a.capex != null ? `<b>${f0(a.capex)}</b>${a.nCx < g.cos.length ? `<div class="mt" style="font-size:11px">${a.nCx} of ${g.cos.length} in ₹</div>` : ""}` : cz,
+        a.util != null ? `<b>${f0(a.util)}%</b>${a.nUt > 1 ? `<div class="mt" style="font-size:11px">average of ${a.nUt}</div>` : ""}` : cz,
+        a.adds ? num(a.adds, "g") : cz, a.pot != null ? `<span class="yoy up">${f0(a.pot)}</span>` : cz]; },
+    subCols: ["Company", "Capex plan", "Period", "Utilisation", "Additions"],
+    subSort: d => amtCr(((capOf(d) || {}).plan || {}).amt) ?? -1,
+    subRow: d => { const c = capOf(d) || {}, pl = c.plan, n = (c.adds || []).length;
+      return [pl ? `<b>${esc(short(pl.amt, 40))}</b>` : `<span class="mt">Not stated</span>`, pl && pl.per ? esc(short(pl.per, 28)) : "", c.util ? esc(short(c.util.v, 24)) : "", n || ""]; } }
+];
+const aggSort = {}, aggOpen = new Set();
+function aggHtml(b, rows, data) {
+  const L = groupLevel, st = aggSort[b.tab] || (aggSort[b.tab] = { k: b.def, dir: -1 });
+  const key = b.keys[st.k];
+  const gs = groups(rows, b.want).sort((x, y) => {
+    const a = key(x), z = key(y);
+    if (typeof a === "string" || typeof z === "string") return st.dir * String(a).localeCompare(String(z));
+    if (a == null && z == null) return y.cos.length - x.cos.length;
+    if (a == null) return 1; if (z == null) return -1;
+    return st.dir * (a - z) || y.cos.length - x.cos.length; });
+  const noInd = rows.filter(b.want).filter(d => !classOf(d));
+  const hasList = Object.keys(indAll()).length > 0;
+  const th = (c, i) => `<th class="srt${st.k === i ? " on" : ""}" data-asort="${i}" data-board="${esc(b.tab)}">${c.replace("{L}", L)}<span class="sa">${st.k === i ? (st.dir > 0 ? "▲" : "▼") : "▲▼"}</span></th>`;
+  const n = b.cols.length + 2;
+  return `<div class="board">
+    <div class="bhead ${b.cls}"><div><div class="eb">Concall Tracker · ${esc(quarter)} ${tag("ms")}</div><h2>${b.title.replace("industry", L.toLowerCase())}</h2><p>${esc(b.sub.replace("{Q}", quarter).replace("{L}", L.toLowerCase()))}</p></div>
+      <div class="cnt"><b>${gs.length}</b><span>${L === "Sector" ? "Sectors" : "Industries"}</span></div></div>
+    <div class="bbody"><div class="bpick"><button class="aggall" data-board="${esc(b.tab)}" type="button">${gs.length && gs.every(g => aggOpen.has(b.tab + "|" + g.name)) ? "Collapse all" : "Expand all"}</button> Group by <select class="lvlpick">${["Industry", "Sector"].map(x => `<option${x === L ? " selected" : ""}>${x}</option>`).join("")}</select></div>
+    ${gs.length ? `<table class="bt agg"><thead><tr><th>#</th>${b.cols.map(th).join("")}<th></th></tr></thead>
+      <tbody>${gs.map((g, i) => { const id = b.tab + "|" + g.name, open = aggOpen.has(id), cs = g.cos.slice().sort((x, y) => b.subSort(y) - b.subSort(x));
+        return `<tr class="grp${open ? " open" : ""}" data-grp="${esc(id)}"><td><span class="cntc z" style="color:#6b7280">${i + 1}</span></td>
+          <td class="ind"><b>${esc(g.name)}</b>${L === "Industry" ? `<div class="mt" style="font-size:11px">${esc(g.sector)}</div>` : ""}</td>
+          <td><span class="cntc b">${g.cos.length}</span></td>${b.row(g).map(c => `<td>${c}</td>`).join("")}<td class="tog">${open ? "▾" : "▸"}</td></tr>
+          ${open ? `<tr class="det"><td></td><td colspan="${n - 1}"><table class="sub"><thead><tr>${b.subCols.map(c => `<th>${c}</th>`).join("")}</tr></thead><tbody>
+            ${cs.map(d => `<tr><td><a href="${esc(linkTo(d, false))}">${esc(coName(d))}</a></td>${b.subRow(d).map(c => `<td>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></td></tr>` : ""}`; }).join("")}</tbody></table>`
+      : `<div class="bempty">${hasList ? "No company in this quarter has these figures and an industry yet." : "No industry list yet." + (ADMIN ? " Click Add industry CSV (the AmiBroker export: Symbol, Sector, Industry)." : "")}</div>`}
+    ${ADMIN && noInd.length ? `<div class="bnote"><b>Admin · not grouped (${noInd.length}):</b> ${noInd.map(d => esc(d.name) + (linkSym(d) ? ` (${esc(linkSym(d))} not in the industry list)` : " (no NSE symbol)")).join(" · ")}</div>` : ""}
     </div>
     <div class="bfoot"><span>Management's own words from earnings calls · Educational only · Not a recommendation</span><span><b>CONCALL RYTHM</b> · price rythm</span></div>
   </div>`;
@@ -865,15 +1085,15 @@ const latestQ = (data, name) => data.filter(d => d.name === name).sort((a, z) =>
 function detail(d) {
   const sec = ([f, , title, cls]) => {
     const pts = list(d[f]);
-    return pts.length ? `<div class="sec s-${cls}"><h3>${title}</h3><ul>${pts.map(x => `<li>${point(x)}</li>`).join("")}</ul></div>` : "";
+    return pts.length ? `<div class="sec s-${cls}"><h3>${title} ${tag("ms")}</h3><ul>${pts.map(x => `<li>${point(x)}</li>`).join("")}</ul></div>` : "";
   };
   const kv = KV.filter(([k]) => d[k] && k !== "orderbook" && k !== "capex").map(([k, l]) => `<li><b>${l}:</b> ${esc(d[k])}</li>`).join("");
   const cs = coms(d), tr = tracked(cs);
-  const table = cs.length ? `<div class="sec s-com"><h3>Guidance & Commitments</h3><div class="tablewrap"><table class="com">
+  const table = cs.length ? `<div class="sec s-com"><h3>Guidance & Commitments ${tag("ms")}</h3><div class="tablewrap"><table class="com">
       <thead><tr><th>Commitment</th><th>Specifics</th><th>Timeline</th>${tr ? "<th>Status</th>" : ""}</tr></thead>
       <tbody>${cs.map(c => `<tr><td>${esc(c.c)}</td><td>${esc(c.s)}</td><td>${esc(c.t || "No date")}</td>${tr ? `<td>${c.st ? `<span class="st ${stClass(c.st)}">${esc(c.st)}</span>` : ""}</td>` : ""}</tr>`).join("")}</tbody></table></div></div>` : "";
   const ms = mets(d);
-  const mtable = ms.length ? `<div class="sec s-met"><h3>Key Metrics</h3><div class="tablewrap"><table class="com met">
+  const mtable = ms.length ? `<div class="sec s-met"><h3>Key Metrics ${tag("ms")}</h3><div class="tablewrap"><table class="com met">
       <thead><tr><th>Metric</th><th>${esc(d.q || "Value")}</th></tr></thead>
       <tbody>${ms.map(x => `<tr><td>${esc(x.m)}</td><td>${esc(x.v)}</td></tr>`).join("")}</tbody></table></div></div>` : "";
   const t = toneOf(d.tone);
@@ -882,10 +1102,11 @@ function detail(d) {
       <div class="meta"><span>${esc(d.date)}</span><span class="basis">Concall</span><span>${esc(d.q)}</span></div>
       ${badge(d.tone)}
     </div>
-    ${d.guidance || d.gchange ? `<div class="guid"><div class="lab">Guidance${d.gchange && d.gchange.ch ? `<span class="chg ${d.gchange.ch}">${d.gchange.ch}</span>` : ""}</div>${esc(d.guidance || "")}
+    ${d.guidance || d.gchange ? `<div class="guid"><div class="lab">Guidance ${tag("ms")}${d.gchange && d.gchange.ch ? `<span class="chg ${d.gchange.ch}">${d.gchange.ch}</span>` : ""}</div>${esc(d.guidance || "")}
       ${d.gchange && (d.gchange.was || d.gchange.now) ? `<div class="gchg">${esc(d.gchange.m)}: ${d.gchange.was ? `<span class="was">${esc(d.gchange.was)}</span><span class="arr">→</span>` : ""}<span class="now${/Cut|Withdrawn/.test(d.gchange.ch) ? " dn" : ""}">${esc(d.gchange.now || "")}</span></div>` : ""}
       ${d.yoy ? `<div class="gchg">This quarter's revenue YoY: <b>${esc(d.yoy)}</b></div>` : ""}
       ${d.ytd ? `<div class="ytd">Year to date vs full-year guidance:<span class="ytdtag ${d.ytd.st.replace(/\s/g, "")}">${esc(d.ytd.st)}</span>${d.ytd.act ? ` · <b>${esc(d.ytd.act)}</b>` : ""}${d.ytd.ev ? `<div class="ev">${esc(d.ytd.ev)}</div>` : ""}</div>` : ""}</div>` : ""}
+    ${terms(d).length ? `<div class="gloss"><span class="lab">Terms used</span><span class="cnote" style="display:inline;margin-right:8px">meanings added by Price Rythm where the call did not explain them</span>${terms(d).map(x => `<span class="gt"><b>${esc(x.t)}</b>${x.m ? " = " + esc(x.m) : ""}</span>`).join("")}</div>` : ""}
     ${signal(d)}
     ${talkBox(d)}
     ${orderBox(d)}
@@ -893,9 +1114,9 @@ function detail(d) {
     ${SECTIONS.map(sec).join("")}
     ${kv ? `<div class="sec s-old"><h3>Margins</h3><ul>${kv}</ul></div>` : ""}
     ${table}
-    ${dils(d).length ? `<div class="sec s-dil"><h3>Dilution & Balance Sheet Warnings</h3><ul>${dils(d).map(x => `<li>${x.t ? `<span class="dtype">${esc(x.t)}</span>` : ""}${esc(x.x)}</li>`).join("")}</ul></div>` : ""}
+    ${dils(d).length ? `<div class="sec s-dil"><h3>Dilution & Balance Sheet Warnings ${tag("ms")}</h3><ul>${dils(d).map(x => `<li>${x.t ? `<span class="dtype">${esc(x.t)}</span>` : ""}${esc(x.x)}</li>`).join("")}</ul></div>` : ""}
     ${mtable}
-    ${d.risks ? `<div class="risk"><b>Risks</b>${esc(d.risks)}</div>` : ""}
+    ${d.risks ? `<div class="risk"><b>Risks ${tag("ms")}</b>${esc(d.risks)}</div>` : ""}
     ${d.source ? `<div class="srcline"><b>Source:</b> ${esc(d.source)}</div>` : ""}
     ${projBox(d)}
     <div class="cfoot admin-only"><button class="edit" data-e="${esc(keyOf(d))}" title="Edit">✎</button><button class="del" data-k="${esc(keyOf(d))}" title="Remove">×</button></div>
@@ -904,7 +1125,7 @@ function detail(d) {
 function talkBox(d) {
   const t = talk(d);
   if (!t) return "";
-  return `<div class="tvn"><div class="lab">Reported results · Earnings Rythm · ${esc(t.r.basis || "")}</div>
+  return `<div class="tvn"><div class="lab">Reported results · Earnings Rythm · ${esc(t.r.basis || "")} ${tag("rf")}</div>
     Sales YoY <b class="yoy ${gcls2(t.sales)}">${esc(t.sales.text)}</b> · Net Profit YoY <b class="yoy ${gcls2(t.np)}">${esc(t.np.text)}</b>
     ${t.flag ? `<div><span class="mm${t.bad ? "" : " good"}">${esc(t.flag)}</span></div>` : ""}</div>`;
 }
@@ -921,7 +1142,7 @@ function signal(d) {
   }).join("");
   const tg = dc.target ? `<div class="tg"><span>Target</span>${esc(dc.target.m)}: <b>${esc(rangeText(dc.target))}</b>${dc.target.p ? " by " + esc(dc.target.p) : ""}</div>` : "";
   const mg = dc.margin ? `<div class="tg"><span>Margin target</span>${esc(dc.margin.m)}: <b>${esc(rangeText(dc.margin))}</b></div>` : "";
-  return `<div class="sig"><div class="sh"><b>Signal Check</b><span class="score">${backed} of 3 backed</span></div>${tg}${mg}<ul>${rows}</ul></div>`;
+  return `<div class="sig"><div class="sh"><b>Signal Check ${tag("ms")}</b><span class="score">${backed} of 3 backed</span></div>${tg}${mg}<ul>${rows}</ul></div>`;
 }
 
 // ---------- 3-year projection (public, read-only; edited in ?admin; kept in projection_data.js) ----------
@@ -935,19 +1156,242 @@ function projAll() {
   (window.PROJECTION_DATA || []).forEach(p => { m[keyOf(p)] = p; });
   if (!ADMIN) return m;   // visitors see only the published file
   Object.values(projLocal).forEach(p => { m[keyOf(p)] = p; });
+  if (!shFixDone) { shFixDone = true; Object.values(m).forEach(autoFixShares); }
   return m;
+}
+// ---------- Share count: automatic fix of decimal slips (admin) ----------
+// The prompt sometimes divides by 10 crore instead of 1 crore (Divi's 2.65 for 26.55) or writes millions as crore
+// (BlueStone 152.87 million = 15.29 crore). The right count must agree with the call's own PAT ÷ EPS or with the
+// results file within 5%. A count you typed yourself is never touched.
+let shFixDone = false;
+function autoFixShares(p) {
+  const orig = p.orig && p.orig.shares;
+  if (!orig || !p.base) return;
+  const fr = RES().length ? calcRes(p) : p.res;
+  if (fr && fr.card && fr.card.sh) return;   // the filed share count is used instead (see effProj)
+  // PAT ÷ EPS only proves a share count when both are profits; with a loss (or old split-unadjusted EPS) it can mislead.
+  // With a loss, a share count is changed only when the call's figure gives an impossible market value for its sales
+  // (price ÷ sales per share below 0.15x or above 80x) and the corrected one does not.
+  const loss = !(p.base.eps > 0 && (p.base.toSh ?? p.base.pat) > 0);
+  const ps = n => p.cmp && n && p.base.rev ? p.cmp * n / p.base.rev : null, sane = n => { const v = ps(n); return v != null && v >= 0.15 && v <= 80; };
+  if (loss && sane(orig)) {
+    if (p.shFix) { p.years.forEach(y => { if (y.sh === p.shares) y.sh = orig; }); p.shares = orig; delete p.shFix; delete p.shOld; projLocal[keyOf(p)] = p; projSaveLocal(); }
+    return;
+  }
+  const byButton = p.shOld != null || p.shares === oldButtonValue(p);   // changed by the "Use … cr" button
+  if (p.shares !== orig && !byButton) return;              // typed by you: leave it
+  const own = p.base.eps ? (p.base.toSh ?? p.base.pat) / p.base.eps : null;
+  const r = RES().length ? calcRes(p) : null, viaRes = r && r.sym ? resSharesRaw(p) : null;
+  const near = (a, b) => a && b && Math.abs(a / b - 1) <= 0.05;
+  const ok = v => near(v, own) || near(v, viaRes);
+  let to = null, why = "";
+  if (own && Math.abs(orig / own - 1) <= 0.15) { to = orig; why = "the call's own figure was right"; }   // e.g. IPO-year weighting
+  else for (const f of [10, 0.1, 100, 0.01]) { const v = Math.round(orig * f * 1e4) / 1e4, gross = own && (orig / own > 5 || orig / own < 0.2);
+    if (ok(v) || (gross && Math.abs(v / own - 1) <= 0.15)) { to = v; why = f === 0.1 ? "millions or ×10 slip" : "decimal slip (÷10 crore instead of ÷1 crore)"; break; } }
+  if (to != null && to !== orig && !sane(to)) to = null;   // the corrected count must give a believable market value too
+  if (to == null || to === p.shares) return;
+  const from = p.shares;
+  p.years.forEach(y => { if (y.sh == null || Math.abs(y.sh / from - 1) <= 0.2 || Math.abs(y.sh / orig - 1) <= 0.2) y.sh = to; });
+  p.shares = to; p.shOld = orig; p.shFix = { from, to, why };
+  projLocal[keyOf(p)] = p; projSaveLocal();
+}
+// What the first version of the button filled in (sum of PAT ÷ sum of EPS, last four quarters), to recognise it.
+function oldButtonValue(p) {
+  if (!RES().length) return null;
+  const sym = resSym(p), R = sym && resQuarters(sym, p); if (!R) return null;
+  const qs = Object.keys(R.q).filter(k => R.q[k] && R.q[k].np != null && R.q[k].eps).sort((a, z) => qRank(z) - qRank(a)).slice(0, 4);
+  if (qs.length < 4) return null;
+  const np = qs.reduce((a, k) => a + R.q[k].np, 0), ep = qs.reduce((a, k) => a + R.q[k].eps, 0);
+  return np > 0 && ep > 0 ? Math.round(np / ep * 100) / 100 : null;
+}
+// PAT ÷ EPS from the results file, only when every one of the last four quarters gives about the same count.
+function resSharesRaw(p) {
+  const sym = resSym(p), R = sym && resQuarters(sym, p); if (!R) return null;
+  const qs = Object.keys(R.q).filter(k => { const x = R.q[k]; return x && x.np && x.eps && x.np / x.eps > 0 && Math.abs(x.np) >= 1; })
+    .sort((a, z) => qRank(z) - qRank(a)).slice(0, 4);
+  if (qs.length < 4) return null;
+  const each = qs.map(k => R.q[k].np / R.q[k].eps).sort((a, z) => a - z);
+  return each[3] / each[0] <= 1.15 ? (each[1] + each[2]) / 2 : null;
 }
 // Same call's projection, else the company's latest one.
 function projFor(d) {
   const all = projAll();
-  if (all[keyOf(d)]) return all[keyOf(d)];
+  if (all[keyOf(d)]) return effProj(all[keyOf(d)]);
   const same = p => slug(p.name) === slug(d.name) || normName(p.name) === normName(d.name);
-  return Object.values(all).filter(same).sort((a, z) => (z.q === d.q) - (a.q === d.q) || qRank(z.q) - qRank(a.q))[0] || null;
+  const p = Object.values(all).filter(same).sort((a, z) => (z.q === d.q) - (a.q === d.q) || qRank(z.q) - qRank(a.q))[0];
+  return p ? effProj(p) : null;
+}
+// ---------- Reported figures from Earnings Rythm's results_data.js ----------
+// Base year, year to date and CMP come from your results file when the call's revenue agrees within RES_TOL %.
+// Where they disagree (e.g. gross sales incl. excise vs net revenue), the call figure stays and both are shown in admin.
+// The call's own figures are never changed: the results figures are kept beside them in p.res.
+const RES_TOL = 3;
+const resKey = s => String(s || "").replace(/\([^)]*\)/g, " ").toLowerCase().replace(/&/g, " and ").replace(/z/g, "s")
+  .replace(/\b(limited|ltd|the)\b\.?/g, " ").split(/[^a-z0-9]+/).filter(Boolean).map(w => w.length > 3 ? w.replace(/s$/, "") : w).join("");
+let RES_IDX = null;
+function resIndex() {
+  if (RES_IDX) return RES_IDX;
+  const byName = {}, bySym = {};
+  RES().forEach(r => { if (!r || !r.symbol || !r.periods) return;
+    (bySym[r.symbol] = bySym[r.symbol] || []).push(r);
+    const k = resKey(r.name); (byName[k] = byName[k] || new Set()).add(r.symbol); });
+  return RES_IDX = { byName, bySym };
+}
+// p.sym: not set = match by name; "" = no link (set in admin); "ABC" = linked to that NSE symbol.
+// The concall card's symbol (from the prompt or typed in admin), else a match by name in results_data.js.
+function linkSym(d) {
+  if (d.sym) return d.sym;
+  if (!RES().length) return "";
+  const s = resIndex().byName[resKey(d.name)];
+  if (!s) return "";
+  const latest = x => Math.max(...resIndex().bySym[x].map(r => qRank(r.periods[2])));
+  return [...s].sort((a, z) => latest(z) - latest(a))[0];
+}
+function resSym(p) {
+  if (p.sym !== undefined) return p.sym || null;
+  const c = allData().find(d => d.sym && normName(d.name) === normName(p.name));
+  if (c) return c.sym;
+  const s = resIndex().byName[resKey(p.name)];
+  if (!s) return null;
+  // A renamed or mistyped symbol (e.g. AMIORG → ACUTAAS): take the one with the latest quarter.
+  const latest = x => Math.max(...resIndex().bySym[x].map(r => qRank(r.periods[2])));
+  return [...s].sort((a, z) => latest(z) - latest(a))[0];
+}
+function resQuarters(sym, p) {
+  const grp = p && p.sym === undefined && resIndex().byName[resKey(p.name)];
+  const syms = grp && grp.has(sym) ? [...grp] : [sym];
+  const rows = [].concat(...syms.map(x => resIndex().bySym[x] || []));
+  if (!rows.length) return null;
+  rows.sort((a, z) => qRank(a.periods[2]) - qRank(z.periods[2]) || (z.src === "screener") - (a.src === "screener"));
+  const basis = rows[rows.length - 1].basis || "", q = {};
+  const bf = (window.BACKFILL_DATA || {})[(sym + "|" + basis).toLowerCase()] || {};
+  Object.keys(bf).forEach(k => { q[k] = bf[k]; });
+  // Later filings replace earlier figures for the same quarter; a blank never replaces a figure.
+  rows.filter(r => (r.basis || "") === basis).forEach(r => r.periods.forEach((per, i) => {
+    const x = q[per] = Object.assign({}, q[per]);
+    ["sales", "op", "np", "eps"].forEach(k => { const v = r[k] && r[k][i]; if (v != null) x[k] = v; }); }));
+  return { basis, q, syms };
+}
+function resSum(q, fy, n, key) {
+  let t = 0;
+  for (let i = 1; i <= n; i++) { const x = q["Q" + i + " FY" + String(fy).padStart(2, "0")]; if (!x || x[key] == null) return null; t += x[key]; }
+  return Math.round(t * 100) / 100;
+}
+function calcRes(p) {
+  const sym = resSym(p), R = sym && resQuarters(sym, p);
+  if (!R) return { sym: null };
+  const out = { sym, basis: R.basis, notes: [] };
+  const near = (a, b) => a != null && b != null && b !== 0 && Math.abs(a - b) / Math.abs(b) * 100 <= RES_TOL;
+  const fy = fyNum(p.base && p.base.y);
+  if (fy) {
+    const g = k => resSum(R.q, fy, 4, k), b = { rev: g("sales"), ebitda: g("op"), pat: g("np"), eps: g("eps") };
+    if (b.rev == null) out.notes.push(`FY${fy}: the results file does not have all four quarters, so the call figures are used.`);
+    else { out.baseRes = b; out.baseOk = p.base.rev == null || near(b.rev, p.base.rev); }
+  }
+  if (p.ytd) {
+    const mo = ytdMonths(p.ytd.per), y = fyNum(p.ytd.per);
+    if (mo && y) {
+      const g = (k, yy) => resSum(R.q, yy, mo / 3, k), t = { rev: g("sales", y), ebitda: g("op", y), pat: g("np", y), prev: g("sales", y - 1) };
+      if (t.rev != null) { out.ytdRes = t; out.ytdOk = p.ytd.rev == null || near(t.rev, p.ytd.rev); }
+    }
+  }
+  // Latest Earnings Rythm card (highest quarter): its P/E, price and filed share count are used as they are.
+  const cards = [].concat(...[sym].concat(R.syms || []).map(x => resIndex().bySym[x] || [])).filter(c => (c.basis || "") === R.basis);
+  const card = cards.sort((a, z) => qRank(z.periods[2]) - qRank(a.periods[2]))[0];
+  if (card) out.card = { q: card.periods[2], val: card.val || null, sh: card.st && card.st.sh > 0 ? card.st.sh : null, shEst: !!(card.st && card.st.shEst) };
+  // TTM: the last four reported quarters' profit (the standard P/E basis, as on Screener and Earnings Rythm).
+  const last4 = Object.keys(R.q).filter(k => R.q[k] && R.q[k].np != null).sort((a, z) => qRank(z) - qRank(a)).slice(0, 4);
+  if (last4.length === 4 && qRank(last4[0]) - qRank(last4[3]) === 3) out.ttm = { pat: Math.round(last4.reduce((a, k) => a + R.q[k].np, 0) * 100) / 100, from: last4[3], to: last4[0] };
+  const PD = window.PRICE_DATA;
+  if (PD && PD.prices && PD.prices[sym] != null) {
+    out.cmp = PD.prices[sym]; out.asOf = PD.asOf || "";
+    const a = dateVal(out.asOf), c = dateVal(p.date);
+    out.cmpNewer = !(a && c && c > a);   // the call's price is kept when it is more recent than the price file
+  }
+  // Shares: last four quarters' PAT ÷ EPS, against the call's share count.
+  // Each quarter's PAT ÷ EPS must give about the same count; if not (split, bonus or IPO not adjusted in the
+  // results file, or an approximate EPS), the results cannot be trusted for shares and no warning is shown.
+  const qs = Object.keys(R.q).filter(k => { const x = R.q[k]; return x && x.np && x.eps && x.np / x.eps > 0 && Math.abs(x.np) >= 1; })
+    .sort((a, z) => qRank(z) - qRank(a)).slice(0, 4);
+  if (qs.length === 4 && p.shares && !(out.card && out.card.sh)) {
+    const each = qs.map(k => R.q[k].np / R.q[k].eps).sort((a, z) => a - z);
+    if (each[3] / each[0] <= 1.15) {
+      const sh = Math.round((each[1] + each[2]) / 2 * 100) / 100;
+      // Warn only when the call's own figures agree with the results (PAT to shareholders ÷ EPS, base year).
+      // If the results file's EPS is not adjusted for a split, bonus or IPO, the two disagree and no warning is shown.
+      const own = p.base && p.base.eps ? (p.base.toSh ?? p.base.pat) / p.base.eps : null;
+      const issued = p.shares / sh > 1 && p.shares / sh <= 1.6;   // IPO, QIP, rights or preferential issue
+      if (own && Math.abs(sh / own - 1) <= 0.05 && Math.abs(sh / p.shares - 1) > 0.10 && !issued) out.shNew = sh;
+    }
+  }
+  // The call's own figures: share count vs base-year PAT ÷ EPS. A gap above 25% is more than IPO or issue weighting explains.
+  const own = p.base && p.base.eps ? (p.base.toSh ?? p.base.pat) / p.base.eps : null;
+  if (!(out.card && out.card.sh) && !out.shNew && !p.shFix && own > 0 && p.base.eps > 0 && p.shares && Math.abs(own / p.shares - 1) > 0.25 && !(p.shares / own > 1 && p.shares / own <= 1.6)) out.shOwn = Math.round(own * 100) / 100;
+  return out;
+}
+// With results_data.js in the folder the figures are worked out fresh; without it, the copy saved in concall_data.js is used.
+function resOf(p) {
+  if (RES().length) p.res = calcRes(p);
+  return p.res || null;
+}
+function effProj(p) {
+  const r = resOf(p);
+  if (!r || !r.sym) return p;
+  const e = JSON.parse(JSON.stringify(p)); e.src = {};
+  e.baseSh = p.base && p.base.eps ? (p.base.toSh ?? p.base.pat) / p.base.eps : null;   // the call's own base-year share count
+  const pick = ok => p.resMode === "res" || (p.resMode !== "call" && ok);
+  if (r.baseRes && pick(r.baseOk)) {
+    const b = r.baseRes, sameSh = p.base.toSh == null || p.base.pat == null || Math.abs(p.base.toSh - p.base.pat) <= Math.abs(p.base.pat) * 0.01;
+    e.base.rev = b.rev;
+    if (b.ebitda != null) e.base.ebitda = b.ebitda;
+    if (b.pat != null) { e.base.pat = b.pat; if (sameSh) e.base.toSh = b.pat; }
+    // EPS from the results file only when it agrees with the call within 10%: IPO weighting, small bonuses and
+    // restatements make the two differ for real reasons, and then the call's own EPS is kept.
+    if (b.eps != null && (p.base.eps == null || Math.abs(b.eps - p.base.eps) <= Math.abs(p.base.eps) * 0.10)) e.base.eps = b.eps;
+    else if (b.eps != null) e.src.epsCall = true;
+    e.src.base = true;
+  }
+  if (r.ytdRes && p.ytd && pick(r.ytdOk)) {
+    ["rev", "ebitda", "pat", "prev"].forEach(k => { if (r.ytdRes[k] != null) e.ytd[k] = r.ytdRes[k]; });
+    e.src.ytd = true;
+  }
+  // Shares: the filed count from the latest results card, unless you typed one in admin. Years keep the
+  // prompt's planned change (e.g. ESOP dilution) in proportion.
+  const typedSh = p.orig && p.orig.shares != null && p.shares !== p.orig.shares && !p.shFix && p.shOld == null;
+  if (r.card && r.card.sh && !typedSh && p.shares) {
+    const k = r.card.sh / p.shares;
+    e.shares = r.card.sh; e.years.forEach(y => { y.sh = y.sh == null || Math.abs(y.sh / p.shares - 1) <= 0.01 ? r.card.sh : Math.round(y.sh * k * 1e4) / 1e4; });
+    e.src.sh = true;
+  }
+  const edited = p.orig && p.orig.cmp != null && p.cmp !== p.orig.cmp;   // a CMP you typed in admin wins
+  if (r.cmp != null && r.cmpNewer !== false && !edited) { e.cmp = r.cmp; e.date = r.asOf; e.src.cmp = true; }
+  return e;
+}
+function resNote(p, e) {
+  const r = p.res, fx = ADMIN && p.shFix ? `<div class="resn" style="background:#ecfdf3;border-color:#b7e4c7">Shares corrected automatically: ${p.shFix.from} → <b>${p.shFix.to} cr</b> (${esc(p.shFix.why)}; checked against PAT ÷ EPS).</div>` : "";
+  return fx + resNote2(p, e, r);
+}
+function resNote2(p, e, r) {
+  if (!r) return "";
+  if (!r.sym) return ADMIN ? `<div class="resn">Results file: no match for this company, so the call figures are used. NSE symbol <input type="text" data-sym value="${esc(p.sym || "")}" placeholder="e.g. RATNAVEER"></div>` : "";
+  const used = [e.src.base && esc(p.base.y), e.src.ytd && esc(p.ytd.per)].filter(Boolean);
+  const pub = `${used.length ? `${used.join(" and ")} figures from reported quarterly results (${esc(r.basis)}). ` : ""}${e.src.cmp ? `CMP as of ${esc(r.asOf)}.` : ""}`;
+  if (!ADMIN) return pub.trim() ? `<p class="pnote">${pub}</p>` : "";
+  const line = (label, call, res, ok, on) => res == null ? "" : `<li>${label}: call ₹${f0(call)} cr · results ₹${f0(res)} cr → <b>${on ? "using results" : "using call"}</b>${!ok ? ` <span class="dn">(differs by more than ${RES_TOL}%)</span>` : ""}</li>`;
+  const mode = p.resMode === "res" ? "Results forced" : p.resMode === "call" ? "Call forced" : "Auto";
+  return `<div class="resn"><b>Results file</b> · linked to <input type="text" data-sym value="${esc(r.sym)}"> (${esc(r.basis)}) · ${mode} <button data-pr="resmode" type="button">${p.resMode === "res" ? "Use call figures" : p.resMode === "call" ? "Back to auto" : (r.baseOk && r.ytdOk !== false ? "Use call figures" : "Use results figures")}</button>
+    <ul>${r.baseRes ? line(esc(p.base.y) + " revenue", p.base.rev, r.baseRes.rev, r.baseOk, e.src.base) : ""}${r.ytdRes && p.ytd ? line(esc(p.ytd.per) + " revenue", p.ytd.rev, r.ytdRes.rev, r.ytdOk, e.src.ytd) : ""}
+    ${e.src.sh ? `<li>Shares: ${r.card.sh} cr filed (${esc(r.card.q)} results${r.card.shEst ? ", estimate" : ""}) · call ${p.shares} cr → <b>using filed</b></li>` : ""}
+    ${r.card && r.card.val && r.card.val.pe ? `<li>TTM P/E: ${f1(r.card.val.pe)}x from Earnings Rythm (₹${r.card.val.px}, ${esc(r.card.val.pxDate || "")} ÷ TTM EPS ₹${r.card.val.eps4})</li>` : ""}
+    ${r.cmp != null ? `<li>CMP: call ₹${p.cmp} (${esc(p.date || "")}) · price file ₹${r.cmp} (${esc(r.asOf)}) → <b>${e.src.cmp ? "using price file" : r.cmpNewer === false ? "using the call's price (more recent)" : "using your typed CMP"}</b></li>` : ""}
+    ${r.shNew ? `<li class="dn">Shares: the call gives ${p.shares} cr; your results imply about ${r.shNew} cr (PAT ÷ EPS, last four quarters). Check for a bonus, split or new shares. <button data-pr="usesh" data-v="${r.shNew}" type="button">Use ${r.shNew} cr</button></li>` : ""}
+    ${r.shOwn ? `<li class="dn">Shares: the call gives ${p.shares} cr, but its own ${esc(p.base.y)} PAT ÷ EPS gives ${r.shOwn} cr. One of them is wrong: check Market Cap ÷ Current Price on Screener and type the right figure.</li>` : ""}
+    ${r.notes.map(n => `<li class="dn">${esc(n)}</li>`).join("")}</ul></div>`;
 }
 const pnum = s => { const t = String(s == null ? "" : s).replace(/[₹,%\s]|cr\b|crores?/gi, ""); const v = parseFloat(t); return isFinite(v) ? v : null; };
 const nextFY = (y, i) => { const m = /FY\s*(\d{2})/i.exec(y || ""); return m ? "FY" + String(+m[1] + i).padStart(2, "0") + "E" : "Year " + i; };
 function parseProjLocks(text) {
-  const keys = ["COMPANY_NAME","QUARTER_INFO","PRICE_DATE","CMP","SHARES_CR","BASE_YEAR","YTD_ACTUAL","GUIDED_Y1","YEAR_\\d","BUILD_\\d{1,2}","SCENARIO_BEAR","SCENARIO_BASE","SCENARIO_BULL","PEERS","ASSUMPTION_\\d","CHECK_\\d","RISK_TO_FORECAST_\\d","VALUE_NOTE","SOURCE"];
+  const keys = ["COMPANY_NAME","NSE_SYMBOL","QUARTER_INFO","PRICE_DATE","CMP","SHARES_CR","BASE_YEAR","YTD_ACTUAL","GUIDED_Y1","YEAR_\\d","BUILD_\\d{1,2}","SCENARIO_BEAR","SCENARIO_BASE","SCENARIO_BULL","PEERS","ASSUMPTION_\\d","CHECK_\\d","RISK_TO_FORECAST_\\d","VALUE_NOTE","SOURCE"];
   text = cleanPaste(text).replace(/\*\*/g, "").replace(new RegExp("\\s*\\b(" + keys.join("|") + ")\\s*:", "g"), "\n$1:").replace(/\s*(END PROJECTION LOCK)/g, "\n$1").replace(/[ \t]*\|[ \t]*(?=\n|$)/g, "");
   const out = [];
   const re = /BEGIN PROJECTION LOCK[\s\S]*?(?:END PROJECTION LOCK|$)/g; let m;
@@ -957,7 +1401,7 @@ function parseProjLocks(text) {
     const parts = n => f(n).split("|").map(x => x.trim());
     const nums = n => { const r = []; const re2 = new RegExp("^[\\s*>-]*" + n + "_(\\d{1,2})\\s*:\\s*(.*)$", "gmi"); let x; while ((x = re2.exec(b))) r.push([+x[1], nd(x[2])]); return r.sort((a, z) => a[0] - z[0]).map(x => x[1]).filter(Boolean); };
     const bp = parts("BASE_YEAR"), yt = parts("YTD_ACTUAL"), gy = parts("GUIDED_Y1");
-    const p = { name: niceName(f("COMPANY_NAME")), q: normQ(f("QUARTER_INFO")), date: nd(f("PRICE_DATE")), cmp: pnum(f("CMP")), shares: pnum(f("SHARES_CR")),
+    const p = { sym: symOf(f("NSE_SYMBOL")) || undefined, name: niceName(f("COMPANY_NAME")), q: normQ(f("QUARTER_INFO")), date: nd(f("PRICE_DATE")), cmp: pnum(f("CMP")), shares: pnum(f("SHARES_CR")),
       ytd: nd(yt[0]) ? { per: yt[0], rev: pnum(yt[1]), ebitda: pnum(yt[2]), pat: pnum(yt[3]), prev: pnum(yt[4]) } : null,
       guide: { rev: pnum(gy[0]), em: pnum(gy[1]), pm: pnum(gy[2]) },
       base: { y: bp[0] || "", rev: pnum(bp[1]), ebitda: pnum(bp[2]), pat: pnum(bp[3]), toSh: pnum(bp[4]), eps: pnum(bp[5]) }, years: [], sc: {},
@@ -982,8 +1426,11 @@ function projCalc(p) {
     rows.push({ y: y.y, rev, g: y.g, ebitda, m: y.m, dep: y.dep, int: y.int, pbt, pat, toSh, sh, eps: sh ? toSh / sh : null });
   });
   const eps3 = rows[3].eps;
-  const sc = ["bear", "base", "bull"].map(k => { const c = p.sc[k] || {}; const e = eps3 != null ? eps3 * (1 + (c.adj || 0) / 100) : null;
-    const lo = e != null && c.lo != null ? e * c.lo : null, hi = e != null && c.hi != null ? e * c.hi : null;
+  // "EPS vs base %" moves EPS by a share of its size, so +100% on a loss of ₹2.4 gives 0, not a loss of ₹4.8.
+  // A P/E value needs positive EPS: with a loss, value and vs CMP are shown as not meaningful.
+  const sc = ["bear", "base", "bull"].map(k => { const c = p.sc[k] || {}; const e = eps3 != null ? eps3 + Math.abs(eps3) * (c.adj || 0) / 100 : null;
+    const pos = e != null && e > 0;
+    const lo = pos && c.lo != null ? e * c.lo : null, hi = pos && c.hi != null ? e * c.hi : null;
     return { k, eps: e, lo: c.lo, hi: c.hi, vlo: lo, vhi: hi, ulo: lo != null && p.cmp ? (lo / p.cmp - 1) * 100 : null, uhi: hi != null && p.cmp ? (hi / p.cmp - 1) * 100 : null, why: c.why }; });
   return { rows, sc };
 }
@@ -1009,6 +1456,50 @@ function buildHtml(p, rows) {
     }).join("")}
   </tbody></table></div>`;
 }
+const adjTxt = (p, k) => { const a = p.sc[k] && p.sc[k].adj; return a == null ? "–" : (a > 0 ? "+" : "") + a + "%"; };
+// True when some year's revenue is built from two or more parts (otherwise the build repeats the main table).
+function multiPart(p) {
+  const c = {}; (p.build || []).filter(x => x.part || x.rev != null).forEach(x => { const k = fyKey(x.y); c[k] = (c[k] || 0) + 1; });
+  return Object.values(c).some(n => n > 1);
+}
+function buildMatches(p, rows) {
+  const b = (p.build || []).filter(x => x.part || x.rev != null);
+  return rows.slice(1).every(y => { const ps = b.filter(x => fyKey(x.y) === fyKey(y.y)); if (!ps.length) return true;
+    const rev = ps.reduce((a, x) => a + (x.rev || 0), 0), eb = ps.reduce((a, x) => a + (x.rev || 0) * (x.m || 0) / 100, 0);
+    return Math.abs(rev - y.rev) <= 0.02 * y.rev && Math.abs(eb - y.ebitda) <= 0.03 * Math.max(y.ebitda, 1); });
+}
+// Paste-time audit: runs every check the page has on one projection and lists what it found.
+function auditProj(p) {
+  const out = [], ok = t => out.push("✓ " + t), warn = t => out.push("⚠ " + t);
+  autoFixShares(p);
+  if (p.shFix) ok(`Shares corrected ${p.shFix.from} → ${p.shFix.to} cr (${p.shFix.why}).`);
+  const e = effProj(p), r = p.res || {};
+  if (!r.sym) out.push("• Not in results_data.js: the call's own figures are used.");
+  else {
+    if (r.baseRes && !r.baseOk) warn(`${p.base.y} revenue: call ₹${f0(p.base.rev)} cr vs your results ₹${f0(r.baseRes.rev)} cr. Call figure kept; check which is right.`);
+    if (r.ytdRes && p.ytd && !r.ytdOk) warn(`${p.ytd.per} revenue: call ₹${f0(p.ytd.rev)} cr vs your results ₹${f0(r.ytdRes.rev)} cr. Call figure kept.`);
+    (r.notes || []).forEach(n => out.push("• " + n));
+    if (r.shNew) warn(`Shares ${p.shares} cr; your results and the call's PAT ÷ EPS give ${r.shNew} cr. Use the button on the company page if right.`);
+  }
+  const rr = calcRes(p);
+  if (rr.shOwn) warn(`Shares ${p.shares} cr, but the call's own PAT ÷ EPS gives ${rr.shOwn} cr. Check Market Cap ÷ Price on Screener.`);
+  const { rows, sc } = projCalc(e), y1 = rows[1], y3 = rows[3], yt = e.ytd, mo = yt && ytdMonths(yt.per);
+  if (yt && mo && yt.rev != null) {
+    const pace = ((y1.rev - yt.rev) / (12 - mo)) / (yt.rev / mo) * 100 - 100;
+    if (pace < -5) warn(`${y1.y} needs the rest of the year ${f1(pace)}% slower than ${yt.per} (monthly revenue).`);
+  }
+  if (yt && yt.pat > 0 && y1.pat != null && y1.pat < yt.pat) warn(`${y1.y} PAT ₹${f0(y1.pat)} cr is below the ₹${f0(yt.pat)} cr already earned in ${yt.per}.`);
+  if (yt && yt.rev && yt.ebitda != null && y1.m != null && y1.m < yt.ebitda / yt.rev * 100 - 2) warn(`${y1.y} EBITDA margin ${f1(y1.m)}% is more than 2 points below ${yt.per}'s ${f1(yt.ebitda / yt.rev * 100)}%: check other income and the EBITDA basis.`);
+  if (!(y3.eps > 0)) out.push(`• ${y3.y} is a loss: valuation shown as n.m.`);
+  else if (e.cmp && e.cmp / y3.eps > 150) warn(`${y3.y} P/E at CMP is ${f0(e.cmp / y3.eps)}x: check shares and PAT.`);
+  const b = sc.find(x => x.k === "base"), be = sc.find(x => x.k === "bear"), bu = sc.find(x => x.k === "bull");
+  if (b.vlo != null && ((be.vhi != null && be.vhi > b.vhi) || (bu.vlo != null && bu.vlo < b.vlo))) warn("Scenarios out of order (bear above base or bull below base).");
+  for (let i = 2; i < rows.length; i++) { const a = rows[i - 1].sh, z = rows[i].sh; if (a && z && z / a > 1.3) warn(`Shares jump from ${f1(a)} cr (${rows[i - 1].y}) to ${f1(z)} cr (${rows[i].y}): check for a bonus, split or issue.`); }
+  if ((p.build || []).length && !buildMatches(p, rows)) warn(`Revenue build does not add up to the forecast${multiPart(p) ? "; hidden from visitors" : ""}.`);
+  if (!e.cmp) warn("No CMP.");
+  if (!out.some(x => x[0] === "⚠")) out.push("✓ No issues found.");
+  return out;
+}
 // Page's own checks on Year 1: year-to-date pace and management's margin guidance.
 function ytdMonths(per) {
   const t = String(per || "").toLowerCase();
@@ -1033,7 +1524,7 @@ function pageChecks(p, rows) {
     const ym = yt.ebitda / yt.rev * 100;
     ok(y.m >= ym - 2, `${esc(y.y)} EBITDA margin ${f1(y.m)}% vs ${esc(yt.per)} ${f1(ym)}%${y.m < ym - 2 ? " (more than 2 points lower: check other income and the EBITDA basis)" : ""}.`);
   }
-  if (yt && yt.pat != null && y.pat != null && y.pat < yt.pat) ok(false, `${esc(y.y)} PAT ₹${f0(y.pat)} cr is below the ₹${f0(yt.pat)} cr already earned in ${esc(yt.per)}.`);
+  if (yt && yt.pat > 0 && y.pat != null && y.pat < yt.pat) ok(false, `${esc(y.y)} PAT ₹${f0(y.pat)} cr is below the ₹${f0(yt.pat)} cr already earned in ${esc(yt.per)}.`);
   const pm = y.rev ? y.pat / y.rev * 100 : null, em = y.m;
   if (p.guide && p.guide.pm != null && pm != null) ok(Math.abs(pm - p.guide.pm) <= 0.5, `${esc(y.y)} PAT margin ${f1(pm)}% vs management's ${p.guide.pm}%${Math.abs(pm - p.guide.pm) > 0.5 ? " (off by more than 0.5 points)" : ""}.`);
   if (p.guide && p.guide.em != null && em != null) ok(Math.abs(em - p.guide.em) <= 0.5, `${esc(y.y)} EBITDA margin ${f1(em)}% vs management's ${p.guide.em}%.`);
@@ -1043,45 +1534,67 @@ function pageChecks(p, rows) {
 function projOut(p) {
   const { rows, sc } = projCalc(p);
   const r = (l, fn, cls) => `<tr${cls ? ` class="${cls}"` : ""}><td>${l}</td>${rows.map(x => `<td${x.act ? ' class="act"' : ""}>${fn(x)}</td>`).join("")}</tr>`;
-  return `${ADMIN ? pageChecks(p, rows) : ""}<h4>Projection (₹ cr)</h4><div class="pw"><table><thead><tr><th></th>${rows.map(x => `<th>${esc(x.y)}${x.act ? " (actual)" : ""}</th>`).join("")}</tr></thead><tbody>
+  return `${ADMIN ? pageChecks(p, rows) : ""}<h4>Projection (₹ cr)</h4><div class="pw"><table><thead><tr><th></th>${rows.map(x => `<th>${esc(x.y)}${x.act ? " (actual)" : ""}<div>${x.act ? tag("rf") : tag("pr")}</div></th>`).join("")}</tr></thead><tbody>
     ${r("Revenue", x => f0(x.rev), "b")}${r("growth", x => x.act ? "" : f1(x.g) + "%", "sub")}
-    ${r("EBITDA", x => f0(x.ebitda))}${r("margin", x => x.m == null ? "–" : f1(x.m) + "%", "sub")}
+    ${r("EBITDA", x => f0(x.ebitda))}${r("margin", x => x.m == null ? "–" : Math.abs(x.m) > 100 ? "n.m." : f1(x.m) + "%", "sub")}
     ${r("PBT", x => x.act ? "" : f0(x.pbt))}
     ${r("PAT", x => f0(x.pat), "b")}${r("PAT to shareholders", x => f0(x.toSh))}
-    ${r("Shares (cr)", x => x.act ? "" : (x.sh ? (+x.sh).toFixed(2) : "–"), "sub")}
-    ${r("EPS (₹)", x => f1(x.eps), "b")}${r("P/E at CMP", x => p.cmp && x.eps ? f1(p.cmp / x.eps) + "x" : "–", "sub")}
+    ${r("Shares (cr)", x => { if (!x.act) return x.sh ? (+x.sh).toFixed(2) : "–"; const v = p.baseSh !== undefined ? p.baseSh : (x.eps ? x.toSh / x.eps : null);
+      // shown only when believable next to today's count (old unadjusted EPS can give a tenth of it)
+      return v > 0 && p.shares && v / p.shares > 0.5 && v / p.shares < 1.5 ? v.toFixed(2) : ""; }, "sub")}
+    ${r("EPS (₹)", x => f1(x.eps), "b")}${r("P/E at CMP", x => {
+      if (x.act) {   // actual column: trailing twelve months, market cap ÷ last four quarters' profit
+        const v = p.res && p.res.card && p.res.card.val;
+        if (v) return v.pe > 0 ? `<span title="₹${v.px} (${esc(v.pxDate || "")}) ÷ TTM EPS ₹${v.eps4}">${f1(v.pe)}x TTM</span>` : "n.m. TTM";
+        const t = p.res && p.res.ttm;
+        if (t && p.cmp && p.shares) return t.pat > 0 ? f1(p.cmp * p.shares / t.pat) + "x TTM" : "n.m. TTM";
+        return p.cmp && x.eps ? (x.eps > 0 ? f1(p.cmp / x.eps) + "x" : "n.m.") : "–";
+      }
+      return p.cmp && x.eps ? (x.eps > 0 ? f1(p.cmp / x.eps) + "x" : "n.m.") : "–"; }, "sub")}
   </tbody></table></div>
-  ${buildHtml(p, rows)}
-  <h4>Value from ${esc(rows[3].y)} EPS × P/E</h4><div class="pw"><table><thead><tr><th>Scenario</th><th>${esc(rows[3].y)} EPS</th><th>P/E</th><th>Value (₹)</th><th>vs CMP</th></tr></thead><tbody>
-    ${sc.map(x => `<tr class="sc-${x.k}"><td>${x.k[0].toUpperCase() + x.k.slice(1)}</td><td>${f1(x.eps)}</td><td>${x.lo ?? "–"}–${x.hi ?? "–"}x</td><td><b>${f0(x.vlo)}–${f0(x.vhi)}</b></td><td>${fpct(x.ulo)} to ${fpct(x.uhi)}</td></tr>`).join("")}
-  </tbody></table></div>`;
+  ${sc.some(x => x.vlo != null) ? `<h4>Scenario valuation ${tag("pr")}</h4><div class="pw"><table class="scm"><thead><tr><th>Scenario</th><th>EPS vs Base %</th><th>P/E range</th><th>${esc(rows[3].y)} EPS (₹)</th><th>Implied value (₹)</th><th>vs CMP (%)</th><th style="text-align:left">What has to happen</th></tr></thead><tbody>
+    ${sc.map(x => `<tr class="sc-${x.k}"><td>${x.k[0].toUpperCase() + x.k.slice(1)}</td><td>${adjTxt(p, x.k)}</td><td>${x.lo ?? "–"}–${x.hi ?? "–"}x</td><td>${f1(x.eps)}</td>${x.vlo == null ? `<td colspan="2" style="color:#6b7280">n.m. (loss)</td>` : `<td><b>${f0(x.vlo)}–${f0(x.vhi)}</b></td><td>${fpct(x.ulo)} to ${fpct(x.uhi)}</td>`}<td style="text-align:left;white-space:normal;width:34%">${esc((p.sc[x.k] && p.sc[x.k].why) || "")}</td></tr>`).join("")}
+  </tbody></table></div>`
+  : `<h4>Scenarios</h4><p class="pnote" style="margin:0 0 6px">No valuation: the forecast shows a loss in ${esc(rows[3].y)} (EPS ₹${f1(rows[3].eps)}), so bear/base/bull EPS and P/E values cannot be worked out. What each scenario needs is below.</p><div class="pw"><table class="scm"><thead><tr><th>Scenario</th><th style="text-align:left">What has to happen</th></tr></thead><tbody>
+    ${sc.map(x => `<tr class="sc-${x.k}"><td>${x.k[0].toUpperCase() + x.k.slice(1)}</td><td style="text-align:left;white-space:normal;width:85%">${esc((p.sc[x.k] && p.sc[x.k].why) || "")}</td></tr>`).join("")}
+  </tbody></table></div>`}
+  ${ADMIN || (multiPart(p) && buildMatches(p, rows)) ? buildHtml(p, rows) : ""}`;
 }
 function projBox(d) {
-  const p = projFor(d);
+  const e = projFor(d), p = e && projAll()[keyOf(e)] || e;
   if (!p) return !ADMIN ? "" : `<div class="proj"><h3>3-year projection</h3>
     <p class="empty2">No projection yet (only you see this note). Run the Concall Data Lock prompt with the transcript and financials; paste its Part 2 output with <b>Paste data lock</b>, then click <b>Save data file</b>.</p></div>`;
   const k = keyOf(p);
   const inp = (path, v) => ADMIN ? `<input type="number" step="any" data-p="${path}" value="${v == null ? "" : v}">` : `<b>${v == null ? "–" : esc(v)}</b>`;
-  const yr = (l, f) => `<tr><td>${l}</td><td class="act"></td>${p.years.map((y, i) => `<td>${inp(`years.${i}.${f}`, y[f])}</td>`).join("")}</tr>`;
-  return `<div class="proj" data-pk="${esc(k)}"><h3>3-year projection & valuation</h3>
+  const yr = (l, f) => `<tr><td>${l}</td><td class="act"></td>${p.years.map((y, i) => `<td>${inp(`years.${i}.${f}`, f === "sh" ? e.years[i].sh : y[f])}</td>`).join("")}</tr>`;
+  return `<div class="proj" data-pk="${esc(k)}"><h3>3-year projection & valuation ${tag("pr")}</h3>
     <div class="pdisc">${PROJ_DISCLAIMER}</div>
     <p class="pnote">${p.q !== d.q ? `Built on the <b>${esc(p.q)}</b> call. ` : ""}${ADMIN ? "Admin: change any yellow box to test your own view; the tables recalculate. Visitors see the values saved in projection_data.js, read-only." : "Estimates built from management's statements on the call and reported financials."}</p>
-    <div class="top2"><span>CMP ₹ ${inp("cmp", p.cmp)}</span><span>${p.date ? "as of " + esc(p.date) : ""}</span><span>Shares (cr) ${inp("shares", p.shares)}</span></div>
-    <h4>Assumptions</h4><div class="pw"><table><thead><tr><th></th><th>${esc(p.base.y)}</th>${p.years.map(y => `<th>${esc(y.y)}</th>`).join("")}</tr></thead><tbody>
+    <div class="top2"><span>CMP ₹ ${inp("cmp", e.cmp)}</span><span>${e.date ? "as of " + esc(e.date) : ""}</span><span>Shares (cr) ${inp("shares", e.shares)}</span></div>
+    ${resNote(p, e)}
+    ${ADMIN ? `<h4>Assumptions</h4><div class="pw"><table><thead><tr><th></th><th>${esc(e.base.y)}</th>${p.years.map(y => `<th>${esc(y.y)}</th>`).join("")}</tr></thead><tbody>
       ${yr("Revenue growth %", "g")}${yr("EBITDA margin %", "m")}${yr("Depreciation", "dep")}${yr("Interest", "int")}${yr("Tax rate %", "tax")}${yr("Minority share %", "mi")}${yr("Shares cr (weighted)", "sh")}
     </tbody></table></div>
-    <h4>Scenarios</h4><div class="pw"><table class="sct"><thead><tr><th>Scenario</th><th>EPS vs base %</th><th>P/E low</th><th>P/E high</th><th style="text-align:left">What has to happen</th></tr></thead><tbody>
-      ${["bear", "base", "bull"].map(s => `<tr class="sc-${s}"><td>${s[0].toUpperCase() + s.slice(1)}</td><td>${inp(`sc.${s}.adj`, p.sc[s].adj)}</td><td>${inp(`sc.${s}.lo`, p.sc[s].lo)}</td><td>${inp(`sc.${s}.hi`, p.sc[s].hi)}</td><td style="text-align:left;white-space:normal">${esc(p.sc[s].why || "")}</td></tr>`).join("")}
-    </tbody></table></div>
-    <div class="pout">${projOut(p)}</div>
-    ${p.assumptions.length ? `<h4>How it was built</h4><ul>${p.assumptions.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
-    ${ADMIN && (p.checks || []).length ? `<h4>Self-check by the prompt</h4><ul>${p.checks.map(x => `<li>${esc(x.replace(/\s*\|\s*/, ": "))}</li>`).join("")}</ul>` : ""}
-    ${p.peers ? `<h4>Peer P/E</h4><p style="font-size:13px;margin:0">${esc(p.peers)}</p>` : ""}
-    ${p.risks.length ? `<h4>What would break it</h4><ul>${p.risks.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""}
-    ${p.note ? `<div class="vnote">${esc(p.note)}</div>` : ""}
-    ${p.source ? `<p class="pnote" style="margin-top:10px"><b>Source:</b> ${esc(p.source)}</p>` : ""}
+    <h4>Scenarios</h4><div class="pw"><table class="sct"><thead><tr><th>Scenario</th><th>EPS vs base %</th><th>P/E low</th><th>P/E high</th></tr></thead><tbody>
+      ${["bear", "base", "bull"].map(s => `<tr class="sc-${s}"><td>${s[0].toUpperCase() + s.slice(1)}</td><td>${inp(`sc.${s}.adj`, p.sc[s].adj)}</td><td>${inp(`sc.${s}.lo`, p.sc[s].lo)}</td><td>${inp(`sc.${s}.hi`, p.sc[s].hi)}</td></tr>`).join("")}
+    </tbody></table></div>` : ""}
+    <div class="pout">${projOut(e)}</div>
+    <h4 class="kar">Key assumptions & risks ${tag("pr")}</h4>
+    ${p.assumptions.length ? `<h4>How it was built</h4><ul>${p.assumptions.map(x => `<li>${esc(junk(fixSh(p, x)))}</li>`).join("")}</ul>` : ""}
+    ${ADMIN && (p.checks || []).length ? `<h4>Self-check by the prompt</h4><ul>${p.checks.map(x => `<li>${esc(fixSh(p, x).replace(/\s*\|\s*/, ": "))}</li>`).join("")}</ul>` : ""}
+    ${p.peers ? `<h4>Peer P/E</h4><p style="font-size:13px;margin:0">${esc(junk(p.peers))}</p>` : ""}
+    ${p.risks.length ? `<h4>What would break it</h4><ul>${p.risks.map(x => `<li>${esc(junk(x))}</li>`).join("")}</ul>` : ""}
+    ${ADMIN && p.note ? `<div class="vnote"><b>Prompt's closing note (hidden from visitors; its numbers do not update):</b> ${esc(p.note)}</div>` : ""}
+    ${p.source ? `<p class="pnote" style="margin-top:10px"><b>Source:</b> ${esc(junk(p.source))}</p>` : ""}
     <div class="pbtns admin-only"><button data-pr="reset">Reset to lock values</button><button data-pr="del">Remove projection</button></div>
   </div>`;
+}
+// When the share count was corrected in admin, the prompt's own text shows the corrected figure too.
+function fixSh(p, t) {
+  const old = p.shOld ?? (p.orig && p.orig.shares);
+  if (old == null || p.shares == null || old === p.shares) return t;
+  const re = new RegExp("(^|[^\\d.])" + String(old).replace(".", "\\.") + "(?![\\d])", "g");
+  return t.replace(re, "$1" + p.shares);
 }
 function projEdit(box, input) {
   const all = projAll(), p = all[box.dataset.pk];
@@ -1090,11 +1603,12 @@ function projEdit(box, input) {
   let o = p; for (let i = 0; i < path.length - 1; i++) o = o[path[i]];
   o[path[path.length - 1]] = v;
   projLocal[keyOf(p)] = p; projSaveLocal();
-  box.querySelector(".pout").innerHTML = projOut(p);
+  box.querySelector(".pout").innerHTML = projOut(effProj(p));
 }
 // Projections are saved in the same file as the cards (one Save button, one file to upload).
 function projText() {
   const list = Object.values(projAll());
+  if (RES().length) list.forEach(p => { p.res = calcRes(p); });   // keep the results figures in the saved file
   return list.length ? "// 3-year projections, shown on the public page with the disclaimer.\nwindow.PROJECTION_DATA = [\n" + list.map(p => "  " + JSON.stringify(p)).join(",\n") + "\n];\n" : "";
 }
 
@@ -1106,8 +1620,9 @@ function renderCompany(rows, wantQ) {
   v.hidden = false;
   document.getElementById("qtitle").textContent = " - " + qLong(d.q);
   v.innerHTML = `<button class="back" id="back" type="button">← Back to all companies</button>
-    <div class="cohead"><h2 class="cname">${esc(d.name)}</h2>
+    <div class="cohead"><div><h2 class="cname">${esc(d.name)}${linkSym(d) ? ` <span class="csym">${esc(linkSym(d))}</span>` : ""}</h2>${classOf(d) ? `<div class="cind">${esc(classOf(d)[0])} › <b>${esc(classOf(d)[1])}</b></div>` : ""}</div>
       <div class="pdfbtns">${cred(d).total ? `<span>Credibility ${credChip(d)}</span>` : ""}
+        <button class="pdfbtn admin-only" data-copycom="${esc(keyOf(d))}" title="Copies this quarter's open commitments (Delivered left out), to paste under PREVIOUS COMMITMENTS for the next quarter's call">Copy previous commitments</button>
         <button class="pdfbtn" data-pdf="card" title="Opens the print window: choose Save as PDF">Save as PDF</button>
       </div></div>
     <div class="colayout">
@@ -1137,10 +1652,10 @@ function onRoute() {
 }
 
 // ---------- reading concall lock text ----------
-const FIELDS = ["COMPANY_NAME","QUARTER_INFO","CALL_DATE","TONE","GUIDANCE_CHANGE","GUIDANCE_GROWTH","GUIDANCE_BASE","REVENUE_YOY","YTD_VS_GUIDANCE","GUIDANCE","MARGIN_OUTLOOK","CAPEX","ORDER_BOOK","ORDER_INFLOW","ORDER_EXECUTION","ORDER_PIPELINE","ORDER_REVENUE_BASE","CAPACITY_UTILISATION","CAPEX_PLAN","ASSET_TURN",
+const FIELDS = ["COMPANY_NAME","NSE_SYMBOL","QUARTER_INFO","CALL_DATE","TONE","GUIDANCE_CHANGE","GUIDANCE_GROWTH","GUIDANCE_BASE","REVENUE_YOY","YTD_VS_GUIDANCE","GUIDANCE","MARGIN_OUTLOOK","CAPEX","ORDER_BOOK","ORDER_INFLOW","ORDER_EXECUTION","ORDER_PIPELINE","ORDER_REVENUE_BASE","CAPACITY_UTILISATION","CAPEX_PLAN","ASSET_TURN",
   "DECODE_TARGET","DECODE_MARGIN_REALISM","DECODE_MARGIN","DECODE_CAPACITY","DECODE_ORDERS","RISKS","SOURCE","FINAL CONCALL LOCK STATUS"];
-const NUMBERED = "(?:KEY_TAKEAWAY|TAKEAWAY|METRIC|REVENUE|PROFIT|PIPELINE|COMMITMENT|DILUTION|ORDER_WIN|CAPACITY_ADD)_\\d{1,2}";
-const HEADS = /\s*\[(KEY METRICS|KEY TAKEAWAYS|REVENUE GROWTH & COMPOSITION|PROFITABILITY & BALANCE SHEET|INVESTMENT & PIPELINE|GUIDANCE & COMMITMENTS|DECODE|DILUTION & BALANCE SHEET WARNINGS|ORDER BOOK|CAPACITY & CAPEX)\]\s*/gi;
+const NUMBERED = "(?:KEY_TAKEAWAY|TAKEAWAY|METRIC|REVENUE|PROFIT|PIPELINE|COMMITMENT|DILUTION|ORDER_WIN|CAPACITY_ADD|GLOSSARY)_\\d{1,2}";
+const HEADS = /\s*\[(KEY METRICS|KEY TAKEAWAYS|REVENUE GROWTH & COMPOSITION|PROFITABILITY & BALANCE SHEET|INVESTMENT & PIPELINE|GUIDANCE & COMMITMENTS|DECODE|DILUTION & BALANCE SHEET WARNINGS|ORDER BOOK|CAPACITY & CAPEX|GLOSSARY)\]\s*/gi;
 // GUIDANCE_BASE: Period | Value  (last actual for the same metric, as stated)
 function parseBase(s) { const p = String(s || "").split("|").map(x => x.trim()); return nd(p[0]) && nd(p[1]) ? { per: p[0], val: p[1] } : null; }
 // GUIDANCE_CHANGE: Metric | Earlier | Now | Change
@@ -1204,13 +1719,14 @@ function parseLocks(text) {
     let tks = numbered(b, "KEY_TAKEAWAY");
     if (!tks.length) tks = numbered(b, "TAKEAWAY");   // older lock format
     const d = {
-      name: niceName(field("COMPANY_NAME")), q: normQ(field("QUARTER_INFO")), date: nd(field("CALL_DATE")),
+      name: niceName(field("COMPANY_NAME")), sym: symOf(field("NSE_SYMBOL")), q: normQ(field("QUARTER_INFO")), date: nd(field("CALL_DATE")),
       tone: (toneOf(field("TONE").split(/[\s|]/)[0]) || [""])[0],
       guidance: nd(field("GUIDANCE")),
       gchange: parseGChange(field("GUIDANCE_CHANGE")), ggrowth: nd(field("GUIDANCE_GROWTH")), gbase: parseBase(field("GUIDANCE_BASE")), yoy: nd(field("REVENUE_YOY")), ytd: parseYtd(field("YTD_VS_GUIDANCE")),
       takeaways: tks, revenue: numbered(b, "REVENUE"), profit: numbered(b, "PROFIT"), pipeline: numbered(b, "PIPELINE"),
       commitments: numbered(b, "COMMITMENT").map(parseCom),
       dilution: numbered(b, "DILUTION").map(parseDil),
+      terms: numbered(b, "GLOSSARY").map(parseTerm).filter(x => x.t),
       order: readOrder(field, b),
       cap: readCap(field, b),
       metrics: numbered(b, "METRIC").map(parseMet),
@@ -1229,10 +1745,12 @@ function parseLocks(text) {
   return out;
 }
 // Copy from chat apps can add a "\" at line ends, citation tags and markdown. Remove them before reading.
+// Chat-app leftovers in pasted text: "&#x20;" and favicon links such as "[image](https://www.google.com/s2/favicons?...)".
+const junk = t => String(t || "").replace(/&#x20;/gi, " ").replace(/!?\[image\]\([^)]*\)/gi, "").replace(/[ \t]{2,}/g, " ").trim();
 function cleanPaste(t) {
-  return String(t || "").replace(/\r/g, "")
+  return junk(String(t || "").replace(/\r/g, ""))
     .replace(/<cite\b[^>]*\/?>(?:[\s\S]*?<\/cite>)?/gi, "").replace(/【[^】]*】/g, "")
-    .replace(/\\[ \t]*(?=\n|$)/g, "").replace(/\\(?=\s)/g, "")
+    .replace(/\\[ \t]*(?=\n|$)/g, "").replace(/\\(?=\s)/g, "").replace(/\\([:&_*#\[\]().\-])/g, "$1")
     .replace(/[ \t]+\n/g, "\n")
     .replace(/^[ \t]*\|[ \t]*(?=[A-Z_]+[0-9]*\s*:)/gm, "")          // "| METRIC_1: ..."
     .replace(/[ \t]*\|[ \t]*(?=\n|$)/g, "")                          // "... value |"
@@ -1248,6 +1766,7 @@ function addLockText(text) {
       ...p.years.map((y, i) => (y.g == null || y.m == null) && "YEAR_" + (i + 1)), p.sc.base.lo == null && "SCENARIO_BASE"].filter(Boolean);
     projs.filter(p => !bad.includes(p)).forEach(p => { projLocal[keyOf(p)] = p; });
     projSaveLocal();
+    const audit = projs.filter(p => !bad.includes(p)).map(p => `\n\n${p.name}:\n` + auditProj(p).map(x => "  " + x).join("\n")).join("");
     // Concall locks in the same paste count as cards on their way in (they wait in the review form).
     const inPaste = /BEGIN VERIFIED CONCALL LOCK/.test(text) ? parseLocks(text.replace(/BEGIN PROJECTION LOCK[\s\S]*?(?:END PROJECTION LOCK|$)/g, "")).filter(x => x.data).map(x => normName(x.data.name)) : [];
     const noCard = projs.filter(p => !bad.includes(p) && !inPaste.includes(normName(p.name)) && !allData().some(d => normName(d.name) === normName(p.name)));
@@ -1256,7 +1775,8 @@ function addLockText(text) {
       projs.filter(p => !bad.includes(p) && missing(p).length).map(p => `\nWarning: ${p.name} is missing ${missing(p).join(", ")}.`).join("") +
       (noCard.length ? `\nNo concall card yet for: ${noCard.map(p => p.name).join(", ")}. Add its concall lock to see the projection.` : "") +
       (inPaste.length ? "\nCheck the concall card in the review form below and click Add to concalls." : "") +
-      "\nThe projection shows at the bottom of the company page. Click Save data file to publish it.");
+      "\nThe projection shows at the bottom of the company page. Click Save data file to publish it." +
+      (audit ? "\n\nCHECKS ON EACH PROJECTION (✓ = done for you, ⚠ = look at it):" + audit : ""));
     render();
     if (!/BEGIN VERIFIED CONCALL LOCK|CONCALL LOCK FAILED/.test(text)) return true;
     text = text.replace(/BEGIN PROJECTION LOCK[\s\S]*?(?:END PROJECTION LOCK|$)/g, "");
@@ -1298,13 +1818,14 @@ function reviewItem(q) {
       ${inp("q", d.q, "Quarter", "Q2 FY27")}
       <div><label>Mgmt Sentiment</label><select data-f="tone">${["", "Optimistic", "Neutral", "Cautious"].map(t => `<option${t === tsel ? " selected" : ""}>${t}</option>`).join("")}</select></div>
     </div>
-    <div class="r r2">${inp("date", d.date, "Call date", "16 Oct 2026")}<div></div></div>
+    <div class="r r2">${inp("date", d.date, "Call date", "16 Oct 2026")}${inp("sym", d.sym || linkSym(d) || "", "NSE symbol (links to Earnings Rythm)", "RATNAVEER")}</div>
     <div class="r">${inp("guidance", d.guidance, "Guidance")}</div>
     <div class="r r2">${inp("gchange", d.gchange ? [d.gchange.m, d.gchange.was, d.gchange.now, d.gchange.ch].join(" | ") : "", "Guidance change — Metric | Earlier | Now | Raised / Cut / Maintained / New / Withdrawn")}${inp("yoy", d.yoy || "", "Revenue YoY (as stated)", "+18%")}</div>
     <div class="r r2">${inp("gbase", d.gbase ? d.gbase.per + " | " + d.gbase.val : "", "Guidance base — Period | last actual (as stated)", "FY26 | INR1,080 crores")}<div></div></div>
     <div class="r r2">${inp("ggrowth", d.ggrowth || "", "Guided growth (as stated)", "40–45%")}${inp("ytd", ytdLine(d.ytd), "Year to date vs guidance — Ahead / On track / Behind / Not stated | actual | evidence")}</div>
     ${SECTIONS.map(([f, , title, , max]) => area(f, d[f], title, max)).join("")}
     <div class="r"><div><label>Guidance & Commitments — one row per line: Commitment | Specifics | Timeline | Status (max ${COM_MAX})</label><textarea data-f="commitments" rows="${Math.max(3, coms(d).length + 1)}">${esc(comText)}</textarea></div></div>
+    <div class="r"><div><label>Terms used — one per line: Term | plain meaning (max 6)</label><textarea data-f="terms" rows="${Math.max(2, terms(d).length + 1)}">${esc(terms(d).map(x => [x.t, x.m].join(" | ")).join("\n"))}</textarea></div></div>
     <div class="r"><div><label>Dilution & balance-sheet warnings — one row per line: Type | Details (max 4)</label><textarea data-f="dilution" rows="${Math.max(2, dils(d).length + 1)}">${esc(dils(d).map(x => [x.t, x.x].join(" | ")).join("\n"))}</textarea></div></div>
     <div class="r r2">${inp("obook", d.order && d.order.book ? [d.order.book.v, d.order.book.asof, d.order.book.cmp].join(" | ") : (d.orderbook || ""), "Order book — Value | As of | Comparison")}${inp("oinflow", d.order && d.order.inflow ? [d.order.inflow.per, d.order.inflow.v, d.order.inflow.cmp].join(" | ") : "", "Order inflow — Period | Value | Comparison")}</div>
     <div class="r r2">${inp("oexec", d.order && d.order.exec || "", "Execution period")}${inp("obase", d.order && d.order.base ? d.order.base.per + " | " + d.order.base.v : "", "Revenue base for order book — Period | Value", "FY26 | INR1,900 crores")}</div>
@@ -1332,12 +1853,13 @@ function renderReview() {
 }
 function readItem(el, it) {
   const get = f => { const x = el.querySelector(`[data-f="${f}"]`); return x ? x.value.trim() : ""; };
-  const d = { name: get("name"), q: normQ(get("q")), date: get("date"), tone: get("tone"), guidance: nd(get("guidance")),
+  const d = { name: get("name"), sym: symOf(get("sym")), q: normQ(get("q")), date: get("date"), tone: get("tone"), guidance: nd(get("guidance")),
     gchange: parseGChange(get("gchange")), ggrowth: nd(get("ggrowth")), gbase: parseBase(get("gbase")), yoy: nd(get("yoy")), ytd: parseYtd(get("ytd")) };
   SECTIONS.forEach(([f, , , , max]) => { d[f] = lines(get(f)).slice(0, max); });
   d.metrics = lines(get("metrics")).slice(0, MET_MAX).map(parseMet);
   d.commitments = lines(get("commitments")).slice(0, COM_MAX).map(parseCom);
   d.dilution = lines(get("dilution")).slice(0, 4).map(parseDil);
+  d.terms = lines(get("terms")).slice(0, 6).map(parseTerm).filter(x => x.t);
   {
     const bk = pipes(get("obook")), inf = pipes(get("oinflow")), ba = pipes(get("obase"));
     const o = { book: nd(bk[0]) ? { v: bk[0], asof: nd(bk[1]), cmp: nd(bk.slice(2).join(" | ")) } : null,
@@ -1399,13 +1921,13 @@ function saveFile() {
   const data = allData().sort((a, z) => qRank(z.q) - qRank(a.q));
   const text = "// Concall Rythm data. Saved from the page with \"Save data file\".\n" +
     "window.CONCALL_DATA = [\n" + data.map(d => {
-      const o = { name: d.name, q: d.q, date: d.date, tone: d.tone, guidance: d.guidance, gchange: d.gchange || null, ggrowth: d.ggrowth || "", gbase: d.gbase || null, yoy: d.yoy || "", metrics: mets(d),
-        takeaways: list(d.takeaways), revenue: list(d.revenue), profit: list(d.profit), pipeline: list(d.pipeline), commitments: coms(d), ytd: d.ytd || null, dilution: dils(d), order: d.order || null, cap: d.cap || null };
+      const o = { name: d.name, sym: d.sym || linkSym(d) || "", q: d.q, date: d.date, tone: d.tone, guidance: d.guidance, gchange: d.gchange || null, ggrowth: d.ggrowth || "", gbase: d.gbase || null, yoy: d.yoy || "", metrics: mets(d),
+        takeaways: list(d.takeaways), revenue: list(d.revenue), profit: list(d.profit), pipeline: list(d.pipeline), commitments: coms(d), ytd: d.ytd || null, dilution: dils(d), terms: terms(d), order: d.order || null, cap: d.cap || null };
       ["margin", "capex", "orderbook"].forEach(k => { if (d[k]) o[k] = d[k]; });
       if (d.decode) o.decode = d.decode;
       o.risks = d.risks; o.source = d.source;
       return "  " + JSON.stringify(o);
-    }).join(",\n") + "\n];\n" + projText();
+    }).join(",\n") + "\n];\n" + projText() + indText();
   const a = document.createElement("a");
   a.href = URL.createObjectURL(new Blob([text], { type: "text/javascript" }));
   a.download = "concall_data.js";
@@ -1419,12 +1941,22 @@ document.getElementById("search").addEventListener("input", e => { search = e.ta
 document.getElementById("quarter").addEventListener("change", e => { quarter = e.target.value; render(); });
 document.getElementById("listbox").addEventListener("change", e => {
   if (e.target.classList.contains("toppick")) { topPick[e.target.dataset.board] = +e.target.value; render(); }
+  if (e.target.classList.contains("lvlpick")) { groupLevel = e.target.value; render(); }
 });
 document.getElementById("tabs").addEventListener("click", e => {
   const t = e.target.closest("[data-tab]");
   if (t) { tab = +t.dataset.tab; render(); }
 });
 document.getElementById("listbox").addEventListener("click", e => {
+  const rs = e.target.closest("button.restore");
+  if (rs) { local.removed = local.removed.filter(x => x !== rs.dataset.r); saveLocal(); render(); return; }
+  const ah = e.target.closest("th[data-asort]");
+  if (ah) { const st = aggSort[ah.dataset.board], k = +ah.dataset.asort; if (st.k === k) st.dir = -st.dir; else { st.k = k; st.dir = k === 0 ? 1 : -1; } render(); return; }
+  const aa = e.target.closest("button.aggall");
+  if (aa) { const rows = [...document.querySelectorAll("tr.grp[data-grp]")].map(r => r.dataset.grp), all = rows.every(x => aggOpen.has(x));
+    rows.forEach(x => all ? aggOpen.delete(x) : aggOpen.add(x)); render(); return; }
+  const gr = e.target.closest("tr.grp[data-grp]");
+  if (gr && !e.target.closest("a")) { const id = gr.dataset.grp; aggOpen.has(id) ? aggOpen.delete(id) : aggOpen.add(id); render(); return; }
   const th = e.target.closest("th[data-sort]");
   if (th) {
     const k = th.dataset.sort;
@@ -1438,7 +1970,7 @@ document.getElementById("listbox").addEventListener("click", e => {
     if (rb.dataset.e) { startEdit(rb.dataset.e); return; }
     if (rb.dataset.k) {
       const name = rb.closest("tr").querySelector("td.co").textContent.trim();
-      if (confirm(`Delete ${name}?\nClick Save data file afterwards to remove it from the site.`)) { removeEntry(rb.dataset.k); render(); }
+      if (confirm(`Delete ${name}?\nThe new concall_data.js downloads straight away: put it in your folder (replacing the old one) and upload.`)) { removeEntry(rb.dataset.k); render(); saveFile(); }
     }
     return;
   }
@@ -1456,7 +1988,26 @@ function savePdf(withProj) {
   window.addEventListener("afterprint", done);
   window.print();
 }
+// Open commitments of one card, as PREVIOUS COMMITMENTS text for the next quarter's prompt. Delivered rows are closed and left out.
+function prevComText(d) {
+  const open = coms(d).filter(c => !/^delivered$/i.test((c.st || "").trim()));
+  return open.length ? "PREVIOUS COMMITMENTS\n" + open.map((c, i) => `COMMITMENT_${i + 1}: ${[c.c, c.s, c.t || "No date", c.st || "Not tracked"].join(" | ")}`).join("\n") : "";
+}
+function copyText(t) {
+  const fallback = () => { const a = document.createElement("textarea"); a.value = t; a.style.position = "fixed"; a.style.opacity = "0";
+    document.body.appendChild(a); a.select(); let ok = false; try { ok = document.execCommand("copy"); } catch (e) {} a.remove(); return ok; };
+  if (navigator.clipboard && window.isSecureContext) return navigator.clipboard.writeText(t).then(() => true, () => fallback());
+  return Promise.resolve(fallback());
+}
 document.getElementById("coview").addEventListener("click", e => {
+  const cb = e.target.closest("[data-copycom]");
+  if (cb) {
+    const d = allData().find(x => keyOf(x) === cb.dataset.copycom), t = d ? prevComText(d) : "";
+    if (!t) { alert("No open commitments on this card (none listed, or all Delivered)."); return; }
+    const n = t.split("\n").length - 1;
+    copyText(t).then(ok => alert(ok ? `Copied ${n} open commitment${n > 1 ? "s" : ""} of ${d.name} (${d.q}). Paste them below next quarter's transcript.` : "Could not copy. Text:\n\n" + t));
+    return;
+  }
   const pb = e.target.closest("[data-pdf]");
   if (pb) { savePdf(true); return; }
   if (e.target.closest("#back")) {
@@ -1469,7 +2020,7 @@ document.getElementById("coview").addEventListener("click", e => {
   const b = e.target.closest("button");
   if (!b) return;
   if (b.dataset.e) { startEdit(b.dataset.e); return; }
-  if (b.dataset.k && confirm("Remove this concall?")) { removeEntry(b.dataset.k); render(); }
+  if (b.dataset.k && confirm("Delete this concall?\nThe new concall_data.js downloads straight away: put it in your folder (replacing the old one) and upload.")) { removeEntry(b.dataset.k); render(); saveFile(); }
 });
 document.getElementById("coview").addEventListener("input", e => {
   const box = e.target.closest(".proj");
@@ -1480,6 +2031,20 @@ document.getElementById("coview").addEventListener("click", e => {
   if (!b) return;
   const box = b.closest(".proj"), all = projAll(), p = all[box.dataset.pk];
   if (!p) return;
+  if (b.dataset.pr === "resmode") {
+    const r = p.res || {}, autoUsesRes = r.baseOk && r.ytdOk !== false;
+    p.resMode = p.resMode ? undefined : (autoUsesRes ? "call" : "res");
+    if (!p.resMode) delete p.resMode;
+    projLocal[keyOf(p)] = p; projSaveLocal(); render(); return;
+  }
+  if (b.dataset.pr === "usesh") {
+    // Fills Shares (cr) and each year's weighted shares that were the same as the old figure (within 20%).
+    const v = +b.dataset.v, old = p.shares;
+    if (p.shOld == null) p.shOld = old;   // the prompt's figure, so its text can show the new one
+    p.years.forEach(y => { if (y.sh == null || (old && Math.abs(y.sh / old - 1) <= 0.2)) y.sh = v; });
+    p.shares = v;
+    projLocal[keyOf(p)] = p; projSaveLocal(); render(); return;
+  }
   if (b.dataset.pr === "reset") { Object.assign(p, JSON.parse(JSON.stringify(p.orig))); projLocal[keyOf(p)] = p; projSaveLocal(); render(); }
   if (b.dataset.pr === "del" && confirm("Remove this projection from this browser? (A copy in projection_data.js stays until you save a new file.)")) {
     delete projLocal[keyOf(p)]; projSaveLocal();
@@ -1487,8 +2052,20 @@ document.getElementById("coview").addEventListener("click", e => {
     render();
   }
 });
+document.getElementById("coview").addEventListener("change", e => {
+  if (e.target.dataset.sym === undefined) return;
+  const box = e.target.closest(".proj"), p = box && projAll()[box.dataset.pk];
+  if (!p) return;
+  p.sym = e.target.value.trim().toUpperCase();   // empty = no link
+  projLocal[keyOf(p)] = p; projSaveLocal(); render();
+});
 document.getElementById("files").addEventListener("change", e => { addFiles(e.target.files); e.target.value = ""; });
 document.getElementById("save").addEventListener("click", saveFile);
+// AmiBroker writes the CSV in Windows encoding; read it as UTF-8 if valid, else as Windows-1252.
+document.getElementById("indfile").addEventListener("change", e => {
+  const f = e.target.files[0]; e.target.value = ""; if (!f) return;
+  f.arrayBuffer().then(buf => { let t; try { t = new TextDecoder("utf-8", { fatal: true }).decode(buf); } catch (x) { t = new TextDecoder("windows-1252").decode(buf); } importIndustryCsv(t); });
+});
 const lockbox = document.getElementById("lockbox"), locktext = document.getElementById("locktext");
 document.getElementById("lockbtn").addEventListener("click", () => { lockbox.hidden = false; locktext.focus(); });
 document.getElementById("lockcancel").addEventListener("click", () => { lockbox.hidden = true; locktext.value = ""; });
